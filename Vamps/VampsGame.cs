@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using GameStateManagement;
 #endregion
 
 namespace Vamps
@@ -16,16 +17,40 @@ namespace Vamps
     /// </summary>
     public class VampsGame : Game
     {
+        #region Fields
+        
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        ScreenManager screenManager;
+        //SpriteBatch spriteBatch;
+
+        // By preloading any assets used by UI rendering, we avoid framerate glitches
+        // when they suddenly need to be loaded in the middle of a menu transition.
+        static readonly string[] preloadAssets =
+        {
+            "Graphics\\gradient",
+        };
+        #endregion
+
+        #region Initialization
+       
 
         public VampsGame()
-            : base()
+            
         {
-            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = false;
 
+            graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 853;
+            graphics.PreferredBackBufferHeight = 480;
+
+            // Create the screen manager component.
+            screenManager = new ScreenManager(this);
+
+            Components.Add(screenManager);
+
+            // Activate the first screens.
+            screenManager.AddScreen(new BackgroundScreen(), null);
+            screenManager.AddScreen(new MainMenuScreen(), null);
         }
 
         /// <summary>
@@ -47,8 +72,14 @@ namespace Vamps
         /// </summary>
         protected override void LoadContent()
         {
+
+
+            foreach (string asset in preloadAssets)
+            {
+                Content.Load<object>(asset);
+            }
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -67,6 +98,8 @@ namespace Vamps
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        #endregion
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -86,8 +119,22 @@ namespace Vamps
             GraphicsDevice.Clear(Color.DarkGreen);
 
             // TODO: Add your drawing code here
-
+            // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
         }
     }
+  /*  #region Entry Point of Game
+    static class Program
+    {
+        static void Main()
+        {
+            using (VampsGame game = new VampsGame())
+            {
+                game.Run();
+            }
+        }
+   */
+   // }
+   // #endregion
+   
 }
