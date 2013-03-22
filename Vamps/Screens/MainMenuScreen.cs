@@ -9,7 +9,8 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace GameStateManagement
@@ -20,8 +21,9 @@ namespace GameStateManagement
     class MainMenuScreen : MenuScreen
     {
         #region Initialization
-
-
+        ContentManager content;
+        SoundEffect titleMusic;
+        SoundEffectInstance titleMusictInstance;
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
@@ -44,13 +46,24 @@ namespace GameStateManagement
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-            //add in music to this screen
-            ChangeMusic("music1");
+            //titleMusictInstance.Play();
+           // titleMusictInstance.IsLooped = true;
         }
 
 
         #endregion
+        public override void LoadContent()
+        {
+            if (content == null)
+                content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            titleMusic = content.Load<SoundEffect>("Music\\titlemusic");
+
+            titleMusictInstance = titleMusic.CreateInstance();
+            //not the pplae to put this. 
+            titleMusictInstance.Play();
+            titleMusictInstance.IsLooped = true;
+        }
         #region Handle Input
 
 

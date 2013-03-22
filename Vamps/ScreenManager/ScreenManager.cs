@@ -38,7 +38,8 @@ namespace GameStateManagement
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
-       
+        //SoundEffect titleMusic;
+        //SoundEffectInstance titleMusictInstance;
 
               
       
@@ -122,6 +123,8 @@ namespace GameStateManagement
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>(@"Graphics\menufont");
             blankTexture = content.Load<Texture2D>(@"Graphics\blank");
+           // titleMusic = content.Load<SoundEffect>(@"Music\DarkRevileTitle");
+           // titleMusictInstance = titleMusic.CreateInstance();
            
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)

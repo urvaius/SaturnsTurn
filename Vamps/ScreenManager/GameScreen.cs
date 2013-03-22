@@ -39,7 +39,7 @@ namespace GameStateManagement
     {
         #region Properties
 
-        EventHandler<MusicChangeEventArgs> OnMusicChange;
+        
         /// <summary>
         /// Normally when one screen is brought up over the top of another,
         /// the first screen will transition off to make room for the new
@@ -327,13 +327,7 @@ namespace GameStateManagement
 
 
         #endregion
-        protected void ChangeMusic(string musicName)
-        {
-            if (OnMusicChange != null)
-            {
-                OnMusicChange(this, new MusicChangeEventArgs(musicName));
-            }
-        }
+        
 
         #region Public Methods
 
