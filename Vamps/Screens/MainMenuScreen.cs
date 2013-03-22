@@ -74,6 +74,7 @@ namespace GameStateManagement
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
+            titleMusictInstance.Stop();
         }
 
 

@@ -57,8 +57,8 @@ namespace Vamps
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
-            
 
+            
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Vamps
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
             base.Initialize();
         }
 
