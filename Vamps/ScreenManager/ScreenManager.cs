@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Audio;
 #endregion
 
 namespace GameStateManagement
@@ -37,7 +38,10 @@ namespace GameStateManagement
         SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
+       
 
+              
+      
         bool isInitialized;
 
         bool traceEnabled;
@@ -95,7 +99,7 @@ namespace GameStateManagement
             TouchPanel.EnabledGestures = GestureType.None;
         }
 
-
+    
         /// <summary>
         /// Initializes the screen manager component.
         /// </summary>
@@ -118,7 +122,7 @@ namespace GameStateManagement
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>(@"Graphics\menufont");
             blankTexture = content.Load<Texture2D>(@"Graphics\blank");
-
+           
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
             {
@@ -126,7 +130,7 @@ namespace GameStateManagement
             }
         }
 
-
+      
         /// <summary>
         /// Unload your graphics content.
         /// </summary>

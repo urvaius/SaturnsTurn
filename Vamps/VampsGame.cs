@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
 using GameStateManagement;
 #endregion
 
@@ -21,6 +22,9 @@ namespace Vamps
         
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
+        
+      
+
         //SpriteBatch spriteBatch;
 
         // By preloading any assets used by UI rendering, we avoid framerate glitches
@@ -42,6 +46,8 @@ namespace Vamps
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 853;
             graphics.PreferredBackBufferHeight = 480;
+            
+
 
             // Create the screen manager component.
             screenManager = new ScreenManager(this);
@@ -51,6 +57,8 @@ namespace Vamps
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
+            
+
         }
 
         /// <summary>
@@ -80,6 +88,7 @@ namespace Vamps
             }
             // Create a new SpriteBatch, which can be used to draw textures.
             //spriteBatch = new SpriteBatch(GraphicsDevice);
+
 
             // TODO: use this.Content to load your game content here
         }
