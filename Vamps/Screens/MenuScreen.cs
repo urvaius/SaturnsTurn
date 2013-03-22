@@ -224,6 +224,9 @@ namespace GameStateManagement
             // the movement slow down as it nears the end).
             float transitionOffset = (float)Math.Pow(TransitionPosition, 2);
 
+
+
+            //don't want menu title for now
             // Draw the menu title centered on the screen
             Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
             Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
@@ -231,10 +234,10 @@ namespace GameStateManagement
             float titleScale = 1.25f;
 
             titlePosition.Y -= transitionOffset * 100;
-
+            //don't want menu title
             spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
-
+                                  titleOrigin, titleScale, SpriteEffects.None, 0);
+            
             spriteBatch.End();
         }
 
