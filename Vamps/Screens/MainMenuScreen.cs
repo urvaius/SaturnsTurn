@@ -23,8 +23,8 @@ namespace GameStateManagement
     {
         #region Initialization
         ContentManager content;
-        SoundEffect titleMusic;
-        SoundEffectInstance titleMusictInstance;
+        //SoundEffect titleMusic;
+       // SoundEffectInstance titleMusictInstance;
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
@@ -47,11 +47,7 @@ namespace GameStateManagement
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-            //new part not working yet has to be xna game
-            //AudioManager.PlaySound("red");
-            //new music part
-           // AudioManager.PlayMusic("titlemusic");
-           // AudioManager.PlaySound("titlemusic");
+           
             
         }
 
@@ -61,13 +57,7 @@ namespace GameStateManagement
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-            //AudioManager.PlaySound("red");
-           titleMusic = content.Load<SoundEffect>("Music\\titlemusic");
-
-            titleMusictInstance = titleMusic.CreateInstance();
-            //not the pplae to put this. 
-            titleMusictInstance.Play();
-            titleMusictInstance.IsLooped = true;
+            
         }
         #region Handle Input
 
@@ -79,8 +69,7 @@ namespace GameStateManagement
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
-           // titleMusictInstance.Stop();
-            AudioManager.StopSounds();
+          
         }
 
 
@@ -117,6 +106,23 @@ namespace GameStateManagement
             ScreenManager.Game.Exit();
         }
 
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool coveredByOtherScreen)
+        {
+
+            //play title music for main menus screen
+            //stop if other screens have focus
+            if (otherScreenHasFocus.Equals(false))
+            {
+                if (AudioManager.IsInitialized.Equals(true))
+                    AudioManager.PlaySound("titlemusic");
+            }
+            else
+            {
+                AudioManager.StopSound("titlemusic");
+            }
+
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+        }
 
         #endregion
     }

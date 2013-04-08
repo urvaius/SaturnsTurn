@@ -109,7 +109,7 @@ namespace Vamps.Utility
                // {"HighScoreScreen", "doorOpen"},
               //  {"LevelComplete", "success"},
               //  {"DefeatBuzzer", "fail"}
-             // {"titlemusic", "titlemusic"} 
+              {"titlemusic", "titlemusic"} 
             };
 
             audioManager.soundBank = new Dictionary<string, SoundEffectInstance>();
