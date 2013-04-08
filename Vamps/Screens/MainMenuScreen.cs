@@ -11,6 +11,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Vamps.Utility;
 #endregion
 
 namespace GameStateManagement
@@ -46,8 +47,12 @@ namespace GameStateManagement
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-            //titleMusictInstance.Play();
-           // titleMusictInstance.IsLooped = true;
+            //new part not working yet has to be xna game
+            //AudioManager.PlaySound("red");
+            //new music part
+           // AudioManager.PlayMusic("titlemusic");
+           // AudioManager.PlaySound("titlemusic");
+            
         }
 
 
@@ -56,8 +61,8 @@ namespace GameStateManagement
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-            titleMusic = content.Load<SoundEffect>("Music\\titlemusic");
+            //AudioManager.PlaySound("red");
+           titleMusic = content.Load<SoundEffect>("Music\\titlemusic");
 
             titleMusictInstance = titleMusic.CreateInstance();
             //not the pplae to put this. 
@@ -74,7 +79,8 @@ namespace GameStateManagement
         {
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
                                new GameplayScreen());
-            titleMusictInstance.Stop();
+           // titleMusictInstance.Stop();
+            AudioManager.StopSounds();
         }
 
 

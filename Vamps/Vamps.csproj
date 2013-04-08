@@ -48,6 +48,7 @@
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Screens\PlayerIndexEventArgs.cs" />
+    <Compile Include="Utility\AudioManager.cs" />
     <Compile Include="VampsGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,8 +80,7 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Sound\" />
-    <Folder Include="Utility\" />
+    <Folder Include="Content\Sounds\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Graphics\background.xnb">

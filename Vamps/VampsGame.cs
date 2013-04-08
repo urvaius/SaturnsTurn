@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Audio;
 using GameStateManagement;
+using Vamps.Utility;
 #endregion
 
 namespace Vamps
@@ -53,7 +54,7 @@ namespace Vamps
             screenManager = new ScreenManager(this);
 
             Components.Add(screenManager);
-
+            AudioManager.Initialize(this);
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
@@ -81,7 +82,7 @@ namespace Vamps
         protected override void LoadContent()
         {
 
-
+            AudioManager.LoadSounds();
             foreach (string asset in preloadAssets)
             {
                 Content.Load<object>(asset);
