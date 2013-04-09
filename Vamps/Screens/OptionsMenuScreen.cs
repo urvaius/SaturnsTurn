@@ -21,10 +21,10 @@ namespace GameStateManagement
     class OptionsMenuScreen : MenuScreen
     {
         #region Fields
-
+        
         MenuEntry ungulateMenuEntry;
         MenuEntry languageMenuEntry;
-        MenuEntry frobnicateMenuEntry;
+        MenuEntry screenMenuEntry;
         MenuEntry elfMenuEntry;
 
         enum Ungulate
@@ -39,7 +39,7 @@ namespace GameStateManagement
         static string[] languages = { "C#", "French", "Deoxyribonucleic acid" };
         static int currentLanguage = 0;
 
-        static bool frobnicate = true;
+        static bool setFullscreen = false;
 
         static int elf = 23;
 
@@ -57,9 +57,11 @@ namespace GameStateManagement
             // Create our menu entries.
             ungulateMenuEntry = new MenuEntry(string.Empty);
             languageMenuEntry = new MenuEntry(string.Empty);
-            frobnicateMenuEntry = new MenuEntry(string.Empty);
+            screenMenuEntry = new MenuEntry(string.Empty);
             elfMenuEntry = new MenuEntry(string.Empty);
-
+            
+           
+            
             SetMenuEntryText();
 
             MenuEntry back = new MenuEntry("Back");
@@ -67,14 +69,14 @@ namespace GameStateManagement
             // Hook up menu event handlers.
             ungulateMenuEntry.Selected += UngulateMenuEntrySelected;
             languageMenuEntry.Selected += LanguageMenuEntrySelected;
-            frobnicateMenuEntry.Selected += FrobnicateMenuEntrySelected;
+            screenMenuEntry.Selected += screenMenuEntrySelected;
             elfMenuEntry.Selected += ElfMenuEntrySelected;
             back.Selected += OnCancel;
             
             // Add entries to the menu.
             MenuEntries.Add(ungulateMenuEntry);
             MenuEntries.Add(languageMenuEntry);
-            MenuEntries.Add(frobnicateMenuEntry);
+            MenuEntries.Add(screenMenuEntry);
             MenuEntries.Add(elfMenuEntry);
             MenuEntries.Add(back);
         }
@@ -87,7 +89,7 @@ namespace GameStateManagement
         {
             ungulateMenuEntry.Text = "Preferred ungulate: " + currentUngulate;
             languageMenuEntry.Text = "Language: " + languages[currentLanguage];
-            frobnicateMenuEntry.Text = "Frobnicate: " + (frobnicate ? "on" : "off");
+            screenMenuEntry.Text = "Full Screen Mode: " + (setFullscreen ? "Yes" : "No");
             elfMenuEntry.Text = "elf: " + elf;
         }
 
@@ -123,12 +125,36 @@ namespace GameStateManagement
 
 
         /// <summary>
-        /// Event handler for when the Frobnicate menu entry is selected.
+        /// Event handler for when the screen menu entry is selected.
         /// </summary>
-        void FrobnicateMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void screenMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            frobnicate = !frobnicate;
 
+            
+            setFullscreen = !setFullscreen;
+
+         /*   //trying to add in to switch full screen
+            
+            if (setFullscreen == true)
+            {
+                if (graphics.IsFullScreen.Equals(false))
+                {
+                    graphics.IsFullScreen = true;
+                }
+
+            }
+            else
+            {
+                if (setFullscreen ==false)
+                {
+                    if (graphics.IsFullScreen == true)
+                    {
+                        graphics.IsFullScreen = false;
+                    }
+                    
+                }
+            }
+            */
             SetMenuEntryText();
         }
 
@@ -145,5 +171,6 @@ namespace GameStateManagement
 
 
         #endregion
+      
     }
 }

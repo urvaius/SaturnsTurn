@@ -2,9 +2,7 @@
 //-----------------------------------------------------------------------------
 // MainMenuScreen.cs
 //
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
+
 #endregion
 
 #region Using Statements
@@ -87,7 +85,7 @@ namespace GameStateManagement
         /// </summary>
         protected override void OnCancel(PlayerIndex playerIndex)
         {
-            const string message = "Are you sure you want to exit this sample?";
+            const string message = "Are you sure you want to Quit";
 
             MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
 

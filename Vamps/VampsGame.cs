@@ -37,8 +37,7 @@ namespace Vamps
         #endregion
 
         #region Initialization
-       
-
+      
         public VampsGame()
             
         {
@@ -47,6 +46,10 @@ namespace Vamps
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 853;
             graphics.PreferredBackBufferHeight = 480;
+            graphics.IsFullScreen = false;
+            
+            Window.Title = "Vamp's";
+            
             
 
 
@@ -71,6 +74,7 @@ namespace Vamps
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
             
             base.Initialize();
         }
