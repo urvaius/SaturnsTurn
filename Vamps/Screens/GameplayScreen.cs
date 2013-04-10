@@ -32,8 +32,8 @@ namespace GameStateManagement
         ContentManager content;
         SpriteFont gameFont;
         Texture2D backgroundStart;
-        Texture2D playerTexture;
-        //Player player;
+       Texture2D playerTexture;
+       // Player player;
        // float playerMoveSpeed;
 
         //base player positon using better one
@@ -56,6 +56,8 @@ namespace GameStateManagement
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+           // player = new Player();
         }
 
         
@@ -73,12 +75,12 @@ namespace GameStateManagement
             playerTexture = content.Load<Texture2D>(@"Graphics\player");
 
             //load new player etc..
-           // Animation playerAnimation = new Animation();
-           // Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
-           // playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
-           // Vector2 playerPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y
-           // + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-           // player.Initialize(playerAnimation, playerPosition);
+         //   Animation playerAnimation = new Animation();
+          //  Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
+          //  playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
+          //  Vector2 playerPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y
+          //  + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+          //  player.Initialize(playerAnimation, playerPosition);
 
 
             Thread.Sleep(1000);
@@ -279,7 +281,7 @@ namespace GameStateManagement
             //draw new player with animation
 
             //draw new player
-           // player.Draw(spriteBatch);
+            //player.Draw(spriteBatch);
             spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
