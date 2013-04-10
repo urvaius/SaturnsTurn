@@ -81,6 +81,7 @@ namespace GameStateManagement
 
             Animation playerAnimation = new Animation();
             Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
+
             playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
             Vector2 playerPosition3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(playerAnimation, playerPosition3);
@@ -201,7 +202,8 @@ namespace GameStateManagement
                 // Make sure that the player does not go out of bounds
                 player.Position3.X = MathHelper.Clamp(player.Position3.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - player.Width);
                 player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
-
+              
+                
                 if (movement.Length() > 1)
                     movement.Normalize();
 
