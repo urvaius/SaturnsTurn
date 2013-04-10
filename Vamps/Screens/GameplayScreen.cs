@@ -32,11 +32,11 @@ namespace GameStateManagement
         ContentManager content;
         SpriteFont gameFont;
         Texture2D backgroundStart;
-       Texture2D playerTexture;
-      
+        Texture2D playerTexture;
+
 
         //base player positon using better one
-        Vector2 playerPosition ;//= new Vector2(100, 100);
+        Vector2 playerPosition;//= new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
@@ -56,10 +56,10 @@ namespace GameStateManagement
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-           
+
         }
 
-        
+
 
         /// <summary>
         /// Load graphics content for the game.
@@ -73,7 +73,7 @@ namespace GameStateManagement
             backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
             playerTexture = content.Load<Texture2D>(@"Graphics\player");
 
-          
+
 
 
             Thread.Sleep(1000);
@@ -125,7 +125,7 @@ namespace GameStateManagement
 
                 // Apply a stabilizing force to stop the enemy moving off the screen.
                 Vector2 targetPosition = new Vector2(
-                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2, 
+                    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
                     200);
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
@@ -135,9 +135,9 @@ namespace GameStateManagement
                 playerPosition.Y = MathHelper.Clamp(playerPosition.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - playerTexture.Height);
 
 
-                     // Make sure that the player does not go out of bounds
-          //  player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
-          //  player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
+                // Make sure that the player does not go out of bounds
+                //  player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
+                //  player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -201,11 +201,11 @@ namespace GameStateManagement
 
 
 
-      
 
-           
 
-           
+
+
+
         /// <summary>
         /// Draws the gameplay screen.
         /// </summary>
@@ -223,11 +223,11 @@ namespace GameStateManagement
             spriteBatch.Begin();
 
             spriteBatch.Draw(backgroundStart, fullscreen, new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
-            
-            //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-            
 
-           
+            //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
+
+
+
             spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
