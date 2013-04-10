@@ -199,7 +199,7 @@ namespace GameStateManagement
                 
 
                 //new player move
-                player.Position3 += movement * playerMoveSpeed * 2;
+                player.Position3 += movement * playerMoveSpeed ;
             }
         }
 
