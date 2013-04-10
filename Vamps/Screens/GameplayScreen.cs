@@ -30,6 +30,7 @@ namespace GameStateManagement
         ContentManager content;
         SpriteFont gameFont;
         Texture2D backgroundStart;
+        Texture2D playerTexture;
 
         Vector2 playerPosition = new Vector2(100, 100);
         Vector2 enemyPosition = new Vector2(100, 100);
@@ -63,6 +64,7 @@ namespace GameStateManagement
 
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
             backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
+            playerTexture = content.Load<Texture2D>(@"Graphics\player");
 
             // A real game would probably have more content than this sample, so
             // it would take longer to load. We simulate that by delaying for a
@@ -201,8 +203,10 @@ namespace GameStateManagement
 
             spriteBatch.Draw(backgroundStart, fullscreen, new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             
-            spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
+            //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
 
+            //draw new player
+            spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
 
