@@ -33,8 +33,7 @@ namespace GameStateManagement
         SpriteFont gameFont;
         Texture2D backgroundStart;
        Texture2D playerTexture;
-       // Player player;
-       // float playerMoveSpeed;
+      
 
         //base player positon using better one
         Vector2 playerPosition ;//= new Vector2(100, 100);
@@ -57,7 +56,7 @@ namespace GameStateManagement
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
-           // player = new Player();
+           
         }
 
         
@@ -74,13 +73,7 @@ namespace GameStateManagement
             backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
             playerTexture = content.Load<Texture2D>(@"Graphics\player");
 
-            //load new player etc..
-         //   Animation playerAnimation = new Animation();
-          //  Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
-          //  playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
-          //  Vector2 playerPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y
-          //  + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-          //  player.Initialize(playerAnimation, playerPosition);
+          
 
 
             Thread.Sleep(1000);
@@ -137,6 +130,14 @@ namespace GameStateManagement
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
 
+                //add a player class to do this with next
+                playerPosition.X = MathHelper.Clamp(playerPosition.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - playerTexture.Width);
+                playerPosition.Y = MathHelper.Clamp(playerPosition.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - playerTexture.Height);
+
+
+                     // Make sure that the player does not go out of bounds
+          //  player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
+          //  player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -200,65 +201,11 @@ namespace GameStateManagement
 
 
 
-        //update player 
-      /*  private void UpdatePlayer(GameTime gameTime)
-        {
-            player.Update(gameTime);
+      
 
            
-            // Get Thumbstick Controls
-            player.Position.X += currentGamePadState.ThumbSticks.Left.X * playerMoveSpeed;
-            player.Position.Y -= currentGamePadState.ThumbSticks.Left.Y * playerMoveSpeed;
 
-            // Use the Keyboard / Dpad
-            if (currentKeyboardState.IsKeyDown(Keys.Left) ||
-            currentGamePadState.DPad.Left == ButtonState.Pressed)
-            {
-                player.Position.X -= playerMoveSpeed;
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Right) ||
-            currentGamePadState.DPad.Right == ButtonState.Pressed)
-            {
-                player.Position.X += playerMoveSpeed;
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Up) ||
-            currentGamePadState.DPad.Up == ButtonState.Pressed)
-            {
-                player.Position.Y -= playerMoveSpeed;
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.Down) ||
-            currentGamePadState.DPad.Down == ButtonState.Pressed)
-            {
-                player.Position.Y += playerMoveSpeed;
-            }
-
-
-            // Make sure that the player does not go out of bounds
-            player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
-            player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
-
-            // Fire only every interval we set as the fireTime
-            if (gameTime.TotalGameTime - previousFireTime > fireTime)
-            {
-                // Reset our current time
-                previousFireTime = gameTime.TotalGameTime;
-
-                // Add the projectile, but add it to the front and center of the player
-                AddProjectile(player.Position + new Vector2(player.Width / 2, 0));
-
-                // Play the laser sound
-                laserSound.Play();
-            }
-
-            // reset score if player health goes to zero
-            if (player.Health <= 0)
-            {
-                player.Health = 100;
-                score = 0;
-            }
-
-        }
-        */
+           
         /// <summary>
         /// Draws the gameplay screen.
         /// </summary>
@@ -278,10 +225,9 @@ namespace GameStateManagement
             spriteBatch.Draw(backgroundStart, fullscreen, new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
             
             //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-            //draw new player with animation
+            
 
-            //draw new player
-            //player.Draw(spriteBatch);
+           
             spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
