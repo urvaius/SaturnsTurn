@@ -32,12 +32,11 @@ namespace GameStateManagement
         ContentManager content;
         SpriteFont gameFont;
         Texture2D backgroundStart;
-        Texture2D playerTexture;
+        float playerMoveSpeed;
         Player player;
 
 
-        //base player positon using better one
-        Vector2 playerPosition;//= new Vector2(100, 100);
+        
         Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
@@ -72,13 +71,14 @@ namespace GameStateManagement
 
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
             backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
-            playerTexture = content.Load<Texture2D>(@"Graphics\player");
+            
 
+            //initialize a new player. not sure why have to do it here. 
             player = new Player();
-            //testing player3 stuff
+            
             Vector2 playerPosition3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(content.Load<Texture2D>(@"Graphics\player"), playerPosition3);
-           
+            playerMoveSpeed = 8.0f;
             Thread.Sleep(1000);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -133,14 +133,9 @@ namespace GameStateManagement
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
 
-                //add a player class to do this with next
-                playerPosition.X = MathHelper.Clamp(playerPosition.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - playerTexture.Width);
-                playerPosition.Y = MathHelper.Clamp(playerPosition.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - playerTexture.Height);
+               
 
-
-                // Make sure that the player does not go out of bounds
-                //  player.Position.X = MathHelper.Clamp(player.Position.X, 0, GraphicsDevice.Viewport.Width - player.Width);
-                //  player.Position.Y = MathHelper.Clamp(player.Position.Y, 0, GraphicsDevice.Viewport.Height - player.Height);
+                
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -194,11 +189,17 @@ namespace GameStateManagement
 
                 movement.X += thumbstick.X;
                 movement.Y -= thumbstick.Y;
+                // Make sure that the player does not go out of bounds
+                player.Position3.X = MathHelper.Clamp(player.Position3.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - player.Width);
+                player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
 
                 if (movement.Length() > 1)
                     movement.Normalize();
 
-                playerPosition += movement * 2;
+                
+
+                //new player move
+                player.Position3 += movement * 2;
             }
         }
 
@@ -231,7 +232,7 @@ namespace GameStateManagement
 
 
 
-            //working now
+            //working now draw player from player class.
             player.Draw(spriteBatch);
 
 
