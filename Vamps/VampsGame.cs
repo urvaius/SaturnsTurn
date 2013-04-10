@@ -50,7 +50,7 @@ namespace Vamps
             graphics.IsFullScreen = false;
             
             Window.Title = "Vamp's";
-            
+
             
 
 
@@ -75,13 +75,8 @@ namespace Vamps
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            //Initialize the player class
-            //player = new Player();
 
-            // Set a constant player move speed
-           // playerMoveSpeed = 8.0f;
-           // 
+            
             base.Initialize();
         }
 

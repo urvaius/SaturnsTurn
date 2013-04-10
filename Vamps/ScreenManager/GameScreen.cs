@@ -230,6 +230,8 @@ namespace GameStateManagement
         #region Update and Draw
 
 
+
+        
         /// <summary>
         /// Allows the screen to run logic, such as updating the transition position.
         /// Unlike HandleInput, this method is called regardless of whether the screen

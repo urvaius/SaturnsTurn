@@ -33,6 +33,7 @@ namespace GameStateManagement
         SpriteFont gameFont;
         Texture2D backgroundStart;
         Texture2D playerTexture;
+        Player player;
 
 
         //base player positon using better one
@@ -59,7 +60,7 @@ namespace GameStateManagement
 
         }
 
-
+       
 
         /// <summary>
         /// Load graphics content for the game.
@@ -73,9 +74,11 @@ namespace GameStateManagement
             backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
             playerTexture = content.Load<Texture2D>(@"Graphics\player");
 
-
-
-
+            player = new Player();
+            //testing player3 stuff
+            Vector2 playerPosition3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+            player.Initialize(content.Load<Texture2D>(@"Graphics\player"), playerPosition3);
+           
             Thread.Sleep(1000);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -228,7 +231,12 @@ namespace GameStateManagement
 
 
 
-            spriteBatch.Draw(playerTexture, playerPosition, Color.White);
+            //working now
+            player.Draw(spriteBatch);
+
+
+
+            //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
                                    enemyPosition, Color.DarkRed);
 
