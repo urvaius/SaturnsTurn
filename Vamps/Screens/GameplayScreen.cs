@@ -76,8 +76,17 @@ namespace GameStateManagement
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
             
+            
+           //use animation now.
+
+            Animation playerAnimation = new Animation();
+            Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
+            playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
             Vector2 playerPosition3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-            player.Initialize(content.Load<Texture2D>(@"Graphics\player"), playerPosition3);
+            player.Initialize(playerAnimation, playerPosition3);
+            //----animation section ^
+
+            // player.Initialize(content.Load<Texture2D>(@"Graphics\player"), playerPosition3);
             playerMoveSpeed = 8.0f;
             Thread.Sleep(1000);
 
@@ -133,7 +142,7 @@ namespace GameStateManagement
 
                 enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
 
-               
+                player.Update(gameTime);
 
                 
                 // TODO: this game isn't very fun! You could probably improve

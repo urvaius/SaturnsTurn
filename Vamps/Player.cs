@@ -4,29 +4,31 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Vamps.Utility;
 namespace Vamps
 {
     class Player
     {
 
         #region fields
-        public Texture2D PlayerTexture3;
+        //public Texture2D PlayerTexture3;switch to playeranimation
+        public Animation PlayerAnimation;
         public Vector2 Position3;
         public bool Active;
         public int Health;
         public int Width
         {
-            get { return PlayerTexture3.Width; }
+            get { return PlayerAnimation.FrameWidth; }
         }
         public int Height
         {
-            get { return PlayerTexture3.Height; }
+            get { return PlayerAnimation.FrameHeight; }
         }
         #endregion
-        public void Initialize(Texture2D texture, Vector2 position)
+        public void Initialize(Animation animation, Vector2 position)
         {
-            PlayerTexture3 = texture;
+            PlayerAnimation = animation;
+           // PlayerTexture3 = texture;
             Position3 = position;
             Active = true;
             Health = 100;
@@ -34,13 +36,15 @@ namespace Vamps
 
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            PlayerAnimation.Position = Position3;
+            PlayerAnimation.Update(gameTime);
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(PlayerTexture3, Position3, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            PlayerAnimation.Draw(spriteBatch);
         }
 
 
