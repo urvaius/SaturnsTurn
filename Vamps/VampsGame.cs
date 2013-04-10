@@ -23,8 +23,9 @@ namespace Vamps
         
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
-        
-      
+
+       // float playerMoveSpeed;
+       // Player player;
 
         //SpriteBatch spriteBatch;
 
@@ -74,8 +75,12 @@ namespace Vamps
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
-            
+            //Initialize the player class
+            //player = new Player();
+
+            // Set a constant player move speed
+           // playerMoveSpeed = 8.0f;
+           // 
             base.Initialize();
         }
 

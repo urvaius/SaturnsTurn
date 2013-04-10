@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Player.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Screens\PlayerIndexEventArgs.cs" />
+    <Compile Include="Utility\Animation.cs" />
     <Compile Include="Utility\AudioManager.cs" />
     <Compile Include="VampsGame.cs" />
     <Compile Include="Program.cs" />
@@ -117,6 +119,9 @@
   <ItemGroup>
     <None Include="Content\Graphics\BufflySheet.xnb" />
     <Content Include="Content\Graphics\player.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\shipAnimation.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
