@@ -116,7 +116,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Graphics\BufflySheet.xnb" />
+    <None Include="Content\Graphics\BuffySheet.xnb" />
     <Content Include="Content\Graphics\player.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
