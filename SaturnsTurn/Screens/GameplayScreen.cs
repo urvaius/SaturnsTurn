@@ -34,6 +34,9 @@ namespace GameStateManagement
         Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
+        Texture2D mainBackground;
+        ParallaxingBackground bgLayer1;
+        ParallaxingBackground bgLayer2;
 
 
         
@@ -59,7 +62,11 @@ namespace GameStateManagement
 
         }
 
-       
+       public override void Initialize()
+        {
+            
+            base.Initialize();
+        }
 
         /// <summary>
         /// Load graphics content for the game.
@@ -69,9 +76,14 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            bgLayer1 = new ParallaxingBackground();
+            bgLayer2 = new ParallaxingBackground();
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
-            backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
-            
+           // backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
+            //load paralzxing background
+            bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+            mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
 
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
@@ -136,6 +148,8 @@ namespace GameStateManagement
                 enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
                 enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
 
+                
+
                 // Apply a stabilizing force to stop the enemy moving off the screen.
                 Vector2 targetPosition = new Vector2(
                     ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
@@ -145,7 +159,10 @@ namespace GameStateManagement
 
                 player.Update(gameTime);
 
-                
+                bgLayer1.Update();
+                bgLayer2.Update();
+
+
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
             }
@@ -237,10 +254,15 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(backgroundStart, fullscreen, new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+
+
+            //spriteBatch.Draw(backgroundStart, fullscreen, new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
 
             //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
-
+            //draw new paralaxing background
+            spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
+            bgLayer1.Draw(spriteBatch);
+            bgLayer2.Draw(spriteBatch);
 
 
             //working now draw player from player class.
