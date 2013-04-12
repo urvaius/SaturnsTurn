@@ -8,8 +8,8 @@
     <ProjectGuid>{BA6417B6-2E42-4537-9F33-9A09753C5190}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Vamps</RootNamespace>
-    <AssemblyName>Vamps</AssemblyName>
+    <RootNamespace>SaturnsTurn</RootNamespace>
+    <AssemblyName>SaturnsTurn</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -51,7 +51,7 @@
     <Compile Include="Screens\PlayerIndexEventArgs.cs" />
     <Compile Include="Utility\Animation.cs" />
     <Compile Include="Utility\AudioManager.cs" />
-    <Compile Include="VampsGame.cs" />
+    <Compile Include="SaturnsTurnGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

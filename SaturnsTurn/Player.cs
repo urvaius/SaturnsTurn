@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vamps.Utility;
-namespace Vamps
+using SaturnsTurn.Utility;
+namespace SaturnsTurn
 {
     class Player
     {

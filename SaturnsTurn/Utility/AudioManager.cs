@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 
 #endregion
 
-namespace Vamps.Utility
+namespace SaturnsTurn.Utility
 {
     /// <summary>
     /// Component that manages audio playback for all sounds.

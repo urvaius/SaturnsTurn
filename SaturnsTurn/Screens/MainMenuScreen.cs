@@ -9,7 +9,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
-using Vamps.Utility;
+using SaturnsTurn.Utility;
 #endregion
 
 namespace GameStateManagement

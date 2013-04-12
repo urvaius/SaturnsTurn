@@ -9,15 +9,15 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Audio;
 using GameStateManagement;
-using Vamps.Utility;
+using SaturnsTurn.Utility;
 #endregion
 
-namespace Vamps
+namespace SaturnsTurn
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class VampsGame : Game
+    public class SaturnsTurnGame : Game
     {
         #region Fields
         
@@ -39,7 +39,7 @@ namespace Vamps
 
         #region Initialization
       
-        public VampsGame()
+        public SaturnsTurnGame()
             
         {
             Content.RootDirectory = "Content";

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #endregion
 
-namespace Vamps
+namespace SaturnsTurn
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -18,7 +18,7 @@ namespace Vamps
         [STAThread]
         static void Main()
         {
-            using (var game = new VampsGame())
+            using (var game = new SaturnsTurnGame())
                 game.Run();
         }
     }
