@@ -138,18 +138,6 @@ namespace SaturnsTurn
             base.Draw(gameTime);
         }
     }
-  /*  #region Entry Point of Game
-    static class Program
-    {
-        static void Main()
-        {
-            using (VampsGame game = new VampsGame())
-            {
-                game.Run();
-            }
-        }
-   */
-   // }
-   // #endregion
+  
    
 }
