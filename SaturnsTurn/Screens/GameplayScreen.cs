@@ -64,8 +64,9 @@ namespace GameStateManagement
 
        public override void Initialize()
         {
-            
             base.Initialize();
+
+            
         }
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace GameStateManagement
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
+
 
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
