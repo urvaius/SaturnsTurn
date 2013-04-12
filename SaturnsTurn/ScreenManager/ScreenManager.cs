@@ -111,7 +111,7 @@ namespace GameStateManagement
             isInitialized = true;
         }
 
-
+        
         /// <summary>
         /// Load your graphics content.
         /// </summary>
@@ -129,6 +129,7 @@ namespace GameStateManagement
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
             {
+                
                 screen.LoadContent();
             }
         }
