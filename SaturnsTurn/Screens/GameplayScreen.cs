@@ -62,12 +62,7 @@ namespace GameStateManagement
 
         }
 
-       public override void Initialize()
-        {
-            base.Initialize();
-
-            
-        }
+       
 
         /// <summary>
         /// Load graphics content for the game.
