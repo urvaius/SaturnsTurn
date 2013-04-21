@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using SaturnsTurn;
 using SaturnsTurn.Utility;
 #endregion
@@ -37,9 +38,10 @@ namespace GameStateManagement
         Texture2D mainBackground;
         ParallaxingBackground bgLayer1;
         ParallaxingBackground bgLayer2;
+        MouseState currentMouseState;
+        MouseState previousMouseState;
 
 
-        
         Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
@@ -62,7 +64,7 @@ namespace GameStateManagement
 
         }
 
-       
+
 
         /// <summary>
         /// Load graphics content for the game.
@@ -76,7 +78,7 @@ namespace GameStateManagement
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
-           // backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
+            // backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
@@ -84,9 +86,9 @@ namespace GameStateManagement
 
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
-            
-            
-           //use animation now.
+
+
+            //use animation now.
 
             Animation playerAnimation = new Animation();
             Texture2D playerTexture = content.Load<Texture2D>(@"Graphics\shipAnimation");
@@ -140,22 +142,24 @@ namespace GameStateManagement
             if (IsActive)
             {
                 // Apply some random jitter to make the enemy move around.
-               
-                
+
+
                 //const float randomization = 10;
 
-               // enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
+                // enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
                 //enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
 
-                
+
 
                 // Apply a stabilizing force to stop the enemy moving off the screen.
-              //  Vector2 targetPosition = new Vector2(
+                //  Vector2 targetPosition = new Vector2(
                 //    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
                 //    200);
 
-              //  enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
+                //  enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
+                previousMouseState = currentMouseState;
 
+                currentMouseState = Mouse.GetState();
                 player.Update(gameTime);
 
                 bgLayer1.Update();
@@ -196,8 +200,34 @@ namespace GameStateManagement
             }
             else
             {
-                // Otherwise move the player position.
                 Vector2 movement = Vector2.Zero;
+                //windows 8 gestures monogame
+                while (TouchPanel.IsGestureAvailable)
+                {
+                    GestureSample gesture = TouchPanel.ReadGesture();
+
+                    if (gesture.GestureType == GestureType.FreeDrag)
+                    {
+                        player.Position3 += gesture.Delta;
+
+
+                    }
+                }
+                //mouse
+
+                Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+
+
+                if (currentMouseState.LeftButton == ButtonState.Pressed)
+                {
+                    Vector2 posDelta = mousePosition - player.Position3;
+                    posDelta.Normalize();
+                    posDelta = posDelta * playerMoveSpeed;
+                    player.Position3 = player.Position3 + posDelta;
+
+                }
+                // Otherwise move the player position.
+
 
                 if (keyboardState.IsKeyDown(Keys.Left))
                     movement.X--;
@@ -218,15 +248,15 @@ namespace GameStateManagement
                 // Make sure that the player does not go out of bounds
                 player.Position3.X = MathHelper.Clamp(player.Position3.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - player.Width);
                 player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
-              
-                
+
+
                 if (movement.Length() > 1)
                     movement.Normalize();
 
-                
+
 
                 //new player move
-                player.Position3 += movement * playerMoveSpeed ;
+                player.Position3 += movement * playerMoveSpeed;
             }
         }
 
@@ -270,8 +300,8 @@ namespace GameStateManagement
 
 
             //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
-           // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-              //                     enemyPosition, Color.DarkRed);
+            // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
+            //                     enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
 
