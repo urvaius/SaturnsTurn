@@ -78,7 +78,7 @@ namespace GameStateManagement
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
-            // backgroundStart = content.Load<Texture2D>(@"Graphics\Backgrounds\gameplaystart");
+            
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
