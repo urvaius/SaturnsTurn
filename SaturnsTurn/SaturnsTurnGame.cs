@@ -49,7 +49,7 @@ namespace SaturnsTurn
            // graphics.PreferredBackBufferHeight = 480;
             graphics.IsFullScreen = false;
             
-            Window.Title = "Vamp's";
+            Window.Title = "Saturn's Turn";
 
             
 
