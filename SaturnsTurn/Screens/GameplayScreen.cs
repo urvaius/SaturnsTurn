@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using SaturnsTurn;
 using SaturnsTurn.Utility;
+using System.Collections.Generic;
 #endregion
 
 namespace GameStateManagement
@@ -38,10 +39,16 @@ namespace GameStateManagement
         Texture2D mainBackground;
         ParallaxingBackground bgLayer1;
         ParallaxingBackground bgLayer2;
+        //enemies
+        Texture2D enemyTexture;
+        List<Enemy> enemies;
+        //the rate for enemies to appear
+        TimeSpan enemySpawnTime;
+        TimeSpan previousSpawnTime;
         MouseState currentMouseState;
         MouseState previousMouseState;
 
-
+        Random randomEnemy;
         Vector2 enemyPosition = new Vector2(100, 100);
 
         Random random = new Random();
@@ -77,12 +84,24 @@ namespace GameStateManagement
 
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
+
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
             
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+           //load enemies textures
+            enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
+            
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
+            //initialize enemies list etc..
+            enemies = new List<Enemy>();
+            //set enemy spawn time keepers to zero
+            previousSpawnTime = TimeSpan.Zero;
+            //used to determine how fast enemy respawns
+            enemySpawnTime = TimeSpan.FromSeconds(1.0f);
+            //initialize random number for enemies
+            randomEnemy = new Random();
 
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
@@ -164,6 +183,8 @@ namespace GameStateManagement
 
                 bgLayer1.Update();
                 bgLayer2.Update();
+                //update the enemies
+                UpdateEnemies(gameTime);
 
 
                 // TODO: this game isn't very fun! You could probably improve
@@ -262,9 +283,41 @@ namespace GameStateManagement
 
 
 
+        private void UpdateEnemies(GameTime gameTime)
+        {
+            //spawn a new enemy every 1.5 seconds
+            if (gameTime.TotalGameTime - previousSpawnTime > enemySpawnTime)
+            {
+                previousSpawnTime = gameTime.TotalGameTime;
+                //add the enemy
+                AddEnemy();
+            }
+            //update the enemies
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                enemies[i].Update(gameTime);
+                if (enemies[i].Active == false)
+                {
+                    enemies.RemoveAt(i);
+                }
+            }
+        }
 
-
-
+        private void AddEnemy()
+        {
+            //create the animation object
+            Animation enemyAnimation = new Animation();
+            //initizlize theanimation with the correct ahimation information
+            enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+            //randomly generate the position of the enemy or later change this to a specific spot
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            //create an enemy
+            Enemy enemy = new Enemy();
+            //initizlize the enemy
+            enemy.Initialize(enemyAnimation, position);
+            // add the enemy to the active enemies list
+            enemies.Add(enemy);
+        }
 
 
         /// <summary>
@@ -293,9 +346,13 @@ namespace GameStateManagement
             bgLayer1.Draw(spriteBatch);
             bgLayer2.Draw(spriteBatch);
 
-
-            //working now draw player from player class.
-            player.Draw(spriteBatch);
+            //draw the enemies
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Draw(spriteBatch);
+            }
+                //working now draw player from player class.
+                player.Draw(spriteBatch);
 
 
 
