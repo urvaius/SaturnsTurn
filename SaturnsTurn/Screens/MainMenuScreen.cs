@@ -27,7 +27,7 @@ namespace GameStateManagement
         /// Constructor fills in the menu contents.
         /// </summary>
         public MainMenuScreen()
-            : base("Vamp's Menu")
+            : base("Saturn's Turn")
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");

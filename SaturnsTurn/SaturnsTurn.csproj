@@ -170,6 +170,9 @@
     <Content Include="Content\Graphics\mineGreenAnimation.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Graphics\Backgrounds\saturn.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
     <Content Include="Content\Sounds\menuMusic.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
