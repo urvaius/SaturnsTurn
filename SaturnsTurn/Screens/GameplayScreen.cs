@@ -33,7 +33,7 @@ namespace GameStateManagement
 
         ContentManager content;
         SpriteFont gameFont;
-        Texture2D backgroundStart;
+        //Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
         Texture2D mainBackground;
@@ -43,7 +43,7 @@ namespace GameStateManagement
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
         List<Enemy> enemies;
-        List<Enemy> balloonEnemies;
+        List<GreenMineEnemy> balloonEnemies;
         //the rate for enemies to appear
         TimeSpan enemySpawnTime;
         TimeSpan balloonEnemySpawnTime;
@@ -96,14 +96,14 @@ namespace GameStateManagement
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
            //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
-            balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
+            balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
 
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
             //initialize enemies list etc..
             
             enemies = new List<Enemy>();
             //seperate enemies to balloon to add other ones.
-            balloonEnemies = new List<Enemy>();
+            balloonEnemies = new List<GreenMineEnemy>();
             //set enemy spawn time keepers to zero
             previousSpawnTime = TimeSpan.Zero;
             previousBalloonSpawnTime = TimeSpan.Zero;
@@ -341,7 +341,7 @@ namespace GameStateManagement
             //randomly generate the position of the enemy or later change this to a specific spot
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
             //create an enemy
-            Enemy balloonEnemy = new Enemy();
+            GreenMineEnemy balloonEnemy = new GreenMineEnemy();
             //initizlize the enemy
             balloonEnemy.Initialize(balloonEnemyAnimation, position);
             // add the enemy to the active enemies list
