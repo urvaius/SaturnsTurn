@@ -44,6 +44,10 @@ namespace GameStateManagement
         Texture2D balloonEnemyTexture;
         List<Enemy> enemies;
         List<GreenMineEnemy> balloonEnemies;
+        Texture2D projectileTexture;
+        List<Projectile> projectiles;
+        TimeSpan fireTime;
+        TimeSpan previousFireTime;
         //the rate for enemies to appear
         TimeSpan enemySpawnTime;
         TimeSpan balloonEnemySpawnTime;
@@ -90,17 +94,29 @@ namespace GameStateManagement
             bgLayer2 = new ParallaxingBackground();
 
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
-            
+
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
-           //load enemies textures
+            //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
 
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
+
+            //initialize projectile
+            projectiles = new List<Projectile>();
+
+
+
+            //set the laser to fie every quarter second
+            fireTime = TimeSpan.FromSeconds(.15f);
+
+            //load projectile
+            projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
+
             //initialize enemies list etc..
-            
+
             enemies = new List<Enemy>();
             //seperate enemies to balloon to add other ones.
             balloonEnemies = new List<GreenMineEnemy>();
@@ -190,11 +206,21 @@ namespace GameStateManagement
 
                 currentMouseState = Mouse.GetState();
                 player.Update(gameTime);
+                //update projectile temp TODO
+                if (gameTime.TotalGameTime - previousFireTime > fireTime)
+                {
+                    //reset the time
+                    previousFireTime = gameTime.TotalGameTime;
+                    //add projectile to the front and center of the player
+                    AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
+                }
 
+                UpdateProjectiles();
                 bgLayer1.Update();
                 bgLayer2.Update();
                 //update the enemies
                 UpdateEnemies(gameTime);
+                UpdateCollision();
 
 
                 // TODO: this game isn't very fun! You could probably improve
@@ -292,6 +318,64 @@ namespace GameStateManagement
         }
 
 
+        private void UpdateProjectiles()
+        {
+            //update projectiles
+            for (int i = projectiles.Count - 1;i >=0 ; i--)
+            {
+                projectiles[i].Update();
+                if (projectiles[i].Active == false)
+                {
+                    projectiles.RemoveAt(i);
+                }
+
+            }
+            }
+        private void AddProjectile(Vector2 position)
+        {
+            Projectile projectile = new Projectile();
+            projectile.Initizlize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position);
+            projectiles.Add(projectile);
+        }
+
+        private void UpdateCollision()
+        {
+            //use the rectangles built in intersect funtion to determine if two objects are overlapping
+            Rectangle playerRectangle;
+            Rectangle enemyRectangle2;
+
+            //only create the rectangle once for the player
+            playerRectangle = new Rectangle((int)player.Position3.X, (int)player.Position3.Y, player.Width, player.Height);
+            //do collision with balloonenemy and player
+            for (int i = 0; i < balloonEnemies.Count; i++)
+            {
+                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                if (playerRectangle.Intersects(enemyRectangle2))
+                {
+                    player.Health -= balloonEnemies[i].Damage;
+                    balloonEnemies[i].Health = 0;
+                    if (player.Health <= 0)
+                        player.Active = false;
+                }
+            }
+            //do the collision between the player and the enemies
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemyRectangle2 = new Rectangle((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Width, enemies[i].Height);
+                //determine if the thwo objects collided with each other
+                if (playerRectangle.Intersects(enemyRectangle2))
+                {
+                    //subtracth the health from the player based on enemy damage
+                    player.Health -= enemies[i].Damage;
+                    //destroy the enemy
+                    enemies[i].Health = 0;
+                    //if the player health is less than zero we died
+                    if (player.Health <= 0)
+                        player.Active = false;
+                }
+            }
+
+        }
 
         private void UpdateEnemies(GameTime gameTime)
         {
@@ -301,7 +385,7 @@ namespace GameStateManagement
                 previousSpawnTime = gameTime.TotalGameTime;
                 //add the enemy
                 AddEnemy();
-                
+
             }
             //spawn ballon enemies every 5 sec
             if (gameTime.TotalGameTime - previousBalloonSpawnTime > balloonEnemySpawnTime)
@@ -321,15 +405,15 @@ namespace GameStateManagement
 
                 }
             }
-                //update the enemies
-                for (int i = enemies.Count - 1; i >= 0; i--)
+            //update the enemies
+            for (int i = enemies.Count - 1; i >= 0; i--)
+            {
+                enemies[i].Update(gameTime);
+                if (enemies[i].Active == false)
                 {
-                    enemies[i].Update(gameTime);
-                    if (enemies[i].Active == false)
-                    {
-                        enemies.RemoveAt(i);
-                    }
+                    enemies.RemoveAt(i);
                 }
+            }
         }
         //this addballoonenemy probably be taken out. but can add more later
         private void AddBalloonEnemy()
@@ -346,7 +430,7 @@ namespace GameStateManagement
             balloonEnemy.Initialize(balloonEnemyAnimation, position);
             // add the enemy to the active enemies list
             balloonEnemies.Add(balloonEnemy);
-        
+
         }
 
         private void AddEnemy()
@@ -356,11 +440,11 @@ namespace GameStateManagement
             //Animation balloonEnemyAnimation = new Animation();
             //initizlize theanimation with the correct ahimation information
             enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
-           // balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+            // balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
             //randomly generate the position of the enemy or later change this to a specific spot
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
-           // Vector2 balloonPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + balloonEnemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
-            
+            // Vector2 balloonPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + balloonEnemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+
             //create an enemy
             Enemy enemy = new Enemy();
             //Enemy balloonEnemy = new Enemy();
@@ -403,24 +487,29 @@ namespace GameStateManagement
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].Draw(spriteBatch);
-                
+
             }
-            
+
             //draw balloon enemies
             for (int i = 0; i < balloonEnemies.Count; i++)
             {
                 balloonEnemies[i].Draw(spriteBatch);
             }
-                //working now draw player from player class.
-                player.Draw(spriteBatch);
+            //working now draw player from player class.
+            player.Draw(spriteBatch);
+            //draw projectiles
+            for (int i = 0; i < projectiles.Count; i++)
+            {
+                projectiles[i].Draw(spriteBatch);
+            }
 
 
 
-            //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
-            // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-            //                     enemyPosition, Color.DarkRed);
+                //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
+                // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
+                //                     enemyPosition, Color.DarkRed);
 
-            spriteBatch.End();
+                spriteBatch.End();
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
