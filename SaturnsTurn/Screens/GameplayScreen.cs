@@ -41,10 +41,14 @@ namespace GameStateManagement
         ParallaxingBackground bgLayer2;
         //enemies
         Texture2D enemyTexture;
+        Texture2D balloonEnemyTexture;
         List<Enemy> enemies;
+        List<Enemy> balloonEnemies;
         //the rate for enemies to appear
         TimeSpan enemySpawnTime;
+        TimeSpan balloonEnemySpawnTime;
         TimeSpan previousSpawnTime;
+        TimeSpan previousBalloonSpawnTime;
         MouseState currentMouseState;
         MouseState previousMouseState;
 
@@ -92,14 +96,20 @@ namespace GameStateManagement
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
            //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
-            
+            balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
+
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
             //initialize enemies list etc..
+            
             enemies = new List<Enemy>();
+            //seperate enemies to balloon to add other ones.
+            balloonEnemies = new List<Enemy>();
             //set enemy spawn time keepers to zero
             previousSpawnTime = TimeSpan.Zero;
+            previousBalloonSpawnTime = TimeSpan.Zero;
             //used to determine how fast enemy respawns
             enemySpawnTime = TimeSpan.FromSeconds(1.0f);
+            balloonEnemySpawnTime = TimeSpan.FromSeconds(5.0f);
             //initialize random number for enemies
             randomEnemy = new Random();
 
@@ -291,32 +301,75 @@ namespace GameStateManagement
                 previousSpawnTime = gameTime.TotalGameTime;
                 //add the enemy
                 AddEnemy();
+                
             }
-            //update the enemies
-            for (int i = enemies.Count - 1; i >= 0; i--)
+            //spawn ballon enemies every 5 sec
+            if (gameTime.TotalGameTime - previousBalloonSpawnTime > balloonEnemySpawnTime)
             {
-                enemies[i].Update(gameTime);
-                if (enemies[i].Active == false)
+                previousBalloonSpawnTime = gameTime.TotalGameTime;
+                //add abllon enemies
+                AddBalloonEnemy();
+            }
+
+            //update balloon enemies
+            for (int i = balloonEnemies.Count - 1; i >= 0; i--)
+            {
+                balloonEnemies[i].Update(gameTime);
+                if (balloonEnemies[i].Active == false)
                 {
-                    enemies.RemoveAt(i);
+                    balloonEnemies.RemoveAt(i);
+
                 }
             }
+                //update the enemies
+                for (int i = enemies.Count - 1; i >= 0; i--)
+                {
+                    enemies[i].Update(gameTime);
+                    if (enemies[i].Active == false)
+                    {
+                        enemies.RemoveAt(i);
+                    }
+                }
+        }
+        //this addballoonenemy probably be taken out. but can add more later
+        private void AddBalloonEnemy()
+        {
+            //create the animation object
+            Animation balloonEnemyAnimation = new Animation();
+            //initizlize theanimation with the correct ahimation information
+            balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+            //randomly generate the position of the enemy or later change this to a specific spot
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            //create an enemy
+            Enemy balloonEnemy = new Enemy();
+            //initizlize the enemy
+            balloonEnemy.Initialize(balloonEnemyAnimation, position);
+            // add the enemy to the active enemies list
+            balloonEnemies.Add(balloonEnemy);
+        
         }
 
         private void AddEnemy()
         {
             //create the animation object
             Animation enemyAnimation = new Animation();
+            //Animation balloonEnemyAnimation = new Animation();
             //initizlize theanimation with the correct ahimation information
             enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+           // balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
             //randomly generate the position of the enemy or later change this to a specific spot
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+           // Vector2 balloonPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + balloonEnemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            
             //create an enemy
             Enemy enemy = new Enemy();
+            //Enemy balloonEnemy = new Enemy();
             //initizlize the enemy
             enemy.Initialize(enemyAnimation, position);
+            //balloonEnemy.Initialize(balloonEnemyAnimation, balloonPosition);
             // add the enemy to the active enemies list
             enemies.Add(enemy);
+            //balloonEnemies.Add(balloonEnemy);
         }
 
 
@@ -350,6 +403,13 @@ namespace GameStateManagement
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].Draw(spriteBatch);
+                
+            }
+            
+            //draw balloon enemies
+            for (int i = 0; i < balloonEnemies.Count; i++)
+            {
+                balloonEnemies[i].Draw(spriteBatch);
             }
                 //working now draw player from player class.
                 player.Draw(spriteBatch);
