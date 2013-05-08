@@ -39,7 +39,7 @@ namespace SaturnsTurn.Utility
         #endregion
 
         #region Audio Data
-
+        
         SoundEffectInstance musicSound;
         Dictionary<string, SoundEffectInstance> soundBank;
         string[,] soundNames;
@@ -86,7 +86,7 @@ namespace SaturnsTurn.Utility
                // {"HighScoreScreen", "doorOpen"},
               //  {"LevelComplete", "success"},
               //  {"DefeatBuzzer", "fail"}
-              //{"gameMusic","gameMusic"},
+              {"gameMusic","gamemusic"},
               {"explosion","explosionSound"},
               {"laserFire","laserSound"},
               {"titlesmusic", "titlemusic"} 
@@ -239,7 +239,7 @@ namespace SaturnsTurn.Utility
                 audioManager.musicSound.Play();
             }
         }
-
+       
         #endregion
 
         #region Instance Disposal Methods
