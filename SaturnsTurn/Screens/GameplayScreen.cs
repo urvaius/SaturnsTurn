@@ -156,6 +156,9 @@ namespace GameStateManagement
             playerMoveSpeed = 8.0f;
             Thread.Sleep(1000);
 
+
+            //playmusic maybe here
+            AudioManager.PlayMusic("titlemusic");
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -222,6 +225,8 @@ namespace GameStateManagement
                     previousFireTime = gameTime.TotalGameTime;
                     //add projectile to the front and center of the player
                     AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
+                    
+                        AudioManager.PlaySound("laserSound");
                 }
 
                 UpdateProjectiles();
@@ -466,6 +471,7 @@ namespace GameStateManagement
                 if (balloonEnemies[i].Active == false)
                 {
                     AddExplosion(balloonEnemies[i].Position);
+                    AudioManager.PlaySound("explosionSound");
                     balloonEnemies.RemoveAt(i);
                     
                 }
@@ -477,6 +483,7 @@ namespace GameStateManagement
                 if (enemies[i].Active == false)
                 {
                     AddExplosion(enemies[i].Position);
+                    AudioManager.PlaySound("explosionSound");
                     enemies.RemoveAt(i);
                 }
             }

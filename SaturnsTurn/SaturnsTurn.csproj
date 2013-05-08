@@ -92,7 +92,7 @@
     <Content Include="Content\Sounds\menuMusic.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sounds\titlemusic.wav">
+    <Content Include="Content\Sounds\titlesmusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
@@ -123,7 +123,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Sounds\titlemusic.xnb">
+    <Content Include="Content\Sounds\titlesmusic.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

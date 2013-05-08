@@ -86,7 +86,10 @@ namespace SaturnsTurn.Utility
                // {"HighScoreScreen", "doorOpen"},
               //  {"LevelComplete", "success"},
               //  {"DefeatBuzzer", "fail"}
-              {"titlemusic", "titlemusic"} 
+              //{"gameMusic","gameMusic"},
+              {"explosion","explosionSound"},
+              {"laserFire","laserSound"},
+              {"titlesmusic", "titlemusic"} 
             };
 
             audioManager.soundBank = new Dictionary<string, SoundEffectInstance>();
