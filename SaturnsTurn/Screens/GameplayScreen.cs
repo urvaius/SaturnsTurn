@@ -53,6 +53,10 @@ namespace GameStateManagement
         TimeSpan balloonEnemySpawnTime;
         TimeSpan previousSpawnTime;
         TimeSpan previousBalloonSpawnTime;
+        //explosions
+        Texture2D explosion1Texture;
+        List<Animation> explosions;
+
         MouseState currentMouseState;
         MouseState previousMouseState;
 
@@ -106,6 +110,7 @@ namespace GameStateManagement
 
             //initialize projectile
             projectiles = new List<Projectile>();
+           
 
 
 
@@ -114,6 +119,10 @@ namespace GameStateManagement
 
             //load projectile
             projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
+            // explosions
+            explosions = new List<Animation>();
+            explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
+
 
             //initialize enemies list etc..
 
@@ -221,7 +230,7 @@ namespace GameStateManagement
                 //update the enemies
                 UpdateEnemies(gameTime);
                 UpdateCollision();
-
+                UpdateExplosions(gameTime);
 
                 // TODO: this game isn't very fun! You could probably improve
                 // it by inserting something more interesting in this space :-)
@@ -317,7 +326,12 @@ namespace GameStateManagement
             }
         }
 
-
+        private void AddExplosion(Vector2 position)
+        {
+            Animation explosion = new Animation();
+            explosion.Initialize(explosion1Texture, position, 134, 134, 12, 45, Color.White, 1f, false);
+            explosions.Add(explosion);
+        }
         private void UpdateProjectiles()
         {
             //update projectiles
@@ -415,6 +429,18 @@ namespace GameStateManagement
 
         }
 
+
+        private void UpdateExplosions(GameTime gameTime)
+        {
+            for (int i = explosions.Count - 1; i >= 0; i--)
+            {
+                explosions[i].Update(gameTime);
+                if (explosions[i].Active == false)
+                {
+                    explosions.RemoveAt(i);
+                }
+            }
+        }
         private void UpdateEnemies(GameTime gameTime)
         {
             //spawn a new enemy every 1.5 seconds
@@ -439,8 +465,9 @@ namespace GameStateManagement
                 balloonEnemies[i].Update(gameTime);
                 if (balloonEnemies[i].Active == false)
                 {
+                    AddExplosion(balloonEnemies[i].Position);
                     balloonEnemies.RemoveAt(i);
-
+                    
                 }
             }
             //update the enemies
@@ -449,6 +476,7 @@ namespace GameStateManagement
                 enemies[i].Update(gameTime);
                 if (enemies[i].Active == false)
                 {
+                    AddExplosion(enemies[i].Position);
                     enemies.RemoveAt(i);
                 }
             }
@@ -541,6 +569,11 @@ namespace GameStateManagement
                 projectiles[i].Draw(spriteBatch);
             }
 
+            //draw explosions
+            for (int i = 0; i < explosions.Count; i++)
+            {
+                explosions[i].Draw(spriteBatch);
+            }
 
 
                 //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
