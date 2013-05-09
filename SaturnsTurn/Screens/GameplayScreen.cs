@@ -269,7 +269,7 @@ namespace GameStateManagement
                 Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
 
 
-                if (currentMouseState.LeftButton == ButtonState.Pressed)
+                if (currentMouseState.RightButton == ButtonState.Pressed)
                 {
                     Vector2 posDelta = mousePosition - player.Position3;
                     posDelta.Normalize();
@@ -301,6 +301,21 @@ namespace GameStateManagement
                 player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
 
 
+
+               // if(input.IsNewKeyPress(Keys.Space,ControllingPlayer,out ))
+
+               // {
+
+                
+              //  }
+
+                if (currentMouseState.LeftButton == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Space))
+                {
+                    AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
+                    AudioManager.PlaySound("laserSound");
+                }
+
+
                 if (movement.Length() > 1)
                     movement.Normalize();
 
@@ -324,8 +339,12 @@ namespace GameStateManagement
 
             player.Update(gameTime);
 
+            
+
+            //moving to press buttons to handle input section
+
             //update projectile temp TODO
-            if (gameTime.TotalGameTime - previousFireTime > fireTime)
+           /* if (gameTime.TotalGameTime - previousFireTime > fireTime)
             {
                 //reset the time
                 previousFireTime = gameTime.TotalGameTime;
@@ -333,7 +352,7 @@ namespace GameStateManagement
                 AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
                 AudioManager.PlaySound("laserSound");
             }
-
+            */
 
             if (player.Health <= 0)
             {
