@@ -9,6 +9,7 @@
 
 #region Using Statements
 using System;
+
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -32,6 +33,7 @@ namespace GameStateManagement
         #region Fields
 
         ContentManager content;
+        SpriteFont scoreFont;
         SpriteFont gameFont;
         //Texture2D backgroundStart;
         float playerMoveSpeed;
@@ -56,6 +58,7 @@ namespace GameStateManagement
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
+        //int score;
 
         MouseState currentMouseState;
         MouseState previousMouseState;
@@ -83,7 +86,7 @@ namespace GameStateManagement
 
         }
 
-
+      
 
         /// <summary>
         /// Load graphics content for the game.
@@ -107,7 +110,7 @@ namespace GameStateManagement
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
 
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
-
+            scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
            
@@ -140,7 +143,7 @@ namespace GameStateManagement
 
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
-
+            //score = 0;
 
             //use animation now.
 
@@ -156,7 +159,7 @@ namespace GameStateManagement
             playerMoveSpeed = 8.0f;
             Thread.Sleep(1000);
 
-
+            
             //playmusic maybe here
             AudioManager.PlayMusic("gamemusic");
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -198,37 +201,15 @@ namespace GameStateManagement
 
             if (IsActive)
             {
-                // Apply some random jitter to make the enemy move around.
-
-
-                //const float randomization = 10;
-
-                // enemyPosition.X += (float)(random.NextDouble() - 0.5) * randomization;
-                //enemyPosition.Y += (float)(random.NextDouble() - 0.5) * randomization;
-
-
-
-                // Apply a stabilizing force to stop the enemy moving off the screen.
-                //  Vector2 targetPosition = new Vector2(
-                //    ScreenManager.GraphicsDevice.Viewport.Width / 2 - gameFont.MeasureString("Insert Gameplay Here").X / 2,
-                //    200);
-
-                //  enemyPosition = Vector2.Lerp(enemyPosition, targetPosition, 0.05f);
+                                             
+               
                 previousMouseState = currentMouseState;
-
                 currentMouseState = Mouse.GetState();
-                player.Update(gameTime);
-                //update projectile temp TODO
-                if (gameTime.TotalGameTime - previousFireTime > fireTime)
-                {
-                    //reset the time
-                    previousFireTime = gameTime.TotalGameTime;
-                    //add projectile to the front and center of the player
-                    AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
-                    
-                        AudioManager.PlaySound("laserSound");
-                }
 
+                            
+                                             
+                
+                UpdatePlayer(gameTime);
                 UpdateProjectiles();
                 bgLayer1.Update();
                 bgLayer2.Update();
@@ -237,8 +218,7 @@ namespace GameStateManagement
                 UpdateCollision();
                 UpdateExplosions(gameTime);
 
-                // TODO: this game isn't very fun! You could probably improve
-                // it by inserting something more interesting in this space :-)
+               
             }
         }
 
@@ -336,6 +316,30 @@ namespace GameStateManagement
             Animation explosion = new Animation();
             explosion.Initialize(explosion1Texture, position, 134, 134, 12, 45, Color.White, 1f, false);
             explosions.Add(explosion);
+        }
+
+
+        private void UpdatePlayer(GameTime gameTime)
+        {
+
+            player.Update(gameTime);
+
+            //update projectile temp TODO
+            if (gameTime.TotalGameTime - previousFireTime > fireTime)
+            {
+                //reset the time
+                previousFireTime = gameTime.TotalGameTime;
+                //add projectile to the front and center of the player
+                AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
+                AudioManager.PlaySound("laserSound");
+            }
+
+
+            if (player.Health <= 0)
+            {
+                player.Health = 100;
+                player.Score = 0;
+            }
         }
         private void UpdateProjectiles()
         {
@@ -472,6 +476,8 @@ namespace GameStateManagement
                 {
                     AddExplosion(balloonEnemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
+                    player.Score += balloonEnemies[i].Value;
+
                     balloonEnemies.RemoveAt(i);
                     
                 }
@@ -484,6 +490,7 @@ namespace GameStateManagement
                 {
                     AddExplosion(enemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
+                    player.Score += enemies[i].Value;
                     enemies.RemoveAt(i);
                 }
             }
@@ -555,6 +562,12 @@ namespace GameStateManagement
             spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
             bgLayer1.Draw(spriteBatch);
             bgLayer2.Draw(spriteBatch);
+            //draw the score
+            spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+
+            //draw teh player health
+            spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
+
 
             //draw the enemies
             for (int i = 0; i < enemies.Count; i++)

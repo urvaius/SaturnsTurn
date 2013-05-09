@@ -16,6 +16,11 @@ namespace SaturnsTurn
         public Vector2 Position3;
         public bool Active;
         public int Health;
+        
+        public int Score;
+
+        public string Name { get; set; }
+
         public int Width
         {
             get { return PlayerAnimation.FrameWidth; }
@@ -25,6 +30,8 @@ namespace SaturnsTurn
             get { return PlayerAnimation.FrameHeight; }
         }
         #endregion
+
+
         public void Initialize(Animation animation, Vector2 position)
         {
             PlayerAnimation = animation;
@@ -32,6 +39,8 @@ namespace SaturnsTurn
             Position3 = position;
             Active = true;
             Health = 100;
+            Score = 0;
+
 
 
         }
