@@ -38,6 +38,7 @@
     <Compile Include="GreenMineEnemy.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
