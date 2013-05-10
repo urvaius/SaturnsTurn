@@ -45,7 +45,8 @@ namespace SaturnsTurn
             Health = 100;
             Score = 0;
             Power = 10;
-            Damage =10;
+            
+            Damage = 1;
             Shield = 0;
 
 

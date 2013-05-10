@@ -58,6 +58,7 @@ namespace GameStateManagement
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
+        
        
 
         MouseState currentMouseState;
@@ -113,6 +114,7 @@ namespace GameStateManagement
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
+            
            
 
 
@@ -122,6 +124,7 @@ namespace GameStateManagement
 
             //load projectile
             projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
+            
             // explosions
             explosions = new List<Animation>();
             explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
@@ -355,6 +358,11 @@ namespace GameStateManagement
             //update projectiles
             for (int i = projectiles.Count - 1;i >=0 ; i--)
             {
+
+                //update players damage modifier to projectiles
+
+                projectiles[i].Damage = 3;
+
                 projectiles[i].Update();
                 if (projectiles[i].Active == false)
                 {
@@ -366,7 +374,11 @@ namespace GameStateManagement
         private void AddProjectile(Vector2 position)
         {
             Projectile projectile = new Projectile();
-            projectile.Initizlize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position);
+            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position);
+
+            
+            
+
             projectiles.Add(projectile);
         }
 
@@ -385,8 +397,10 @@ namespace GameStateManagement
                 enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
                 if (playerRectangle.Intersects(enemyRectangle2))
                 {
+
+
                     player.Health -= balloonEnemies[i].Damage;
-                    balloonEnemies[i].Health = 0;
+                    balloonEnemies[i].Health -= player.Damage;
                     if (player.Health <= 0)
                         player.Active = false;
                 }
@@ -401,7 +415,8 @@ namespace GameStateManagement
                     //subtracth the health from the player based on enemy damage
                     player.Health -= enemies[i].Damage;
                     //destroy the enemy
-                    enemies[i].Health = 0;
+                    enemies[i].Health -= player.Damage;
+
                     //if the player health is less than zero we died
                     if (player.Health <= 0)
                         player.Active = false;

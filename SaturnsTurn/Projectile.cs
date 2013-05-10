@@ -9,7 +9,9 @@ namespace SaturnsTurn
         public Texture2D Texture;
         public Vector2 Position;
         public bool Active;
-        public int Damage;
+        public int Damage { get; set; }
+
+
         Viewport viewport;
         //get the width of the projectile
         public int Width
@@ -25,13 +27,14 @@ namespace SaturnsTurn
         //how fast projectile moves
         float projectileMoveSpeed;
 
-        public void Initizlize(Viewport viewport, Texture2D texture, Vector2 position)
+        public void Initialize(Viewport viewport, Texture2D texture, Vector2 position)
         {
             Texture = texture;
             Position = position;
             this.viewport = viewport;
             Active = true;
-            Damage = 2;
+            this.Damage = Damage;
+           
             projectileMoveSpeed = 20f;
         }
 
