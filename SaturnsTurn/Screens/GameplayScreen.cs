@@ -58,7 +58,7 @@ namespace GameStateManagement
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
-        //int score;
+       
 
         MouseState currentMouseState;
         MouseState previousMouseState;

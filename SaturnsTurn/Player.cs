@@ -16,7 +16,11 @@ namespace SaturnsTurn
         public Vector2 Position3;
         public bool Active;
         public int Health;
-        
+        public int Shield { get; set; }
+
+        public int Damage { get; set; }
+        public int Power { get; set; }
+
         public int Score;
 
         public string Name { get; set; }
@@ -40,6 +44,10 @@ namespace SaturnsTurn
             Active = true;
             Health = 100;
             Score = 0;
+            Power = 10;
+            Damage =10;
+            Shield = 0;
+
 
 
 
