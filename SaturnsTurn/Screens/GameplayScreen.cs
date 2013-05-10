@@ -237,6 +237,8 @@ namespace GameStateManagement
 
             KeyboardState keyboardState = input.CurrentKeyboardStates[playerIndex];
             GamePadState gamePadState = input.CurrentGamePadStates[playerIndex];
+            KeyboardState lastKeyboardState = input.LastKeyboardStates[playerIndex];
+            GamePadState lastGamePadState = input.LastGamePadStates[playerIndex];
 
             // The game pauses either if the user presses the pause button, or if
             // they unplug the active gamepad. This requires us to keep track of
@@ -301,15 +303,14 @@ namespace GameStateManagement
                 player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
 
 
-
-               // if(input.IsNewKeyPress(Keys.Space,ControllingPlayer,out ))
-
-               // {
-
                 
-              //  }
 
-                if (currentMouseState.LeftButton == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Space))
+
+
+                //fire weapon normal
+
+                if (currentMouseState.LeftButton == ButtonState.Pressed&& previousMouseState.LeftButton==ButtonState.Released 
+                    || keyboardState.IsKeyDown(Keys.Space)&& lastKeyboardState.IsKeyUp(Keys.Space))
                 {
                     AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
                     AudioManager.PlaySound("laserSound");
@@ -341,18 +342,7 @@ namespace GameStateManagement
 
             
 
-            //moving to press buttons to handle input section
-
-            //update projectile temp TODO
-           /* if (gameTime.TotalGameTime - previousFireTime > fireTime)
-            {
-                //reset the time
-                previousFireTime = gameTime.TotalGameTime;
-                //add projectile to the front and center of the player
-                AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
-                AudioManager.PlaySound("laserSound");
-            }
-            */
+            
 
             if (player.Health <= 0)
             {
