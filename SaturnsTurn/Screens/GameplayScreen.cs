@@ -55,15 +55,19 @@ namespace GameStateManagement
         TimeSpan balloonEnemySpawnTime;
         TimeSpan previousSpawnTime;
         TimeSpan previousBalloonSpawnTime;
+        TimeSpan powerUpSpawnTime;
+        TimeSpan previousPowerUpSpawnTime;
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
-        
-       
+        Texture2D powerupDamageTexture;
+        List<PowerUp> damagePowerUps;
+        string damagePowerUp;
 
         MouseState currentMouseState;
         MouseState previousMouseState;
-
+        Random randomPowerUp;
+        Vector2 powerUpPosition = new Vector2(100, 100);
         Random randomEnemy;
         Vector2 enemyPosition = new Vector2(100, 100);
 
@@ -109,16 +113,16 @@ namespace GameStateManagement
             //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
-
+            powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerupDamageTexture");
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
-            
-           
 
 
 
+
+            damagePowerUps = new List<PowerUp>();
             //set the laser to fie every quarter second
             fireTime = TimeSpan.FromSeconds(.15f);
 
@@ -209,9 +213,9 @@ namespace GameStateManagement
                 previousMouseState = currentMouseState;
                 currentMouseState = Mouse.GetState();
 
-                            
-                                             
-                
+
+
+                UpdatePowerUp(gameTime);
                 UpdatePlayer(gameTime);
                 UpdateProjectiles();
                 bgLayer1.Update();
@@ -371,6 +375,13 @@ namespace GameStateManagement
 
             }
             }
+
+        private void AddamagePowerup(Vector2 powerUpPosition)
+        {
+
+            //todo
+            
+        }
         private void AddProjectile(Vector2 position)
         {
             Projectile projectile = new Projectile();
@@ -472,6 +483,15 @@ namespace GameStateManagement
                 {
                     explosions.RemoveAt(i);
                 }
+            }
+        }
+        //addding powerup
+        private void UpdatePowerUp(GameTime gameTime)
+        {
+            if (gameTime.TotalGameTime - previousPowerUpSpawnTime > powerUpSpawnTime)
+            {
+                previousPowerUpSpawnTime = gameTime.TotalGameTime;
+                AddDamagePowerUp();
             }
         }
         private void UpdateEnemies(GameTime gameTime)

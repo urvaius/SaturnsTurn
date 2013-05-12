@@ -68,7 +68,7 @@ namespace SaturnsTurn
         }
 
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
 
             if (PowerUpType.Equals(DamagePowerUp))
@@ -79,8 +79,8 @@ namespace SaturnsTurn
             //projectiles move to the right always
             //Position.X += PowerUpMoveSpeed;
             //deacivate the bullet if it goes out of screen
-          //  if (Position.X + PowerUpTexture.Width / 2 > viewport.Width)
-            //    Active = false;
+            if (Position.X + PowerUpTexture.Width / 2 > viewport.Width)
+                Active = false;
 
         }
         public void Draw(SpriteBatch spriteBatch)
