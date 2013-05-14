@@ -387,7 +387,7 @@ namespace GameStateManagement
         {
             Projectile projectile = new Projectile();
             projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position,3);
-            //projectile.Damage = 3;
+            
             
             
 
@@ -412,7 +412,7 @@ namespace GameStateManagement
                 {
 
                     //todo add powerup to do stuff
-
+                  
                    // projectiles[i].Damage = 10;
                     damagePowerUps[i].Active = false;
                 }
