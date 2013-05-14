@@ -163,6 +163,8 @@ namespace GameStateManagement
             playerAnimation.Initialize(playerTexture, Vector2.Zero, 115, 69, 8, 30, Color.White, 1f, true);
             Vector2 playerPosition3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
             player.Initialize(playerAnimation, playerPosition3);
+
+
             //----animation section ^
 
             // player.Initialize(content.Load<Texture2D>(@"Graphics\player"), playerPosition3);
@@ -368,8 +370,8 @@ namespace GameStateManagement
             {
 
                 //update players damage modifier to projectiles
-
-                projectiles[i].Damage = 3;
+                //todo check
+                //projectiles[i].Damage = 3;
 
                 projectiles[i].Update();
                 if (projectiles[i].Active == false)
@@ -385,7 +387,7 @@ namespace GameStateManagement
         {
             Projectile projectile = new Projectile();
             projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position);
-
+            projectile.Damage = 3;
             
             
 
@@ -410,6 +412,8 @@ namespace GameStateManagement
                 {
 
                     //todo add powerup to do stuff
+
+                   // projectiles[i].Damage = 10;
                     damagePowerUps[i].Active = false;
                 }
             

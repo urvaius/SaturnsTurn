@@ -62,23 +62,25 @@ namespace SaturnsTurn
             
             
         }
+
+        //not used yet
         private void UpdateDamage()
         {
             //todo
-
+            
         
         }
 
 
         public void Update(GameTime gameTime)
         {
-
+            //not used yet but maybe
             if (PowerUpType.Equals(DamagePowerUp))
             {
                 UpdateDamage();
             }
 
-            //projectiles move to the right always
+            
             
             Position.X -= PowerUpMoveSpeed;
             //deacivate the powerupif it goes out of screen
