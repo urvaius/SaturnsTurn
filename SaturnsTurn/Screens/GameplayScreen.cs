@@ -62,6 +62,7 @@ namespace GameStateManagement
         List<Animation> explosions;
         Texture2D powerupDamageTexture;
         List<PowerUp> damagePowerUps;
+        List<PowerUp> shieldPowerUps;
         string damagePowerUp;
 
         MouseState currentMouseState;
@@ -113,7 +114,7 @@ namespace GameStateManagement
             //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
-            powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerupDamageTexture");
+            powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerup");
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
@@ -145,6 +146,8 @@ namespace GameStateManagement
             //used to determine how fast enemy respawns
             enemySpawnTime = TimeSpan.FromSeconds(1.0f);
             balloonEnemySpawnTime = TimeSpan.FromSeconds(5.0f);
+            powerUpSpawnTime = TimeSpan.FromSeconds(10.0f);
+            previousPowerUpSpawnTime = TimeSpan.Zero;
             //initialize random number for enemies
             randomEnemy = new Random();
 
@@ -376,10 +379,18 @@ namespace GameStateManagement
             }
             }
 
-        private void AddamagePowerup(Vector2 powerUpPosition)
+        private void AddDamagePowerUp()
         {
 
             //todo
+
+            PowerUp damagePowerUp = new PowerUp();
+            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, powerUpPosition,"DamagePowerUp");
+
+
+
+
+            damagePowerUps.Add(damagePowerUp);
             
         }
         private void AddProjectile(Vector2 position)
@@ -556,6 +567,7 @@ namespace GameStateManagement
             balloonEnemies.Add(balloonEnemy);
 
         }
+       
 
         private void AddEnemy()
         {
