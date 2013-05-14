@@ -380,21 +380,7 @@ namespace GameStateManagement
             }
             }
 
-        private void AddDamagePowerUp()
-        {
-
-            //todo
-
-            PowerUp damagePowerUp = new PowerUp();
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
-            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position,"DamagePowerUp");
-
-
-
-
-            damagePowerUps.Add(damagePowerUp);
-            
-        }
+        
         private void AddProjectile(Vector2 position)
         {
             Projectile projectile = new Projectile();
@@ -491,6 +477,9 @@ namespace GameStateManagement
 
 
        
+
+
+
         private void UpdateExplosions(GameTime gameTime)
         {
             for (int i = explosions.Count - 1; i >= 0; i--)
@@ -508,7 +497,8 @@ namespace GameStateManagement
             if (gameTime.TotalGameTime - previousPowerUpSpawnTime > powerUpSpawnTime)
             {
                 previousPowerUpSpawnTime = gameTime.TotalGameTime;
-                AddDamagePowerUp();
+                //todo
+                //AddDamagePowerUp();
 
             }
 
@@ -584,8 +574,19 @@ namespace GameStateManagement
             balloonEnemies.Add(balloonEnemy);
 
         }
-       
 
+        private void AddDamagePowerUp()
+        {
+
+            //todo
+
+            PowerUp damagePowerUp = new PowerUp();
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp");
+            
+            damagePowerUps.Add(damagePowerUp);
+
+        }
         private void AddEnemy()
         {
             //create the animation object

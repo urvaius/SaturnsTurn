@@ -22,6 +22,8 @@ namespace SaturnsTurn
         public string PowerUpName;
         //todo add move speed etc..
 
+        
+
 
         Viewport viewport;
         //get the width of the projectile
@@ -51,6 +53,7 @@ namespace SaturnsTurn
             PowerUpName = powerUpName;
             PowerUpType = new List<String>();
             PowerUpType.Add(PowerUpName);
+            PowerUpMoveSpeed = 3f;
 
             
             
@@ -61,10 +64,7 @@ namespace SaturnsTurn
         }
         private void UpdateDamage()
         {
-            PowerUpMoveSpeed = 10f;
-            Position.X += PowerUpMoveSpeed;
-            if (Position.X + PowerUpTexture.Width / 2 > viewport.Width)
-                Active = false;
+            //todo
         
         }
 
@@ -78,10 +78,16 @@ namespace SaturnsTurn
             }
 
             //projectiles move to the right always
-            //Position.X += PowerUpMoveSpeed;
-            //deacivate the bullet if it goes out of screen
-            if (Position.X + PowerUpTexture.Width / 2 > viewport.Width)
+            
+            Position.X -= PowerUpMoveSpeed;
+            //deacivate the powerupif it goes out of screen
+            if (Position.X < -Width)
+            {
+                //by setting the active flat to false the game will remove this object
+
+                //active game list
                 Active = false;
+            }
 
         }
         public void Draw(SpriteBatch spriteBatch)
