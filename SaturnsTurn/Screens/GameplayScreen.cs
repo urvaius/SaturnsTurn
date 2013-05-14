@@ -386,8 +386,8 @@ namespace GameStateManagement
         private void AddProjectile(Vector2 position)
         {
             Projectile projectile = new Projectile();
-            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position);
-            projectile.Damage = 3;
+            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position,3);
+            //projectile.Damage = 3;
             
             
 

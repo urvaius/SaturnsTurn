@@ -27,13 +27,13 @@ namespace SaturnsTurn
         //how fast projectile moves
         float projectileMoveSpeed;
 
-        public void Initialize(Viewport viewport, Texture2D texture, Vector2 position)
+        public void Initialize(Viewport viewport, Texture2D texture, Vector2 position,int damage)
         {
             Texture = texture;
             Position = position;
             this.viewport = viewport;
             Active = true;
-            this.Damage = Damage;
+            this.Damage = damage;
            
             projectileMoveSpeed = 20f;
         }
