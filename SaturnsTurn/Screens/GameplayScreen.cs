@@ -464,6 +464,9 @@ namespace GameStateManagement
             }
 
 
+
+            //todo 
+            //power up vs player collision add powerup to player
             //projectile vs enemy collision
             for(int i=0;i<projectiles.Count;i++)
             {
@@ -485,6 +488,19 @@ namespace GameStateManagement
         }
 
 
+        private void UpdateDamagePowerUp(GameTime gameTime)
+        {
+
+            for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+            {
+                damagePowerUps[i].Update(gameTime);
+                if (damagePowerUps[i].Active == false)
+                {
+                    damagePowerUps.RemoveAt(i);
+                    //todo do something
+                }
+            }
+        }
         private void UpdateExplosions(GameTime gameTime)
         {
             for (int i = explosions.Count - 1; i >= 0; i--)
@@ -649,6 +665,12 @@ namespace GameStateManagement
             for (int i = 0; i < explosions.Count; i++)
             {
                 explosions[i].Draw(spriteBatch);
+            }
+
+            //draw damage powerup 
+            for (int i = 0; i < damagePowerUps.Count; i++)
+            {
+                damagePowerUps[i].Draw(spriteBatch);
             }
 
 
