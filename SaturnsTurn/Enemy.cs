@@ -45,7 +45,7 @@ namespace SaturnsTurn
             //set the helath
             Health = 10;
             //set damage it can do
-            Damage = 10;
+            Damage = 5;
             // set how fast the enemy moves
             enemyMoveSpeed = 6f;
             //set the score value

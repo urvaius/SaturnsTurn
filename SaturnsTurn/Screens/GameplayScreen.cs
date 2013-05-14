@@ -398,23 +398,36 @@ namespace GameStateManagement
             Rectangle playerRectangle;
             Rectangle enemyRectangle2;
             Rectangle projectileRectangle;
-
+            Rectangle damagePowerUpRectangle;
             //only create the rectangle once for the player
             playerRectangle = new Rectangle((int)player.Position3.X, (int)player.Position3.Y, player.Width, player.Height);
-            //do collision with balloonenemy and player
-            for (int i = 0; i < balloonEnemies.Count; i++)
+
+            //damage powerup collisiong
+            for (int i = 0; i < damagePowerUps.Count; i++)
             {
-                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
-                if (playerRectangle.Intersects(enemyRectangle2))
+                damagePowerUpRectangle = new Rectangle((int)damagePowerUps[i].Position.X, (int)damagePowerUps[i].Position.Y, damagePowerUps[i].Width, damagePowerUps[i].Height);
+                if (playerRectangle.Intersects(damagePowerUpRectangle))
                 {
 
-
-                    player.Health -= balloonEnemies[i].Damage;
-                    balloonEnemies[i].Health -= player.Damage;
-                    if (player.Health <= 0)
-                        player.Active = false;
+                    //todo add powerup to do stuff
+                    damagePowerUps[i].Active = false;
                 }
+            
             }
+                //do collision with balloonenemy and player
+                for (int i = 0; i < balloonEnemies.Count; i++)
+                {
+                    enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                    if (playerRectangle.Intersects(enemyRectangle2))
+                    {
+
+
+                        player.Health -= balloonEnemies[i].Damage;
+                        balloonEnemies[i].Health -= player.Damage;
+                        if (player.Health <= 0)
+                            player.Active = false;
+                    }
+                }
             //do the collision between the player and the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
