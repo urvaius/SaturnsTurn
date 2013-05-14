@@ -466,8 +466,7 @@ namespace GameStateManagement
 
 
 
-            //todo 
-            //power up vs player collision add powerup to player
+          
             //projectile vs enemy collision
             for(int i=0;i<projectiles.Count;i++)
             {
@@ -559,6 +558,13 @@ namespace GameStateManagement
                     balloonEnemies.RemoveAt(i);
                     
                 }
+               
+                else if (balloonEnemies[i].Active == true && balloonEnemies[i].OnScreen == false)
+                {
+                    balloonEnemies.RemoveAt(i);
+                }
+
+
             }
             //update the enemies
             for (int i = enemies.Count - 1; i >= 0; i--)
@@ -569,6 +575,10 @@ namespace GameStateManagement
                     AddExplosion(enemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
                     player.Score += enemies[i].Value;
+                    enemies.RemoveAt(i);
+                }
+                else  if (enemies[i].Active == true && enemies[i].OnScreen == false)
+                {
                     enemies.RemoveAt(i);
                 }
             }

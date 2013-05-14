@@ -16,6 +16,7 @@ namespace SaturnsTurn
         public int Health;
         //the damage the enemy inflicts
         public int Damage;
+        public bool OnScreen;
         //the score you will get from killing the enemy
         public int Value;
         //get the width of the enemy ship
@@ -50,6 +51,7 @@ namespace SaturnsTurn
             enemyMoveSpeed = 6f;
             //set the score value
             Value = 100;
+            OnScreen = true;
         }
         public void Update(GameTime gameTime)
         {
@@ -60,12 +62,18 @@ namespace SaturnsTurn
             //update animation
             EnemyAnimation.Update(gameTime);
             //if the enemy is past the screen or its health reaches 0 then deactivate it
-            if (Position.X < -Width || Health <= 0)
+            if (Position.X < -Width)
             {
                 //by setting the active flat to false the game will remove this object
 
                 //active game list
+               // Active = false;
+                OnScreen = false;
+            }
+            if (Health<=0)
+            {
                 Active = false;
+                OnScreen = false;
             }
 
         }
