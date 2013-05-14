@@ -491,6 +491,9 @@ namespace GameStateManagement
                 }
             }
         }
+      
+        
+        
         //addding powerup
         private void UpdatePowerUp(GameTime gameTime)
         {
@@ -498,7 +501,7 @@ namespace GameStateManagement
             {
                 previousPowerUpSpawnTime = gameTime.TotalGameTime;
                 //todo
-                //AddDamagePowerUp();
+                AddDamagePowerUp();
 
             }
 
@@ -581,7 +584,7 @@ namespace GameStateManagement
             //todo
 
             PowerUp damagePowerUp = new PowerUp();
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
             damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp");
             
             damagePowerUps.Add(damagePowerUp);
@@ -640,7 +643,7 @@ namespace GameStateManagement
             spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 
             //draw teh player health
-            spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 30), Color.White);
+            spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
 
             //draw the enemies
