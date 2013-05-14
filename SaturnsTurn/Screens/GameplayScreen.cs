@@ -49,7 +49,7 @@ namespace GameStateManagement
         Texture2D projectileTexture;
         List<Projectile> projectiles;
         TimeSpan fireTime;
-        TimeSpan previousFireTime;
+        //TimeSpan previousFireTime;
         //the rate for enemies to appear
         TimeSpan enemySpawnTime;
         TimeSpan balloonEnemySpawnTime;
@@ -63,7 +63,7 @@ namespace GameStateManagement
         Texture2D powerupDamageTexture;
         List<PowerUp> damagePowerUps;
         List<PowerUp> shieldPowerUps;
-        string damagePowerUp;
+        //string damagePowerUp;
 
         MouseState currentMouseState;
         MouseState previousMouseState;
@@ -146,11 +146,11 @@ namespace GameStateManagement
             //used to determine how fast enemy respawns
             enemySpawnTime = TimeSpan.FromSeconds(1.0f);
             balloonEnemySpawnTime = TimeSpan.FromSeconds(5.0f);
-            powerUpSpawnTime = TimeSpan.FromSeconds(10.0f);
+            powerUpSpawnTime = TimeSpan.FromSeconds(5.0f);
             previousPowerUpSpawnTime = TimeSpan.Zero;
             //initialize random number for enemies
             randomEnemy = new Random();
-
+            randomPowerUp = new Random();
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
             //score = 0;
@@ -218,7 +218,7 @@ namespace GameStateManagement
 
 
 
-                UpdatePowerUp(gameTime);
+                
                 UpdatePlayer(gameTime);
                 UpdateProjectiles();
                 bgLayer1.Update();
@@ -227,7 +227,8 @@ namespace GameStateManagement
                 UpdateEnemies(gameTime);
                 UpdateCollision();
                 UpdateExplosions(gameTime);
-
+               
+                UpdatePowerUp(gameTime);
                
             }
         }
@@ -489,19 +490,7 @@ namespace GameStateManagement
         }
 
 
-        private void UpdateDamagePowerUp(GameTime gameTime)
-        {
-
-            for (int i = damagePowerUps.Count - 1; i >= 0; i--)
-            {
-                damagePowerUps[i].Update(gameTime);
-                if (damagePowerUps[i].Active == false)
-                {
-                    damagePowerUps.RemoveAt(i);
-                    //todo do something
-                }
-            }
-        }
+       
         private void UpdateExplosions(GameTime gameTime)
         {
             for (int i = explosions.Count - 1; i >= 0; i--)
@@ -520,6 +509,17 @@ namespace GameStateManagement
             {
                 previousPowerUpSpawnTime = gameTime.TotalGameTime;
                 AddDamagePowerUp();
+
+            }
+
+            for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+            {
+                damagePowerUps[i].Update(gameTime);
+                if (damagePowerUps[i].Active == false)
+                {
+                    damagePowerUps.RemoveAt(i);
+                    //todo do something
+                }
             }
         }
         private void UpdateEnemies(GameTime gameTime)

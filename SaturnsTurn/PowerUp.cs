@@ -20,6 +20,7 @@ namespace SaturnsTurn
         public string ShieldPowerUp;
         public string DamagePowerUp;
         public string PowerUpName;
+        //todo add move speed etc..
 
 
         Viewport viewport;
