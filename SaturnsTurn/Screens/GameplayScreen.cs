@@ -68,9 +68,9 @@ namespace GameStateManagement
         MouseState currentMouseState;
         MouseState previousMouseState;
         Random randomPowerUp;
-        Vector2 powerUpPosition = new Vector2(100, 100);
+        //Vector2 powerUpPosition = new Vector2(100, 100); randonm
         Random randomEnemy;
-        Vector2 enemyPosition = new Vector2(100, 100);
+        //Vector2 enemyPosition = new Vector2(100, 100);  not needed doit randomly
 
         Random random = new Random();
 
@@ -385,7 +385,8 @@ namespace GameStateManagement
             //todo
 
             PowerUp damagePowerUp = new PowerUp();
-            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, powerUpPosition,"DamagePowerUp");
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position,"DamagePowerUp");
 
 
 
