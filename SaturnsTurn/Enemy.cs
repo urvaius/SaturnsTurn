@@ -48,7 +48,7 @@ namespace SaturnsTurn
             //set damage it can do
             Damage = 5;
             // set how fast the enemy moves
-            enemyMoveSpeed = 6f;
+            enemyMoveSpeed = 5f;
             //set the score value
             Value = 100;
             OnScreen = true;
