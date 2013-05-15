@@ -189,7 +189,7 @@ namespace GameStateManagement
 
 
             //playmusic maybe here
-            AudioManager.PlayMusic("gamemusic");
+            //AudioManager.PlayMusic("gamemusic");
 
             //todo take out music when switch menus
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -221,6 +221,19 @@ namespace GameStateManagement
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                        bool coveredByOtherScreen)
         {
+
+
+
+
+            if (otherScreenHasFocus.Equals(false))
+            {
+                if (AudioManager.IsInitialized.Equals(true))
+                    AudioManager.PlaySound("gamemusic");
+            }
+            else
+            {
+                AudioManager.StopSound("gamemusic");
+            }
             base.Update(gameTime, otherScreenHasFocus, false);
 
             // Gradually fade in or out depending on whether we are covered by the pause screen.

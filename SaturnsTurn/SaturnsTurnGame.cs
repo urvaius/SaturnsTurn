@@ -45,9 +45,9 @@ namespace SaturnsTurn
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
-            //graphics.PreferredBackBufferWidth = 853;
-           // graphics.PreferredBackBufferHeight = 480;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 853;
+            graphics.PreferredBackBufferHeight = 480;
+            graphics.IsFullScreen = false;
             
             Window.Title = "Saturn's Turn";
 
