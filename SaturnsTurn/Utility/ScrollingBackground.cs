@@ -24,7 +24,7 @@ namespace SaturnsTurn.Utility
             //load the background
             texture = content.Load<Texture2D>(texturePath);
             this.speed = speed;
-            positions = new Vector2[screenWidth / texture.Width + 1];
+            positions = new Vector2[screenWidth];
 
             for (int i = 0; i < positions.Length; i++)
             {

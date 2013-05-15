@@ -118,7 +118,7 @@ namespace GameStateManagement
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
            // try scrolling
             star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
-            star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+           // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
 
             
             
@@ -242,7 +242,7 @@ namespace GameStateManagement
                 bgLayer1.Update();
                 bgLayer2.Update();
                 star1.Update();
-                star2.Update();
+               // star2.Update();
                 //update the enemies
                 UpdateEnemies(gameTime);
                 UpdateCollision();
@@ -691,7 +691,7 @@ namespace GameStateManagement
 
             //draw sroller
             star1.Draw(spriteBatch);
-            star2.Draw(spriteBatch);
+          //  star2.Draw(spriteBatch);
             //dont draw these for now
            // bgLayer1.Draw(spriteBatch);
            // bgLayer2.Draw(spriteBatch);
