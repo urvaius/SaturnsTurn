@@ -277,7 +277,16 @@ namespace GameStateManagement
 
                 UpdatePowerUp(gameTime);
 
+                UpdateBackground();
+
             }
+        }
+
+        private void UpdateBackground()
+        {
+            newBackground.BackgroundOffset += 1;
+            newBackground.ParallaxOffset += 2;
+            
         }
 
 
