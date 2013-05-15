@@ -38,6 +38,9 @@ namespace GameStateManagement
         //Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
+
+        //figure out which we are going to use 
+        Background newBackground;
         Texture2D mainBackground;
         ParallaxingBackground bgLayer1;
         ParallaxingBackground bgLayer2;
@@ -106,11 +109,17 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
+            //todo figure out which background to use
+            newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars");
 
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
             star1 = new ScrollingBackground();
             star2 = new ScrollingBackground();
+
+
+
+
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
 
             //load paralzxing background
@@ -127,6 +136,8 @@ namespace GameStateManagement
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
             powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerup");
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
+
+
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
@@ -330,10 +341,23 @@ namespace GameStateManagement
 
 
                 if (keyboardState.IsKeyDown(Keys.A))
+                {
                     movement.X--;
+                    //add for scroll background
+                    newBackground.BackgroundOffset -= 1;
+                    newBackground.ParallaxOffset -= 2;
+                }
+
+
 
                 if (keyboardState.IsKeyDown(Keys.D))
+                {
                     movement.X++;
+                    //add for scroll backgorund
+                    newBackground.BackgroundOffset += 1;
+                    newBackground.ParallaxOffset += 2;
+                }
+
 
                 if (keyboardState.IsKeyDown(Keys.W))
                     movement.Y--;
@@ -706,7 +730,9 @@ namespace GameStateManagement
             spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
 
             //draw sroller
-            star1.Draw(spriteBatch);
+
+            newBackground.Draw(spriteBatch);
+          //  star1.Draw(spriteBatch);
           //  star2.Draw(spriteBatch);
             //dont draw these for now
            // bgLayer1.Draw(spriteBatch);
