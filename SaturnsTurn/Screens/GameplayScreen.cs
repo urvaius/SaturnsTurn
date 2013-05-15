@@ -38,7 +38,7 @@ namespace GameStateManagement
         //Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
-
+        int iLivesLeft;
         //figure out which we are going to use 
         Background newBackground;
         Texture2D mainBackground;
@@ -118,19 +118,19 @@ namespace GameStateManagement
             star2 = new ScrollingBackground();
 
 
-
+            iLivesLeft = 3;
 
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
 
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
-           // try scrolling
+            // try scrolling
             star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
-           // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
 
-            
-            
+
+
             //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
@@ -269,7 +269,7 @@ namespace GameStateManagement
                 bgLayer2.Update();
                 //udate scrolling background w \\todo
                 star1.Update();
-               // star2.Update();
+                // star2.Update();
                 //update the enemies
                 UpdateEnemies(gameTime);
                 UpdateCollision();
@@ -286,7 +286,7 @@ namespace GameStateManagement
         {
             newBackground.BackgroundOffset += 1;
             newBackground.ParallaxOffset += 2;
-            
+
         }
 
 
@@ -407,8 +407,45 @@ namespace GameStateManagement
             }
         }
 
-       
 
+        private void PlayerKilled()
+        {
+
+            iLivesLeft -= 1;
+            player.Active = false;
+            if (iLivesLeft > 0)
+            {
+                player.Active = true;
+                player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+
+
+            }
+            else
+            {
+                player.Reset();
+                player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+                ResetEnemies();
+            
+            }
+            
+        }
+
+        private void ResetEnemies()
+        {
+            for (int i = 0; i < balloonEnemies.Count; i++)
+            {
+                balloonEnemies.RemoveAt(i);
+            }
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies.RemoveAt(i);
+            }
+
+            for (int i = 0; i < damagePowerUps.Count; i++)
+            {
+                damagePowerUps.RemoveAt(i);
+            }
+        }
 
         private void UpdatePlayer(GameTime gameTime)
         {
@@ -419,11 +456,13 @@ namespace GameStateManagement
 
 
 
-            if (player.Health <= 0)
-            {
-                player.Health = 100;
-                player.Score = 0;
-            }
+           // if (player.Health <= 0)
+           // {
+
+             //   PlayerKilled();
+
+
+           // }
         }
         private void UpdateProjectiles()
         {
@@ -431,7 +470,7 @@ namespace GameStateManagement
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
 
-               
+
 
                 projectiles[i].Update();
                 if (projectiles[i].Active == false)
@@ -441,7 +480,7 @@ namespace GameStateManagement
 
             }
         }
-                
+
 
         private void UpdateCollision()
         {
@@ -469,7 +508,7 @@ namespace GameStateManagement
                     {
                         player.DamageMod += 5;
                     }
-                    
+
 
 
                     damagePowerUps[i].Active = false;
@@ -487,7 +526,8 @@ namespace GameStateManagement
                     player.Health -= balloonEnemies[i].Damage;
                     balloonEnemies[i].Health -= player.Damage;
                     if (player.Health <= 0)
-                        player.Active = false;
+                        PlayerKilled();
+                       // player.Active = false;
                 }
             }
             //do the collision between the player and the enemies
@@ -504,7 +544,8 @@ namespace GameStateManagement
 
                     //if the player health is less than zero we died
                     if (player.Health <= 0)
-                        player.Active = false;
+                        PlayerKilled();
+                       // player.Active = false;
                 }
             }
 
@@ -549,7 +590,7 @@ namespace GameStateManagement
 
         }
 
-        
+
         private void UpdateExplosions(GameTime gameTime)
         {
             for (int i = explosions.Count - 1; i >= 0; i--)
@@ -561,7 +602,7 @@ namespace GameStateManagement
                 }
             }
         }
-        
+
         //addding powerup
         private void UpdatePowerUp(GameTime gameTime)
         {
@@ -741,11 +782,11 @@ namespace GameStateManagement
             //draw sroller
 
             newBackground.Draw(spriteBatch);
-          //  star1.Draw(spriteBatch);
-          //  star2.Draw(spriteBatch);
+            //  star1.Draw(spriteBatch);
+            //  star2.Draw(spriteBatch);
             //dont draw these for now
-           // bgLayer1.Draw(spriteBatch);
-           // bgLayer2.Draw(spriteBatch);
+            // bgLayer1.Draw(spriteBatch);
+            // bgLayer2.Draw(spriteBatch);
             //draw the score
             spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 
@@ -786,6 +827,13 @@ namespace GameStateManagement
             }
 
 
+
+
+            //testing 
+            if (iLivesLeft == 0)
+            {
+                spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
+            }
             //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
             //                     enemyPosition, Color.DarkRed);

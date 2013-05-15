@@ -55,6 +55,17 @@ namespace SaturnsTurn
 
         }
 
+        public void Reset()
+        {
+            Active = true;
+            Health = 100;
+            Score = 0;
+            Power = 10;
+            DamageMod = 0;
+            Damage = 1;
+            Shield = 0;
+        }
+
         public void Update(GameTime gameTime)
         {
             PlayerAnimation.Position = Position3;
