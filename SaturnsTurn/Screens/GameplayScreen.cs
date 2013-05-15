@@ -92,7 +92,7 @@ namespace GameStateManagement
 
         }
 
-      
+
 
         /// <summary>
         /// Load graphics content for the game.
@@ -129,7 +129,7 @@ namespace GameStateManagement
 
             //load projectile
             projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
-            
+
             // explosions
             explosions = new List<Animation>();
             explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
@@ -153,6 +153,11 @@ namespace GameStateManagement
             randomPowerUp = new Random();
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
+
+            //try projectile hee
+
+
+
             //score = 0;
 
             //use animation now.
@@ -171,7 +176,7 @@ namespace GameStateManagement
             playerMoveSpeed = 8.0f;
             Thread.Sleep(1000);
 
-            
+
             //playmusic maybe here
             AudioManager.PlayMusic("gamemusic");
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -213,14 +218,14 @@ namespace GameStateManagement
 
             if (IsActive)
             {
-                                             
-               
+
+
                 previousMouseState = currentMouseState;
                 currentMouseState = Mouse.GetState();
 
 
 
-                
+
                 UpdatePlayer(gameTime);
                 UpdateProjectiles();
                 bgLayer1.Update();
@@ -229,9 +234,9 @@ namespace GameStateManagement
                 UpdateEnemies(gameTime);
                 UpdateCollision();
                 UpdateExplosions(gameTime);
-               
+
                 UpdatePowerUp(gameTime);
-               
+
             }
         }
 
@@ -316,14 +321,14 @@ namespace GameStateManagement
                 player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
 
 
-                
+
 
 
 
                 //fire weapon normal
 
-                if (currentMouseState.LeftButton == ButtonState.Pressed&& previousMouseState.LeftButton==ButtonState.Released 
-                    || keyboardState.IsKeyDown(Keys.Space)&& lastKeyboardState.IsKeyUp(Keys.Space))
+                if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released
+                    || keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
                     AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
                     AudioManager.PlaySound("laserSound");
@@ -353,9 +358,9 @@ namespace GameStateManagement
 
             player.Update(gameTime);
 
-            
 
-            
+
+
 
             if (player.Health <= 0)
             {
@@ -366,12 +371,10 @@ namespace GameStateManagement
         private void UpdateProjectiles()
         {
             //update projectiles
-            for (int i = projectiles.Count - 1;i >=0 ; i--)
+            for (int i = projectiles.Count - 1; i >= 0; i--)
             {
 
-                //update players damage modifier to projectiles
-                //todo check
-                //projectiles[i].Damage = 3;
+               
 
                 projectiles[i].Update();
                 if (projectiles[i].Active == false)
@@ -380,16 +383,19 @@ namespace GameStateManagement
                 }
 
             }
-            }
+        }
 
-        
+
         private void AddProjectile(Vector2 position)
         {
+
+            //moving to top
+            int projDamage = player.DamageMod + 3;
             Projectile projectile = new Projectile();
-            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position,3);
-            
-            
-            
+            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position, projDamage);
+
+
+
 
             projectiles.Add(projectile);
         }
@@ -412,26 +418,31 @@ namespace GameStateManagement
                 {
 
                     //todo add powerup to do stuff
-                  
-                   // projectiles[i].Damage = 10;
+
+                    // projectiles[i].Damage = 10;
+
+                    //add damage 
+                    player.DamageMod +=5;
+
+
                     damagePowerUps[i].Active = false;
                 }
-            
+
             }
-                //do collision with balloonenemy and player
-                for (int i = 0; i < balloonEnemies.Count; i++)
+            //do collision with balloonenemy and player
+            for (int i = 0; i < balloonEnemies.Count; i++)
+            {
+                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                if (playerRectangle.Intersects(enemyRectangle2))
                 {
-                    enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
-                    if (playerRectangle.Intersects(enemyRectangle2))
-                    {
 
 
-                        player.Health -= balloonEnemies[i].Damage;
-                        balloonEnemies[i].Health -= player.Damage;
-                        if (player.Health <= 0)
-                            player.Active = false;
-                    }
+                    player.Health -= balloonEnemies[i].Damage;
+                    balloonEnemies[i].Health -= player.Damage;
+                    if (player.Health <= 0)
+                        player.Active = false;
                 }
+            }
             //do the collision between the player and the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -470,14 +481,14 @@ namespace GameStateManagement
 
 
 
-          
+
             //projectile vs enemy collision
-            for(int i=0;i<projectiles.Count;i++)
+            for (int i = 0; i < projectiles.Count; i++)
             {
-                for (int j=0;j<enemies.Count;j++)
+                for (int j = 0; j < enemies.Count; j++)
                 {
                     //create the rectanles we need to determine if we collided with each other
-                    projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width /2,(int)projectiles[i].Position.Y - projectiles[i].Height /2,projectiles[i].Width,projectiles[i].Height);
+                    projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
                     enemyRectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2, (int)enemies[j].Position.Y - enemies[j].Height / 2, enemies[j].Width, enemies[j].Height);
                     //determine if the two objects collide with each other
@@ -492,7 +503,7 @@ namespace GameStateManagement
         }
 
 
-       
+
 
 
 
@@ -507,9 +518,9 @@ namespace GameStateManagement
                 }
             }
         }
-      
-        
-        
+
+
+
         //addding powerup
         private void UpdatePowerUp(GameTime gameTime)
         {
@@ -560,9 +571,9 @@ namespace GameStateManagement
                     player.Score += balloonEnemies[i].Value;
 
                     balloonEnemies.RemoveAt(i);
-                    
+
                 }
-               
+
                 else if (balloonEnemies[i].Active == true && balloonEnemies[i].OnScreen == false)
                 {
                     balloonEnemies.RemoveAt(i);
@@ -581,7 +592,7 @@ namespace GameStateManagement
                     player.Score += enemies[i].Value;
                     enemies.RemoveAt(i);
                 }
-                else  if (enemies[i].Active == true && enemies[i].OnScreen == false)
+                else if (enemies[i].Active == true && enemies[i].OnScreen == false)
                 {
                     enemies.RemoveAt(i);
                 }
@@ -613,7 +624,7 @@ namespace GameStateManagement
             PowerUp damagePowerUp = new PowerUp();
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
             damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp");
-            
+
             damagePowerUps.Add(damagePowerUp);
 
         }
@@ -706,11 +717,11 @@ namespace GameStateManagement
             }
 
 
-                //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
-                // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
-                //                     enemyPosition, Color.DarkRed);
+            //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
+            // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
+            //                     enemyPosition, Color.DarkRed);
 
-                spriteBatch.End();
+            spriteBatch.End();
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

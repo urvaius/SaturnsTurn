@@ -17,7 +17,7 @@ namespace SaturnsTurn
         public bool Active;
         public int Health;
         public int Shield { get; set; }
-
+        public int DamageMod;
         public int Damage { get; set; }
         public int Power { get; set; }
 
@@ -45,6 +45,7 @@ namespace SaturnsTurn
             Health = 100;
             Score = 0;
             Power = 10;
+            DamageMod = 0;
             
             Damage = 1;
             Shield = 0;
