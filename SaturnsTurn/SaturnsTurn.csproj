@@ -58,6 +58,7 @@
     <Compile Include="SaturnsTurnGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Background.cs" />
     <Compile Include="Utility\ScrollingBackground.cs" />
     <Compile Include="Utility\ParallaxingBackground.cs" />
   </ItemGroup>
@@ -192,6 +193,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Graphics\Backgrounds\star6.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Backgrounds\ParallaxStars.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Graphics\Backgrounds\PrimaryStar.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
