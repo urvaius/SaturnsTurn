@@ -41,6 +41,10 @@ namespace GameStateManagement
         Texture2D mainBackground;
         ParallaxingBackground bgLayer1;
         ParallaxingBackground bgLayer2;
+        ScrollingBackground star1;
+        ScrollingBackground star2;
+
+
         //enemies
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
@@ -105,12 +109,19 @@ namespace GameStateManagement
 
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
-
+            star1 = new ScrollingBackground();
+            star2 = new ScrollingBackground();
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
 
             //load paralzxing background
             bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+           // try scrolling
+            star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+
+            
+            
             //load enemies textures
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
@@ -230,6 +241,8 @@ namespace GameStateManagement
                 UpdateProjectiles();
                 bgLayer1.Update();
                 bgLayer2.Update();
+                star1.Update();
+                star2.Update();
                 //update the enemies
                 UpdateEnemies(gameTime);
                 UpdateCollision();
@@ -675,8 +688,13 @@ namespace GameStateManagement
             //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
             //draw new paralaxing background
             spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
-            bgLayer1.Draw(spriteBatch);
-            bgLayer2.Draw(spriteBatch);
+
+            //draw sroller
+            star1.Draw(spriteBatch);
+            star2.Draw(spriteBatch);
+            //dont draw these for now
+           // bgLayer1.Draw(spriteBatch);
+           // bgLayer2.Draw(spriteBatch);
             //draw the score
             spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 

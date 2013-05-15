@@ -58,6 +58,7 @@
     <Compile Include="SaturnsTurnGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ScrollingBackground.cs" />
     <Compile Include="Utility\ParallaxingBackground.cs" />
   </ItemGroup>
   <ItemGroup>
