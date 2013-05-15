@@ -345,12 +345,7 @@ namespace GameStateManagement
             }
         }
 
-        private void AddExplosion(Vector2 position)
-        {
-            Animation explosion = new Animation();
-            explosion.Initialize(explosion1Texture, position, 134, 134, 12, 45, Color.White, 1f, false);
-            explosions.Add(explosion);
-        }
+       
 
 
         private void UpdatePlayer(GameTime gameTime)
@@ -384,21 +379,7 @@ namespace GameStateManagement
 
             }
         }
-
-
-        private void AddProjectile(Vector2 position)
-        {
-
-            //moving to top
-            int projDamage = player.DamageMod + 3;
-            Projectile projectile = new Projectile();
-            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position, projDamage);
-
-
-
-
-            projectiles.Add(projectile);
-        }
+                
 
         private void UpdateCollision()
         {
@@ -506,11 +487,7 @@ namespace GameStateManagement
 
         }
 
-
-
-
-
-
+        
         private void UpdateExplosions(GameTime gameTime)
         {
             for (int i = explosions.Count - 1; i >= 0; i--)
@@ -522,9 +499,7 @@ namespace GameStateManagement
                 }
             }
         }
-
-
-
+        
         //addding powerup
         private void UpdatePowerUp(GameTime gameTime)
         {
@@ -602,6 +577,21 @@ namespace GameStateManagement
                 }
             }
         }
+
+
+        private void AddProjectile(Vector2 position)
+        {
+
+            //moving to top
+            int projDamage = player.DamageMod + 3;
+            Projectile projectile = new Projectile();
+            projectile.Initialize(ScreenManager.GraphicsDevice.Viewport, projectileTexture, position, projDamage);
+
+
+
+
+            projectiles.Add(projectile);
+        }
         //this addballoonenemy probably be taken out. but can add more later
         private void AddBalloonEnemy()
         {
@@ -618,6 +608,12 @@ namespace GameStateManagement
             // add the enemy to the active enemies list
             balloonEnemies.Add(balloonEnemy);
 
+        }
+        private void AddExplosion(Vector2 position)
+        {
+            Animation explosion = new Animation();
+            explosion.Initialize(explosion1Texture, position, 134, 134, 12, 45, Color.White, 1f, false);
+            explosions.Add(explosion);
         }
 
         private void AddDamagePowerUp()
