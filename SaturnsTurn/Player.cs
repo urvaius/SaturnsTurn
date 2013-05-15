@@ -54,6 +54,12 @@ namespace SaturnsTurn
 
 
         }
+        public void Respawn()
+        {
+            Active = true;
+            Health = 500;
+
+        }
 
         public void Reset()
         {

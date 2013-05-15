@@ -46,7 +46,7 @@ namespace GameStateManagement
         ParallaxingBackground bgLayer2;
         ScrollingBackground star1;
         ScrollingBackground star2;
-
+        bool gameOver;
 
         //enemies
         Texture2D enemyTexture;
@@ -182,7 +182,7 @@ namespace GameStateManagement
 
             //try projectile hee
 
-
+            gameOver = false;
 
             //score = 0;
 
@@ -282,6 +282,13 @@ namespace GameStateManagement
                 UpdatePowerUp(gameTime);
 
                 UpdateBackground();
+                if (gameOver == true)
+                {
+
+                    //todo change this
+                    LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
+                    LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
+                }
 
             }
         }
@@ -317,6 +324,8 @@ namespace GameStateManagement
             // on PC if they are playing with a keyboard and have no gamepad at all!
             bool gamePadDisconnected = !gamePadState.IsConnected &&
                                        input.GamePadWasConnected[playerIndex];
+
+
 
             if (input.IsPauseGame(ControllingPlayer) || gamePadDisconnected)
             {
@@ -419,13 +428,13 @@ namespace GameStateManagement
             player.Active = false;
             if (iLivesLeft > 0)
             {
-                player.Active = true;
+                player.Respawn();
                 player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
-
 
             }
             else
             {
+                gameOver = true;
                 player.Reset();
                 player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
                 iLivesLeft = 3;
@@ -435,6 +444,8 @@ namespace GameStateManagement
             
         }
 
+
+        //todo this is not working. 
         private void ResetEnemies()
         {
             for (int i = 0; i < balloonEnemies.Count; i++)
@@ -840,7 +851,7 @@ namespace GameStateManagement
 
 
 
-            //testing 
+            //todo testing 
             if (iLivesLeft == 0)
             {
                 spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
