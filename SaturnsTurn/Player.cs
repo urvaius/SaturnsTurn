@@ -58,7 +58,7 @@ namespace SaturnsTurn
         public void Reset()
         {
             Active = true;
-            Health = 100;
+            Health = 500;
             Score = 0;
             Power = 10;
             DamageMod = 0;

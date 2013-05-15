@@ -64,6 +64,8 @@ namespace GameStateManagement
         TimeSpan previousBalloonSpawnTime;
         TimeSpan powerUpSpawnTime;
         TimeSpan previousPowerUpSpawnTime;
+        TimeSpan deathTime;
+        TimeSpan previousDeathTime;
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
@@ -170,6 +172,8 @@ namespace GameStateManagement
             balloonEnemySpawnTime = TimeSpan.FromSeconds(5.0f);
             powerUpSpawnTime = TimeSpan.FromSeconds(5.0f);
             previousPowerUpSpawnTime = TimeSpan.Zero;
+            previousDeathTime = TimeSpan.Zero;
+            deathTime = TimeSpan.FromSeconds(1.0f);
             //initialize random number for enemies
             randomEnemy = new Random();
             randomPowerUp = new Random();
@@ -424,6 +428,7 @@ namespace GameStateManagement
             {
                 player.Reset();
                 player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
+                iLivesLeft = 3;
                 ResetEnemies();
             
             }
@@ -455,7 +460,13 @@ namespace GameStateManagement
 
 
 
+            if (player.Health <= 0 && gameTime.TotalGameTime - previousDeathTime > deathTime)
+            {
+                previousDeathTime = gameTime.TotalGameTime;
+                //todo
+                PlayerKilled();
 
+            }
            // if (player.Health <= 0)
            // {
 
@@ -525,8 +536,8 @@ namespace GameStateManagement
 
                     player.Health -= balloonEnemies[i].Damage;
                     balloonEnemies[i].Health -= player.Damage;
-                    if (player.Health <= 0)
-                        PlayerKilled();
+                    //if (player.Health <= 0)
+                     //  PlayerKilled();
                        // player.Active = false;
                 }
             }
@@ -543,8 +554,8 @@ namespace GameStateManagement
                     enemies[i].Health -= player.Damage;
 
                     //if the player health is less than zero we died
-                    if (player.Health <= 0)
-                        PlayerKilled();
+                   // if (player.Health <= 0)
+                     //   PlayerKilled();
                        // player.Active = false;
                 }
             }
