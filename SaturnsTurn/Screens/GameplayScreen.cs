@@ -190,6 +190,8 @@ namespace GameStateManagement
 
             //playmusic maybe here
             AudioManager.PlayMusic("gamemusic");
+
+            //todo take out music when switch menus
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
