@@ -241,6 +241,7 @@ namespace GameStateManagement
                 UpdateProjectiles();
                 bgLayer1.Update();
                 bgLayer2.Update();
+                //udate scrolling background w \\todo
                 star1.Update();
                // star2.Update();
                 //update the enemies
