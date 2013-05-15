@@ -300,16 +300,16 @@ namespace GameStateManagement
                 // Otherwise move the player position.
 
 
-                if (keyboardState.IsKeyDown(Keys.Left))
+                if (keyboardState.IsKeyDown(Keys.A))
                     movement.X--;
 
-                if (keyboardState.IsKeyDown(Keys.Right))
+                if (keyboardState.IsKeyDown(Keys.D))
                     movement.X++;
 
-                if (keyboardState.IsKeyDown(Keys.Up))
+                if (keyboardState.IsKeyDown(Keys.W))
                     movement.Y--;
 
-                if (keyboardState.IsKeyDown(Keys.Down))
+                if (keyboardState.IsKeyDown(Keys.S))
                     movement.Y++;
 
                 Vector2 thumbstick = gamePadState.ThumbSticks.Left;
@@ -422,7 +422,11 @@ namespace GameStateManagement
                     // projectiles[i].Damage = 10;
 
                     //add damage 
-                    player.DamageMod +=5;
+                    if (player.DamageMod <= 20)
+                    {
+                        player.DamageMod += 5;
+                    }
+                    
 
 
                     damagePowerUps[i].Active = false;
