@@ -817,7 +817,7 @@ namespace GameStateManagement
             //draw teh player health
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
-
+            spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 65),Color.White);
             //draw the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
