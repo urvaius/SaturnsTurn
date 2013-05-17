@@ -286,8 +286,8 @@ namespace GameStateManagement
                 {
 
                     //todo change this
-                    LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
-                    LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
+                   // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
+                   // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
                 }
 
             }
