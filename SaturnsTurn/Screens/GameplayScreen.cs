@@ -285,6 +285,8 @@ namespace GameStateManagement
                 if (gameOver == true)
                 {
 
+
+                    ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
                     //todo change this
                    // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
                    // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
