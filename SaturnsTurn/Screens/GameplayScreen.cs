@@ -42,10 +42,10 @@ namespace GameStateManagement
         //figure out which we are going to use 
         Background newBackground;
         Texture2D mainBackground;
-        ParallaxingBackground bgLayer1;
-        ParallaxingBackground bgLayer2;
-        ScrollingBackground star1;
-        ScrollingBackground star2;
+        //ParallaxingBackground bgLayer1;
+       // ParallaxingBackground bgLayer2;
+       // ScrollingBackground star1;
+       // ScrollingBackground star2;
         bool gameOver;
 
         //enemies
@@ -114,10 +114,10 @@ namespace GameStateManagement
             //todo figure out which background to use
             newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars");
 
-            bgLayer1 = new ParallaxingBackground();
-            bgLayer2 = new ParallaxingBackground();
-            star1 = new ScrollingBackground();
-            star2 = new ScrollingBackground();
+           // bgLayer1 = new ParallaxingBackground();
+            //bgLayer2 = new ParallaxingBackground();
+           // star1 = new ScrollingBackground();
+           // star2 = new ScrollingBackground();
 
 
             iLivesLeft = 3;
@@ -125,10 +125,10 @@ namespace GameStateManagement
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
 
             //load paralzxing background
-            bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
-            bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+           // bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+           // bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
             // try scrolling
-            star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+           // star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
 
 
@@ -269,10 +269,10 @@ namespace GameStateManagement
 
                 UpdatePlayer(gameTime);
                 UpdateProjectiles();
-                bgLayer1.Update();
-                bgLayer2.Update();
+               // bgLayer1.Update();
+               // bgLayer2.Update();
                 //udate scrolling background w \\todo
-                star1.Update();
+               // star1.Update();
                 // star2.Update();
                 //update the enemies
                 UpdateEnemies(gameTime);
