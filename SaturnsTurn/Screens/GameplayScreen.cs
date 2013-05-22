@@ -364,7 +364,7 @@ namespace GameStateManagement
                 // Otherwise move the player position.
 
 
-                if (keyboardState.IsKeyDown(Keys.A))
+                if (keyboardState.IsKeyDown(Keys.A)||keyboardState.IsKeyDown(Keys.Left))
                 {
                     movement.X--;
                     //add for scroll background
@@ -374,7 +374,7 @@ namespace GameStateManagement
 
 
 
-                if (keyboardState.IsKeyDown(Keys.D))
+                if (keyboardState.IsKeyDown(Keys.D)||keyboardState.IsKeyDown(Keys.Right))
                 {
                     movement.X++;
                     //add for scroll backgorund
@@ -383,10 +383,10 @@ namespace GameStateManagement
                 }
 
 
-                if (keyboardState.IsKeyDown(Keys.W))
+                if (keyboardState.IsKeyDown(Keys.W)||keyboardState.IsKeyDown(Keys.Up))
                     movement.Y--;
 
-                if (keyboardState.IsKeyDown(Keys.S))
+                if (keyboardState.IsKeyDown(Keys.S)||keyboardState.IsKeyDown(Keys.Down))
                     movement.Y++;
 
                 Vector2 thumbstick = gamePadState.ThumbSticks.Left;
