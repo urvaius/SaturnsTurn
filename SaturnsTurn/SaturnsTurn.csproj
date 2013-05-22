@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsteroidEnemy.cs" />
     <Compile Include="GreenMineEnemy.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs" />
