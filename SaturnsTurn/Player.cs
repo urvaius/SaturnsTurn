@@ -47,7 +47,7 @@ namespace SaturnsTurn
             Power = 10;
             DamageMod = 0;
             
-            Damage = 1;
+            Damage = 10;
             Shield = 0;
 
 

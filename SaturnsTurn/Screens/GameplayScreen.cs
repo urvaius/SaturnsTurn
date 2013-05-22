@@ -539,7 +539,7 @@ namespace GameStateManagement
                 }
 
             }
-            //do collision with balloonenemy and player
+            //todo collision with balloonenemy and player
             for (int i = 0; i < balloonEnemies.Count; i++)
             {
                 enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
@@ -549,6 +549,7 @@ namespace GameStateManagement
 
                     player.Health -= balloonEnemies[i].Damage;
                     balloonEnemies[i].Health -= player.Damage;
+
                     //if (player.Health <= 0)
                      //  PlayerKilled();
                        // player.Active = false;
