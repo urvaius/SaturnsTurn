@@ -57,14 +57,14 @@ namespace SaturnsTurn
         public void Respawn()
         {
             Active = true;
-            Health = 500;
+            Health = 100;
 
         }
 
         public void Reset()
         {
             Active = true;
-            Health = 500;
+            Health = 100;
             Score = 0;
             Power = 10;
             DamageMod = 0;
