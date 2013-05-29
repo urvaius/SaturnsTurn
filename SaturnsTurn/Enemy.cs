@@ -35,12 +35,12 @@ namespace SaturnsTurn
         #endregion
         #region Methods
 
-        public void Initialize(Animation animation, Vector2 position)
+        public virtual void Initialize(Animation animation, Vector2 position)
         {
             //load enemy ship texture
-            EnemyAnimation = animation;
+            this.EnemyAnimation = animation;
             //set the position of enemy
-            Position = position;
+            this.Position = position;
             // initizlize the enemy to be active
             Active = true;
             //set the helath
