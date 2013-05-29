@@ -607,11 +607,15 @@ namespace GameStateManagement
             //projectile vs balloon enemy collision
             for (int i = 0; i < projectiles.Count; i++)
             {
+
+                //see if this works here
+                projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+               
                 for (int j = 0; j < balloonEnemies.Count; j++)
                 {
                     //create the rectangles we need to determine if we collided with each other
-                    projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
+                   // projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
                     enemyRectangle2 = new Rectangle((int)balloonEnemies[j].Position.X - balloonEnemies[j].Width / 2, (int)balloonEnemies[j].Position.Y - balloonEnemies[j].Height / 2, balloonEnemies[j].Width, balloonEnemies[j].Height);
                     //determine if the two objects collide with each other
                     if (projectileRectangle.Intersects(enemyRectangle2))
@@ -621,7 +625,16 @@ namespace GameStateManagement
                     }
                 }
 
-
+                for (int k = 0; k < asteroids.Count; k++)
+                {
+                    asteroidRectangle = new Rectangle((int)asteroids[k].Position.X - asteroids[k].Width / 2, (int)asteroids[k].Position.Y - asteroids[k].Height/2,asteroids[k].Width,asteroids[k].Height);
+                    if (projectileRectangle.Intersects(asteroidRectangle))
+                    {
+                        asteroids[k].Health -= projectiles[i].Damage;
+                        projectiles[i].Active = false;
+                    }
+                
+                }
             }
 
 
@@ -699,6 +712,31 @@ namespace GameStateManagement
                 AddBalloonEnemy();
             }
 
+            //spawn asteroids
+            if (gameTime.TotalGameTime - previousAsteroidSpawnTime > asteroidSpawnTime)
+            {
+                previousAsteroidSpawnTime = gameTime.TotalGameTime;
+                AddAsteroid();
+            }
+            //update asteroids
+
+            for (int k = asteroids.Count - 1; k >= 0; k--)
+            {
+                asteroids[k].Update(gameTime);
+                if (asteroids[k].Active == false)
+                {
+                    AddExplosion(asteroids[k].Position);
+                    AudioManager.PlaySound("explosionSound");
+                    player.Score += asteroids[k].Value;
+                    asteroids.RemoveAt(k);
+                }
+                else if (asteroids[k].Active == true && asteroids[k].OnScreen == false)
+                {
+                    asteroids.RemoveAt(k);
+                }
+            }
+
+
             //update balloon enemies
             for (int i = balloonEnemies.Count - 1; i >= 0; i--)
             {
@@ -751,6 +789,20 @@ namespace GameStateManagement
 
 
             projectiles.Add(projectile);
+        }
+
+        private void AddAsteroid()
+        {
+            //this only uses a texture so need to try it this way. with animation anyuway
+            //todo
+            Animation asteroidAnimation = new Animation();
+            asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            AsteroidEnemy asteroid = new AsteroidEnemy();
+            asteroid.Initialize(asteroidAnimation, position);
+            asteroids.Add(asteroid);
+        
+        
         }
         //this addballoonenemy probably be taken out. but can add more later
         private void AddBalloonEnemy()
@@ -851,12 +903,21 @@ namespace GameStateManagement
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
             spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 65),Color.White);
-            //draw the enemies
-            for (int i = 0; i < enemies.Count; i++)
+            
+            //draw asteroids
+            for (int i = 0; i < asteroids.Count; i++)
             {
-                enemies[i].Draw(spriteBatch);
-
+                asteroids[i].Draw(spriteBatch);
             }
+
+                //draw the enemies
+
+
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].Draw(spriteBatch);
+
+                }
 
             //draw balloon enemies
             for (int i = 0; i < balloonEnemies.Count; i++)

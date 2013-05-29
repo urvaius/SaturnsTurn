@@ -7,6 +7,8 @@ namespace SaturnsTurn
 {
     class AsteroidEnemy : Enemy
     {
+
+        
         public override void Initialize(Animation animation,Vector2 position)
         {
 
@@ -27,6 +29,7 @@ namespace SaturnsTurn
             OnScreen = true;
 
         }
+   
 
 
     }
