@@ -9,7 +9,7 @@ namespace SaturnsTurn
     {
 
         
-        public override void Initialize(Animation animation,Vector2 position)
+        public virtual void Initialize(Animation animation,Vector2 position)
         {
 
             //load enemy ship texture

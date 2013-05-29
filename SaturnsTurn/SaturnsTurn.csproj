@@ -203,7 +203,9 @@
     <Content Include="Content\Graphics\Backgrounds\PrimaryStar.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Content\Graphics\asteroid01.xnb" />
+    <Content Include="Content\Graphics\asteroid01.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
