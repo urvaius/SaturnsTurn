@@ -168,7 +168,7 @@ namespace GameStateManagement
             //initialize asteroid
             asteroids = new List<AsteroidEnemy>();
             previousAsteroidSpawnTime = TimeSpan.Zero;
-            asteroidSpawnTime = TimeSpan.FromSeconds(.5f);
+            asteroidSpawnTime = TimeSpan.FromSeconds(10f);
             randomAsteroid = new Random();
 
 
@@ -181,9 +181,9 @@ namespace GameStateManagement
             previousSpawnTime = TimeSpan.Zero;
             previousBalloonSpawnTime = TimeSpan.Zero;
             //used to determine how fast enemy respawns
-            enemySpawnTime = TimeSpan.FromSeconds(1.0f);
+            enemySpawnTime = TimeSpan.FromSeconds(2.0f);
             balloonEnemySpawnTime = TimeSpan.FromSeconds(5.0f);
-            powerUpSpawnTime = TimeSpan.FromSeconds(5.0f);
+            powerUpSpawnTime = TimeSpan.FromSeconds(10.0f);
             previousPowerUpSpawnTime = TimeSpan.Zero;
             previousDeathTime = TimeSpan.Zero;
             deathTime = TimeSpan.FromSeconds(1.0f);
@@ -886,7 +886,7 @@ namespace GameStateManagement
 
             //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
             //draw new paralaxing background
-            spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
+            //spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
 
             //draw sroller
 
