@@ -31,7 +31,7 @@ namespace SaturnsTurn
             get {return EnemyAnimation.FrameHeight;}
         }
         //the speed of the enemy
-        float enemyMoveSpeed;
+        public float enemyMoveSpeed;
         #endregion
         #region Methods
 

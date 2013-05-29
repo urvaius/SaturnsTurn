@@ -51,6 +51,8 @@ namespace GameStateManagement
         //enemies
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
+        Texture2D asteroidTexture;
+        List<AsteroidEnemy> asteroidEnemies;
         List<Enemy> enemies;
         List<GreenMineEnemy> balloonEnemies;
         Texture2D projectileTexture;
