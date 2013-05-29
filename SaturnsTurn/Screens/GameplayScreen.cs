@@ -57,7 +57,7 @@ namespace GameStateManagement
         List<GreenMineEnemy> balloonEnemies;
         Texture2D projectileTexture;
         List<Projectile> projectiles;
-        TimeSpan fireTime;
+        //TimeSpan fireTime;
         //TimeSpan previousFireTime;
         //the rate for enemies to appear
         TimeSpan enemySpawnTime;
@@ -154,7 +154,7 @@ namespace GameStateManagement
 
             damagePowerUps = new List<PowerUp>();
             //set the laser to fie every quarter second
-            fireTime = TimeSpan.FromSeconds(.15f);
+            //fireTime = TimeSpan.FromSeconds(.15f);
 
             //load projectile
             projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
@@ -168,7 +168,7 @@ namespace GameStateManagement
             //initialize asteroid
             asteroids = new List<AsteroidEnemy>();
             previousAsteroidSpawnTime = TimeSpan.Zero;
-            asteroidSpawnTime = TimeSpan.FromSeconds(1.0f);
+            asteroidSpawnTime = TimeSpan.FromSeconds(.5f);
             randomAsteroid = new Random();
 
 
@@ -796,8 +796,8 @@ namespace GameStateManagement
             //this only uses a texture so need to try it this way. with animation anyuway
             //todo
             Animation asteroidAnimation = new Animation();
-            asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 47, 61, 1, 1, Color.White, 1f, true);
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
             AsteroidEnemy asteroid = new AsteroidEnemy();
             asteroid.Initialize(asteroidAnimation, position);
             asteroids.Add(asteroid);
