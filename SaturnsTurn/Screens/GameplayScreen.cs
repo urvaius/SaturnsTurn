@@ -52,7 +52,7 @@ namespace GameStateManagement
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
         Texture2D asteroidTexture;
-        List<AsteroidEnemy> asteroidEnemies;
+        List<AsteroidEnemy> asteroids;
         List<Enemy> enemies;
         List<GreenMineEnemy> balloonEnemies;
         Texture2D projectileTexture;
@@ -68,6 +68,8 @@ namespace GameStateManagement
         TimeSpan previousPowerUpSpawnTime;
         TimeSpan deathTime;
         TimeSpan previousDeathTime;
+        TimeSpan asteroidSpawnTime;
+        TimeSpan previousAsteroidSpawnTime;
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
@@ -78,10 +80,11 @@ namespace GameStateManagement
 
         MouseState currentMouseState;
         MouseState previousMouseState;
+        Random randomAsteroid;
         Random randomPowerUp;
-        //Vector2 powerUpPosition = new Vector2(100, 100); randonm
+        
         Random randomEnemy;
-        //Vector2 enemyPosition = new Vector2(100, 100);  not needed doit randomly
+        
 
         Random random = new Random();
 
@@ -133,9 +136,11 @@ namespace GameStateManagement
            // star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
 
+            
 
 
             //load enemies textures
+            asteroidTexture = content.Load<Texture2D>(@"Graphics\asteroid01");
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
             powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerup");
@@ -145,9 +150,7 @@ namespace GameStateManagement
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
-
-
-
+            
 
             damagePowerUps = new List<PowerUp>();
             //set the laser to fie every quarter second
@@ -159,6 +162,14 @@ namespace GameStateManagement
             // explosions
             explosions = new List<Animation>();
             explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
+
+
+
+            //initialize asteroid
+            asteroids = new List<AsteroidEnemy>();
+            previousAsteroidSpawnTime = TimeSpan.Zero;
+            asteroidSpawnTime = TimeSpan.FromSeconds(1.0f);
+            randomAsteroid = new Random();
 
 
             //initialize enemies list etc..
@@ -205,8 +216,7 @@ namespace GameStateManagement
             Thread.Sleep(1000);
 
 
-            //playmusic maybe here
-            //AudioManager.PlayMusic("gamemusic");
+          
 
             //todo take out music when switch menus
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -277,6 +287,7 @@ namespace GameStateManagement
                // star1.Update();
                 // star2.Update();
                 //update the enemies
+
                 UpdateEnemies(gameTime);
                 UpdateCollision();
                 UpdateExplosions(gameTime);
@@ -515,6 +526,7 @@ namespace GameStateManagement
             Rectangle enemyRectangle2;
             Rectangle projectileRectangle;
             Rectangle damagePowerUpRectangle;
+            Rectangle asteroidRectangle;
             //only create the rectangle once for the player
             playerRectangle = new Rectangle((int)player.Position3.X, (int)player.Position3.Y, player.Width, player.Height);
 
@@ -541,22 +553,38 @@ namespace GameStateManagement
                 }
 
             }
-            //todo collision with balloonenemy and player
-            for (int i = 0; i < balloonEnemies.Count; i++)
+
+            //asteroid to player collision
+            for (int i = 0; i < asteroids.Count; i++)
             {
-                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
-                if (playerRectangle.Intersects(enemyRectangle2))
+                asteroidRectangle = new Rectangle((int)asteroids[i].Position.X, (int)asteroids[i].Position.Y, asteroids[i].Width, asteroids[i].Height);
+                if (playerRectangle.Intersects(asteroidRectangle))
                 {
-
-
-                    player.Health -= balloonEnemies[i].Damage;
-                    balloonEnemies[i].Health -= player.Damage;
-
-                    //if (player.Health <= 0)
-                     //  PlayerKilled();
-                       // player.Active = false;
+                    player.Health -= asteroids[i].Damage;
+                    asteroids[i].Health -= player.Damage;
                 }
+
+
+
             }
+
+
+                //todo collision with balloonenemy and player
+                for (int i = 0; i < balloonEnemies.Count; i++)
+                {
+                    enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                    if (playerRectangle.Intersects(enemyRectangle2))
+                    {
+
+
+                        player.Health -= balloonEnemies[i].Damage;
+                        balloonEnemies[i].Health -= player.Damage;
+
+                        //if (player.Health <= 0)
+                        //  PlayerKilled();
+                        // player.Active = false;
+                    }
+                }
             //do the collision between the player and the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -581,7 +609,7 @@ namespace GameStateManagement
             {
                 for (int j = 0; j < balloonEnemies.Count; j++)
                 {
-                    //create the rectanles we need to determine if we collided with each other
+                    //create the rectangles we need to determine if we collided with each other
                     projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
                     enemyRectangle2 = new Rectangle((int)balloonEnemies[j].Position.X - balloonEnemies[j].Width / 2, (int)balloonEnemies[j].Position.Y - balloonEnemies[j].Height / 2, balloonEnemies[j].Width, balloonEnemies[j].Height);
@@ -592,6 +620,8 @@ namespace GameStateManagement
                         projectiles[i].Active = false;
                     }
                 }
+
+
             }
 
 
