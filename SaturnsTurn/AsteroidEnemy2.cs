@@ -58,6 +58,12 @@ namespace SaturnsTurn
         public void Update(GameTime gameTime)
         {
             //projectiles move to the right always
+
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            RotationAngle += elapsed;
+            float circle = MathHelper.Pi * 2;
+            RotationAngle = RotationAngle % circle;
+
             Position.X -= asteroidMoveSpeed;
             //deacivate the bullet if it goes out of screen
             if (Position.X < -Width)
@@ -76,7 +82,7 @@ namespace SaturnsTurn
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, null, Color.White, 0f, new Vector2(Width / 2, Height / 2), 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, Position, null, Color.White,  RotationAngle,new Vector2(Width / 2, Height / 2), 1f, SpriteEffects.None, 0f);
 
         }
     }
