@@ -33,6 +33,7 @@ namespace SaturnsTurn
         }
         //the speed of the enemy
         public float enemyMoveSpeed;
+        float RotationAngle;
         #endregion
         #region Methods
 
@@ -53,11 +54,19 @@ namespace SaturnsTurn
             //set the score value
             Value = 200;
             OnScreen = true;
+            
+
         }
         public void Update(GameTime gameTime)
         {
             //the enemy always move to the left so decrement its xposition
             Position.X -= enemyMoveSpeed;
+
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            RotationAngle += elapsed;
+            float circle = MathHelper.Pi * 2;
+            RotationAngle = RotationAngle % circle;
+
             //update the position of the animation
             EnemyAnimation.Position = Position;
             //update animation
@@ -78,10 +87,16 @@ namespace SaturnsTurn
             }
 
         }
+       // public void Draw(SpriteBatch spriteBatch)
+        //{
+            //draw the animation
+         //   EnemyAnimation.Draw(spriteBatch);
+
+   //     }
+        
+        //try this one
         public void Draw(SpriteBatch spriteBatch)
         {
-            //draw the animation
-            EnemyAnimation.Draw(spriteBatch);
 
         }
         #endregion

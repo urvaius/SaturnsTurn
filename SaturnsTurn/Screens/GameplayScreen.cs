@@ -51,8 +51,10 @@ namespace GameStateManagement
         //enemies
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
-        Texture2D asteroidTexture;
-        List<AsteroidEnemy> asteroids;
+        //Texture2D asteroidTexture;
+        Texture2D asteroidTexture2;
+        List<AsteroidEnemy2> asteroids2;
+        //List<AsteroidEnemy> asteroids;
         List<Enemy> enemies;
         List<GreenMineEnemy> balloonEnemies;
         Texture2D projectileTexture;
@@ -70,6 +72,7 @@ namespace GameStateManagement
         TimeSpan previousDeathTime;
         TimeSpan asteroidSpawnTime;
         TimeSpan previousAsteroidSpawnTime;
+        
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
@@ -140,7 +143,8 @@ namespace GameStateManagement
 
 
             //load enemies textures
-            asteroidTexture = content.Load<Texture2D>(@"Graphics\asteroid01");
+            asteroidTexture2 = content.Load<Texture2D>(@"Graphics\asteroid01");
+            //asteroidTexture = content.Load<Texture2D>(@"Graphics\asteroid01");
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
             powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerup");
@@ -166,7 +170,8 @@ namespace GameStateManagement
 
 
             //initialize asteroid
-            asteroids = new List<AsteroidEnemy>();
+            asteroids2 = new List<AsteroidEnemy2>();
+            //asteroids = new List<AsteroidEnemy>();
             previousAsteroidSpawnTime = TimeSpan.Zero;
             asteroidSpawnTime = TimeSpan.FromSeconds(10f);
             randomAsteroid = new Random();
@@ -555,13 +560,13 @@ namespace GameStateManagement
             }
 
             //asteroid to player collision
-            for (int i = 0; i < asteroids.Count; i++)
+            for (int i = 0; i < asteroids2.Count; i++)
             {
-                asteroidRectangle = new Rectangle((int)asteroids[i].Position.X, (int)asteroids[i].Position.Y, asteroids[i].Width, asteroids[i].Height);
+                asteroidRectangle = new Rectangle((int)asteroids2[i].Position.X, (int)asteroids2[i].Position.Y, asteroids2[i].Width, asteroids2[i].Height);
                 if (playerRectangle.Intersects(asteroidRectangle))
                 {
-                    player.Health -= asteroids[i].Damage;
-                    asteroids[i].Health -= player.Damage;
+                    player.Health -= asteroids2[i].Damage;
+                    asteroids2[i].Health -= player.Damage;
                 }
 
 
@@ -625,12 +630,12 @@ namespace GameStateManagement
                     }
                 }
 
-                for (int k = 0; k < asteroids.Count; k++)
+                for (int k = 0; k < asteroids2.Count; k++)
                 {
-                    asteroidRectangle = new Rectangle((int)asteroids[k].Position.X - asteroids[k].Width / 2, (int)asteroids[k].Position.Y - asteroids[k].Height/2,asteroids[k].Width,asteroids[k].Height);
+                    asteroidRectangle = new Rectangle((int)asteroids2[k].Position.X - asteroids2[k].Width / 2, (int)asteroids2[k].Position.Y - asteroids2[k].Height/2,asteroids2[k].Width,asteroids2[k].Height);
                     if (projectileRectangle.Intersects(asteroidRectangle))
                     {
-                        asteroids[k].Health -= projectiles[i].Damage;
+                        asteroids2[k].Health -= projectiles[i].Damage;
                         projectiles[i].Active = false;
                     }
                 
@@ -720,19 +725,20 @@ namespace GameStateManagement
             }
             //update asteroids
 
-            for (int k = asteroids.Count - 1; k >= 0; k--)
+            for (int k = asteroids2.Count - 1; k >= 0; k--)
             {
-                asteroids[k].Update(gameTime);
-                if (asteroids[k].Active == false)
+                asteroids2[k].Update(gameTime);
+
+                if (asteroids2[k].Active == false)
                 {
-                    AddExplosion(asteroids[k].Position);
+                    AddExplosion(asteroids2[k].Position);
                     AudioManager.PlaySound("explosionSound");
-                    player.Score += asteroids[k].Value;
-                    asteroids.RemoveAt(k);
+                    player.Score += asteroids2[k].Value;
+                    asteroids2.RemoveAt(k);
                 }
-                else if (asteroids[k].Active == true && asteroids[k].OnScreen == false)
+                else if (asteroids2[k].Active == true && asteroids2[k].OnScreen == false)
                 {
-                    asteroids.RemoveAt(k);
+                    asteroids2.RemoveAt(k);
                 }
             }
 
@@ -795,12 +801,14 @@ namespace GameStateManagement
         {
             //this only uses a texture so need to try it this way. with animation anyuway
             //todo
-            Animation asteroidAnimation = new Animation();
-            asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 47, 61, 1, 1, Color.White, 1f, true);
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
-            AsteroidEnemy asteroid = new AsteroidEnemy();
-            asteroid.Initialize(asteroidAnimation, position);
-            asteroids.Add(asteroid);
+            //Animation asteroidAnimation = new Animation();
+            //asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 40, 40, 1, 1, Color.White, 1f, true);
+            AsteroidEnemy2 asteroid = new AsteroidEnemy2();
+            
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture2.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
+            //AsteroidEnemy asteroid = new AsteroidEnemy();
+            asteroid.Initialize(ScreenManager.GraphicsDevice.Viewport,asteroidTexture2, position);
+            asteroids2.Add(asteroid);
         
         
         }
@@ -905,9 +913,9 @@ namespace GameStateManagement
             spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 65),Color.White);
             
             //draw asteroids
-            for (int i = 0; i < asteroids.Count; i++)
+            for (int i = 0; i < asteroids2.Count; i++)
             {
-                asteroids[i].Draw(spriteBatch);
+                asteroids2[i].Draw(spriteBatch);
             }
 
                 //draw the enemies
