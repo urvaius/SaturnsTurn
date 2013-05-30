@@ -47,7 +47,7 @@ namespace SaturnsTurn
             this.Position = position;
             this.viewport = viewport;
             Active = true;
-            Health = 200;
+            Health = 20;
             Damage = 20;
             Value = 200;
             OnScreen = true;
