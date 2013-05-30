@@ -57,7 +57,7 @@ namespace SaturnsTurn
 
         public void Update(GameTime gameTime)
         {
-            //projectiles move to the right always
+            
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             RotationAngle += elapsed;
@@ -65,13 +65,10 @@ namespace SaturnsTurn
             RotationAngle = RotationAngle % circle;
 
             Position.X -= asteroidMoveSpeed;
-            //deacivate the bullet if it goes out of screen
+            
             if (Position.X < -Width)
             {
-                //by setting the active flat to false the game will remove this object
-
-                //active game list
-                // Active = false;
+               
                 OnScreen = false;
             }
             if (Health <= 0)
