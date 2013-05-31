@@ -9,6 +9,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using SaturnsTurn.Utility;
 #endregion
 
@@ -20,6 +21,10 @@ namespace GameStateManagement
     class MainMenuScreen : MenuScreen
     {
         #region Initialization
+
+        public static Texture2D ParticleTextTexture;
+        ParticleText particleText;
+        SpriteFont particleFont;
         ContentManager content;
         //SoundEffect titleMusic;
        // SoundEffectInstance titleMusictInstance;
@@ -55,6 +60,11 @@ namespace GameStateManagement
         {
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
+            //todo
+                particleFont = content.Load<SpriteFont>(@"Graphics\particleFont");
+                ParticleTextTexture = content.Load<Texture2D>(@"Graphics\TextParticle");
+                particleText = new ParticleText(ScreenManager.GraphicsDevice, particleFont, "Saturn's Turn", ParticleTextTexture);
+
             
         }
         #region Handle Input
@@ -118,10 +128,18 @@ namespace GameStateManagement
             {
                 AudioManager.StopSound("titlemusic");
             }
-
+            particleText.Update();
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
         }
 
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            spriteBatch.Begin(0, BlendState.Additive);
+            particleText.Draw(spriteBatch);
+            spriteBatch.End();
+            base.Draw(gameTime);
+        }
         #endregion
     }
 }

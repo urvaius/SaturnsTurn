@@ -14,6 +14,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using SaturnsTurn.Utility;
+
 #endregion
 
 namespace GameStateManagement
@@ -29,7 +32,7 @@ namespace GameStateManagement
         List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selectedEntry = 0;
         string menuTitle;
-
+        
         #endregion
 
         #region Properties
@@ -175,7 +178,7 @@ namespace GameStateManagement
                 position.Y += menuEntry.GetHeight(this);
             }
         }
-
+      
 
         /// <summary>
         /// Updates the menu.
@@ -184,7 +187,7 @@ namespace GameStateManagement
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-
+            
             // Update each nested MenuEntry object.
             for (int i = 0; i < menuEntries.Count; i++)
             {
@@ -192,6 +195,7 @@ namespace GameStateManagement
 
                 menuEntries[i].Update(this, isSelected, gameTime);
             }
+           
         }
 
 
@@ -209,6 +213,8 @@ namespace GameStateManagement
 
             spriteBatch.Begin();
 
+
+            
             // Draw each menu entry in turn.
             for (int i = 0; i < menuEntries.Count; i++)
             {
@@ -237,7 +243,7 @@ namespace GameStateManagement
             //don't want menu title
             spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
                                   titleOrigin, titleScale, SpriteEffects.None, 0);
-            
+           
             spriteBatch.End();
         }
 

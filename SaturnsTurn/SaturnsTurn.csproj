@@ -62,7 +62,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Background.cs" />
-    <Compile Include="Utility\Particle.cs" />
+    <Compile Include="Utility\ParticleText.cs" />
     <Compile Include="Utility\ScrollingBackground.cs" />
     <Compile Include="Utility\ParallaxingBackground.cs" />
   </ItemGroup>
@@ -208,10 +208,10 @@
     <Content Include="Content\Graphics\asteroid01.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Graphics\particleFont.xnb">
+    <Content Include="Content\Graphics\TextParticle.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Graphics\Text-Particle.xnb">
+    <Content Include="Content\Graphics\particleFont.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
