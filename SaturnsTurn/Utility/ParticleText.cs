@@ -11,7 +11,8 @@ namespace SaturnsTurn.Utility
         static Random rand = new Random();
 
         public Vector2 Size { get { return textSize * scale; } }
-        public Color Color = new Color(10, 30, 255);  // almost pure blue
+        //public Color Color = new Color(10, 30, 255);  // almost pure blue
+        public Color Color = new Color(55, 205, 50);  // lime green
 
         List<Particle> textParticles = new List<Particle>();
         Texture2D particleTexture;
@@ -19,7 +20,7 @@ namespace SaturnsTurn.Utility
         Vector2 textSize;
         float scale;
 
-        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale = 4f)
+        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale = 2f)
         {
             this.scale = scale;
             this.particleTexture = particleTexture;

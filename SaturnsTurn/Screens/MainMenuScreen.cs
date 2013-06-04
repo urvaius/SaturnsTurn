@@ -32,7 +32,7 @@ namespace GameStateManagement
         /// Constructor fills in the menu contents.
         /// </summary>
         public MainMenuScreen()
-            : base("Saturn's Turn")
+            : base("") //blank as using particle 
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
@@ -61,7 +61,7 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             //todo
-                particleFont = content.Load<SpriteFont>(@"Graphics\particleFont");
+                particleFont = content.Load<SpriteFont>(@"Graphics\particleFont50");
                 ParticleTextTexture = content.Load<Texture2D>(@"Graphics\TextParticle");
                 particleText = new ParticleText(ScreenManager.GraphicsDevice, particleFont, "Saturn's Turn", ParticleTextTexture);
 
