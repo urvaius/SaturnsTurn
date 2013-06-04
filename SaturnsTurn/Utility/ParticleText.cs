@@ -20,7 +20,7 @@ namespace SaturnsTurn.Utility
         Vector2 textSize;
         float scale;
 
-        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale = 2f)
+        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale = 2.0f)
         {
             this.scale = scale;
             this.particleTexture = particleTexture;
