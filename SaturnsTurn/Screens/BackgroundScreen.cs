@@ -55,7 +55,7 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            backgroundTexture = content.Load<Texture2D>(@"Graphics\Backgrounds\saturn");
+            backgroundTexture = content.Load<Texture2D>(@"Graphics\Backgrounds\saturn1");
         }
 
 
