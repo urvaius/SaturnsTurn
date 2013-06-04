@@ -20,13 +20,15 @@ namespace SaturnsTurn.Utility
         Vector2 textSize;
         float scale;
 
-        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale )
+        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale,Vector2 screenSize )
         {
             this.scale = scale;
             this.particleTexture = particleTexture;
 
             var viewport = graphicsDevice.Viewport;
-            screenSize = new Vector2(viewport.Width, viewport.Height);
+
+            //screenSize = new Vector2(viewport.Width , viewport.Height-300);//this is in constructor now. 
+            this.screenSize = screenSize;
             textSize = font.MeasureString(text);
             Vector2 offset = (screenSize / scale - textSize) / 2f ;
 
