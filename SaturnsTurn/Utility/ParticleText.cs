@@ -20,7 +20,7 @@ namespace SaturnsTurn.Utility
         Vector2 textSize;
         float scale;
 
-        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale = 2.0f)
+        public ParticleText(GraphicsDevice graphicsDevice, SpriteFont font, string text, Texture2D particleTexture, float scale )
         {
             this.scale = scale;
             this.particleTexture = particleTexture;
@@ -28,7 +28,7 @@ namespace SaturnsTurn.Utility
             var viewport = graphicsDevice.Viewport;
             screenSize = new Vector2(viewport.Width, viewport.Height);
             textSize = font.MeasureString(text);
-            Vector2 offset = (screenSize / scale - textSize) / 2f;
+            Vector2 offset = (screenSize / scale - textSize) / 2f ;
 
             var textPoints = GetParticlePositions(graphicsDevice, font, text);
 
@@ -59,7 +59,7 @@ namespace SaturnsTurn.Utility
 
             SpriteBatch spriteBatch = new SpriteBatch(device);
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, text, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, text, Vector2.Zero , Color.White);
             spriteBatch.End();
 
             device.SetRenderTarget(null);	// unset the render target
@@ -92,7 +92,7 @@ namespace SaturnsTurn.Utility
             float theta = (float)rand.NextDouble() * MathHelper.TwoPi;
             float r = rand.Next((int)screenSize.Y);
 
-            Vector2 pos = new Vector2(r * (float)Math.Cos(theta) + screenSize.X / 2, r * (float)Math.Sin(theta) + screenSize.Y / 2);
+            Vector2 pos = new Vector2(r * (float)Math.Cos(theta) + screenSize.X / 2 , r * (float)Math.Sin(theta) + screenSize.Y / 2);
             return pos / scale;
         }
 
