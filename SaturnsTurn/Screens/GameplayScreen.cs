@@ -609,7 +609,10 @@ namespace GameStateManagement
                 }
             }
 
-            //projectile vs balloon enemy collision
+
+            #region projectile vs enemies collision
+            
+            //projectile vs enemies collision
             for (int i = 0; i < projectiles.Count; i++)
             {
 
@@ -629,7 +632,7 @@ namespace GameStateManagement
                         projectiles[i].Active = false;
                     }
                 }
-
+                //projectile vs asteroids
                 for (int k = 0; k < asteroids2.Count; k++)
                 {
                     asteroidRectangle = new Rectangle((int)asteroids2[k].Position.X - asteroids2[k].Width / 2, (int)asteroids2[k].Position.Y - asteroids2[k].Height/2,asteroids2[k].Width,asteroids2[k].Height);
@@ -640,28 +643,27 @@ namespace GameStateManagement
                     }
                 
                 }
-            }
 
-
-
-
-            //projectile vs enemy collision
-            for (int i = 0; i < projectiles.Count; i++)
-            {
-                for (int j = 0; j < enemies.Count; j++)
+                for (int t = 0; t < enemies.Count; t++)
                 {
                     //create the rectanles we need to determine if we collided with each other
                     projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
-                    enemyRectangle2 = new Rectangle((int)enemies[j].Position.X - enemies[j].Width / 2, (int)enemies[j].Position.Y - enemies[j].Height / 2, enemies[j].Width, enemies[j].Height);
+                    enemyRectangle2 = new Rectangle((int)enemies[t].Position.X - enemies[t].Width / 2, (int)enemies[t].Position.Y - enemies[t].Height / 2, enemies[t].Width, enemies[t].Height);
                     //determine if the two objects collide with each other
                     if (projectileRectangle.Intersects(enemyRectangle2))
                     {
-                        enemies[j].Health -= projectiles[i].Damage;
+                        enemies[t].Health -= projectiles[t].Damage;
                         projectiles[i].Active = false;
                     }
                 }
+
             }
+
+            #endregion
+
+
+
 
         }
 
@@ -910,7 +912,7 @@ namespace GameStateManagement
             //draw teh player health
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
-            spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 65),Color.White);
+            spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70),Color.White);
             
             //draw asteroids
             for (int i = 0; i < asteroids2.Count; i++)
