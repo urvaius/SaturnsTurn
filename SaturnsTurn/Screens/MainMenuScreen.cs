@@ -61,11 +61,10 @@ namespace GameStateManagement
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             //todo
-                particleFont = content.Load<SpriteFont>(@"Graphics\ParticleFont30Italic");
+                particleFont = content.Load<SpriteFont>(@"Graphics\ParticleFont50");
                 ParticleTextTexture = content.Load<Texture2D>(@"Graphics\TextParticle");
-                particleText = new ParticleText(ScreenManager.GraphicsDevice, particleFont, "Saturn's Turn", ParticleTextTexture,3.0f);
-
-            
+                particleText = new ParticleText(ScreenManager.GraphicsDevice, particleFont, "Saturn's Turn", ParticleTextTexture,2.0f);
+                
         }
         #region Handle Input
 

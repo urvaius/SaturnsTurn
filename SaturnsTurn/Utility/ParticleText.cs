@@ -92,7 +92,7 @@ namespace SaturnsTurn.Utility
             float theta = (float)rand.NextDouble() * MathHelper.TwoPi;
             float r = rand.Next((int)screenSize.Y);
 
-            Vector2 pos = new Vector2(r * (float)Math.Cos(theta) + screenSize.X / 2 , r * (float)Math.Sin(theta) + screenSize.Y / 2);
+            Vector2 pos = new Vector2(r * (float)Math.Cos(theta) + screenSize.X /2 , r * (float)Math.Sin(theta) + screenSize.Y / 2);
             return pos / scale;
         }
 
