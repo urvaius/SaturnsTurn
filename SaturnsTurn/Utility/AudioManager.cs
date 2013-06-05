@@ -88,7 +88,7 @@ namespace SaturnsTurn.Utility
                 {"PickedPowerup2", "powerup"},
               {"gameMusic","gamemusic"},
               {"explosion","explosionSound"},
-              {"laserFire","laserSound"},
+              {"laser1","laserSound"},
               {"titlesmusic", "titlemusic"} 
             };
 

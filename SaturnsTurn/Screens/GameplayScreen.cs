@@ -659,7 +659,7 @@ namespace GameStateManagement
                     //determine if the two objects collide with each other
                     if (projectileRectangle.Intersects(enemyRectangle2))
                     {
-                        enemies[t].Health -= projectiles[t].Damage;
+                        enemies[t].Health -= projectiles[i].Damage;
                         projectiles[i].Active = false;
                     }
                 }
