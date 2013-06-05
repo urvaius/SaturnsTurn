@@ -85,7 +85,7 @@ namespace SaturnsTurn.Utility
               //  {"YellowButton", "yellow"},
                // {"HighScoreScreen", "doorOpen"},
               //  {"LevelComplete", "success"},
-              //  {"DefeatBuzzer", "fail"}
+                {"PickedPowerup2", "powerup"},
               {"gameMusic","gamemusic"},
               {"explosion","explosionSound"},
               {"laserFire","laserSound"},

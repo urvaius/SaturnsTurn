@@ -549,7 +549,13 @@ namespace GameStateManagement
                     //add damage 
                     if (player.DamageMod <= 20)
                     {
+                        AudioManager.PlaySound("powerup");
                         player.DamageMod += 5;
+                    }
+                    else
+                    {
+                        //todo make sound for no more powerups
+                       // AudioManager.PlaySound("");
                     }
 
 
