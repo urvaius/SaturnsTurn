@@ -120,7 +120,7 @@ namespace GameStateManagement
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             //todo figure out which background to use
-            newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars");
+            newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars",ScreenManager.GraphicsDevice.Viewport.Width,ScreenManager.GraphicsDevice.Viewport.Height);
 
            // bgLayer1 = new ParallaxingBackground();
             //bgLayer2 = new ParallaxingBackground();

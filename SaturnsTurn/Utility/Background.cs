@@ -5,14 +5,21 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using SaturnsTurn;
+using GameStateManagement;
 namespace SaturnsTurn.Utility
 {
     class Background
     {
         Texture2D t2dBackground;
         Texture2D t2dParallax;
-        int iViewportWidth = 1280;
-        int iViewportHeight = 720;
+        //int iViewportWidth = 1280;
+       // int iViewportHeight = 720;
+
+        
+        int iViewportWidth {get;set;}
+        int iViewportHeight {get;set;}
+        
         int iBackgroundWidth = 1920;
         int iBackgroundHeight = 720;
         int iParallaxWidth = 1680;
@@ -64,15 +71,18 @@ namespace SaturnsTurn.Utility
         }
 
         //constructor  may need to change all of this not sure yet
-        public Background(ContentManager content,string sBackground, string sParallax)
+        public Background(ContentManager content,string sBackground, string sParallax,int IViewportWidth,int IViewportHeight)
         {
+            iViewportWidth = IViewportWidth;
+            iViewportHeight = IViewportHeight;
+
             t2dBackground = content.Load<Texture2D>(sBackground);
             iBackgroundWidth = t2dBackground.Width;
             iBackgroundHeight = t2dBackground.Height;
             t2dParallax = content.Load<Texture2D>(sParallax);
             iParallaxWidth = t2dParallax.Width;
             iParallaxHeight = t2dParallax.Height;
-
+            
 
         }
 
@@ -91,6 +101,9 @@ namespace SaturnsTurn.Utility
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
+          
+            
             // Draw the background panel, offset by the player's location
             spriteBatch.Draw(
                 t2dBackground,
