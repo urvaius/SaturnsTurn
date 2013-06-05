@@ -87,9 +87,10 @@ namespace SaturnsTurn.Utility
         }
 
         // Constructor when passed a content manager and a single string
-        public Background(ContentManager content, string sBackground)
+        public Background(ContentManager content, string sBackground,int IViewportWidth,int IViewportHeight)
         {
-
+            iViewportWidth = IViewportWidth;
+            iViewportHeight = IViewportHeight;
             t2dBackground = content.Load<Texture2D>(sBackground);
             iBackgroundWidth = t2dBackground.Width;
             iBackgroundHeight = t2dBackground.Height;
