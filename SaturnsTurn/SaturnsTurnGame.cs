@@ -78,11 +78,11 @@ namespace SaturnsTurn
         protected override void Initialize()
         {
 
-            //graphics.PreferredBackBufferWidth = 1280;
-           // graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1024;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            //graphics.PreferredBackBufferWidth = 1024;
+            //graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
             base.Initialize();
         }
