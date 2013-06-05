@@ -23,7 +23,7 @@ namespace SaturnsTurn
         
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
-
+       // GraphicsAdapter adapter;
        // float playerMoveSpeed;
        // Player player;
 
@@ -45,9 +45,11 @@ namespace SaturnsTurn
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = false;
+           // graphics.PreferredBackBufferWidth = 1280;
+            //graphics.PreferredBackBufferHeight = 720;
+           
+            
+            
             
             Window.Title = "Saturn's Turn";
 
@@ -76,8 +78,11 @@ namespace SaturnsTurn
         protected override void Initialize()
         {
 
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            //graphics.PreferredBackBufferWidth = 1280;
+           // graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();
         }

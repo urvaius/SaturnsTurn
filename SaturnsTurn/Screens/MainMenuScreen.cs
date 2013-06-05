@@ -35,7 +35,7 @@ namespace GameStateManagement
             : base("") //blank as using particle 
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry playGameMenuEntry = new MenuEntry("Play");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
