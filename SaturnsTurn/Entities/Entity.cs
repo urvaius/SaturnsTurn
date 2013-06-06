@@ -4,11 +4,13 @@ using Microsoft.Xna.Framework.Graphics;
 using SaturnsTurn.Utility;
 namespace SaturnsTurn
 {
-    class Entity
+   public abstract class Entity
     {
         #region fields
         //animation for the enemy
-        public Animation EnemyAnimation;
+        public Animation EntityAnimation;
+        Viewport viewport;
+        Texture2D Texture;
         //the position of enemy of ship
         public Vector2 Position;
         //state of the shipo
@@ -20,49 +22,65 @@ namespace SaturnsTurn
         //the score you will get from killing the enemy
         public int Value;
         //get the width of the enemy ship
-        public int Width
+        public int AnimWidth
         {
-            get{return EnemyAnimation.FrameWidth;}
+            get{return EntityAnimation.FrameWidth;}
         }
 
         //get the height of the enemy ship
-        public int Height
+        public int AnimHeight
         {
-            get {return EnemyAnimation.FrameHeight;}
+            get {return EntityAnimation.FrameHeight;}
         }
         //the speed of the enemy
-        public float enemyMoveSpeed;
+        public float entityMoveSpeed;
         #endregion
         #region Methods
+        
+       public virtual void Initialize(Viewport viewport, Texture2D texture, Vector2 position)
+        {
+            Texture = texture;
+            this.Position = position;
+            this.viewport = viewport;
+            Active = true;
+            Health = 0;
+            Damage = 0;
+            Value = 0;
+            OnScreen = true;
+
+            entityMoveSpeed = 1f;
+        }
 
         public virtual void Initialize(Animation animation, Vector2 position)
         {
             //load enemy ship texture
-            this.EnemyAnimation = animation;
+            this.EntityAnimation = animation;
             //set the position of enemy
             this.Position = position;
             // initizlize the enemy to be active
             Active = true;
             //set the helath
-            Health = 10;
+            Health = 0;
             //set damage it can do
-            Damage = 5;
+            Damage = 0;
             // set how fast the enemy moves
-            enemyMoveSpeed = 5f;
+            entityMoveSpeed = 1f;
             //set the score value
             Value = 100;
             OnScreen = true;
         }
-        public void Update(GameTime gameTime)
+
+
+        public virtual void Update(GameTime gameTime)
         {
             //the enemy always move to the left so decrement its xposition
-            Position.X -= enemyMoveSpeed;
+            Position.X -= entityMoveSpeed;
             //update the position of the animation
-            EnemyAnimation.Position = Position;
+            EntityAnimation.Position = Position;
             //update animation
-            EnemyAnimation.Update(gameTime);
+            EntityAnimation.Update(gameTime);
             //if the enemy is past the screen or its health reaches 0 then deactivate it
-            if (Position.X < -Width)
+            if (Position.X < -AnimWidth)
             {
                 //by setting the active flat to false the game will remove this object
 
@@ -77,10 +95,10 @@ namespace SaturnsTurn
             }
 
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             //draw the animation
-            EnemyAnimation.Draw(spriteBatch);
+            EntityAnimation.Draw(spriteBatch);
 
         }
         #endregion
