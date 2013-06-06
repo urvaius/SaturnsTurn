@@ -35,13 +35,14 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AsteroidEnemy.cs" />
-    <Compile Include="AsteroidEnemy2.cs" />
-    <Compile Include="GreenMineEnemy.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PowerUp.cs" />
-    <Compile Include="Projectile.cs" />
+    <Compile Include="Entities\AsteroidEnemy.cs" />
+    <Compile Include="Entities\AsteroidEnemy2.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\GreenMineEnemy.cs" />
+    <Compile Include="Entities\Enemy.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="Entities\PowerUp.cs" />
+    <Compile Include="Entities\Projectile.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
