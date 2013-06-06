@@ -64,6 +64,15 @@ namespace SaturnsTurn
 
         }
 
+
+        public void PowerUpCollision()
+        {
+            if (PowerUpName == "DamagePowerUp")
+            {
+                UpdateDamage();
+            }
+
+        }
         //not used yet
         private void UpdateDamage()
         {
@@ -83,12 +92,7 @@ namespace SaturnsTurn
         }
         public void Update(GameTime gameTime)
         {
-            //not used yet but maybe
-            if (PowerUpName == "DamagePowerUp")
-             
-            {
-                UpdateDamage();
-            }
+            
 
 
 

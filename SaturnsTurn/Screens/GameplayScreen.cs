@@ -544,7 +544,7 @@ namespace GameStateManagement
 
                     AudioManager.PlaySound("PowerUp");            
                    // moved the damage mod to the powerup class
-                    
+                    damagePowerUps[i].PowerUpCollision();
                    
 
 
