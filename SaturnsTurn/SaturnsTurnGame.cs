@@ -82,7 +82,7 @@ namespace SaturnsTurn
             graphics.PreferredBackBufferHeight = 720;
             //graphics.PreferredBackBufferWidth = 1024;
             //graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.ApplyChanges();
             base.Initialize();
         }

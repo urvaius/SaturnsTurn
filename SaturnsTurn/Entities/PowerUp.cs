@@ -10,19 +10,20 @@ namespace SaturnsTurn
 {
     class PowerUp
     {
-        
+
         public int Shield { get; set; }
         public Texture2D PowerUpTexture;
         public Vector2 Position;
         public bool Active;
-        public List<String> PowerUpType;
+        //public List<String> PowerUpType;
         public int Damage { get; set; }
-        public string ShieldPowerUp;
-        public string DamagePowerUp;
+        //public string ShieldPowerUp;
+       // public string DamagePowerUp;
         public string PowerUpName;
+        public Player Player { get; set; }
         //todo add move speed etc..
 
-        
+
 
 
         Viewport viewport;
@@ -41,47 +42,56 @@ namespace SaturnsTurn
         float PowerUpMoveSpeed;
 
 
-        public void Initialize(Viewport viewport, Texture2D texture, Vector2 position,string powerUpName)
+        public void Initialize(Viewport viewport, Texture2D texture, Vector2 position, string powerUpName, Player player)
         {
 
-
+            Player = player;
             PowerUpTexture = texture;
             Position = position;
             this.viewport = viewport;
             Active = true;
             this.Damage = Damage;
             PowerUpName = powerUpName;
-            PowerUpType = new List<String>();
-            PowerUpType.Add(PowerUpName);
+           // PowerUpType = new List<String>();
+            //PowerUpType.Add(PowerUpName);
             PowerUpMoveSpeed = 3f;
 
-            
-            
-            
 
-            
-            
+
+
+
+
+
         }
 
         //not used yet
         private void UpdateDamage()
         {
             //todo
+            if (Player.DamageMod <= 20)
+            {
+                Player.DamageMod += 5;
+
+            }
             
-        
+
         }
 
+        private void UpdateShield()
+        {
 
+        }
         public void Update(GameTime gameTime)
         {
             //not used yet but maybe
-            if (PowerUpType.Equals(DamagePowerUp))
+            if (PowerUpName == "DamagePowerUp")
+             
             {
                 UpdateDamage();
             }
 
-            
-            
+
+
             Position.X -= PowerUpMoveSpeed;
             //deacivate the powerupif it goes out of screen
             if (Position.X < -Width)

@@ -292,7 +292,7 @@ namespace GameStateManagement
                // star1.Update();
                 // star2.Update();
                 //update the enemies
-
+                
                 UpdateEnemies(gameTime);
                 UpdateCollision();
                 UpdateExplosions(gameTime);
@@ -487,7 +487,7 @@ namespace GameStateManagement
         {
 
             player.Update(gameTime);
-
+            
 
 
 
@@ -542,22 +542,10 @@ namespace GameStateManagement
                 if (playerRectangle.Intersects(damagePowerUpRectangle))
                 {
 
-                    //todo add powerup to do stuff
-
-                    // projectiles[i].Damage = 10;
-
-                    //add damage 
-                    if (player.DamageMod <= 20)
-                    {
-                        AudioManager.PlaySound("powerup");
-                        player.DamageMod += 5;
-                    }
-                    else
-                    {
-                        //todo make sound for no more powerups
-                       // AudioManager.PlaySound("");
-                    }
-
+                    AudioManager.PlaySound("PowerUp");            
+                   // moved the damage mod to the powerup class
+                    
+                   
 
 
                     damagePowerUps[i].Active = false;
@@ -851,7 +839,7 @@ namespace GameStateManagement
 
             PowerUp damagePowerUp = new PowerUp();
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
-            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp");
+            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp",player);
 
             damagePowerUps.Add(damagePowerUp);
 
