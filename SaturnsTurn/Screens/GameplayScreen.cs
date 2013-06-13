@@ -542,7 +542,7 @@ namespace GameStateManagement
                 if (playerRectangle.Intersects(damagePowerUpRectangle))
                 {
 
-                    AudioManager.PlaySound("PowerUp");            
+                    AudioManager.PlaySound("powerup");            
                    // moved the damage mod to the powerup class
                     damagePowerUps[i].PowerUpCollision();
                    
