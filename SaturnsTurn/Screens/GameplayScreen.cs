@@ -86,7 +86,7 @@ namespace GameStateManagement
         MouseState previousMouseState;
         Random randomAsteroid;
         Random randomPowerUp;
-        
+        Random ranp;
         Random randomEnemy;
         
 
@@ -704,8 +704,18 @@ namespace GameStateManagement
                 previousPowerUpSpawnTime = gameTime.TotalGameTime;
                 //todo
                 //don't want both at same time but will look at
-                AddDamagePowerUp();
-                AddShieldPowerUp();
+                int rannum;
+                ranp = new Random();
+                rannum = ranp.Next(20);
+                if (rannum >= 11)
+                {
+                    AddDamagePowerUp();
+                }
+                else
+                {
+                    AddShieldPowerUp();
+                }
+                
 
             }
 
