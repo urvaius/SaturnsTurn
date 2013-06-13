@@ -71,6 +71,10 @@ namespace SaturnsTurn
             {
                 UpdateDamage();
             }
+            else if (PowerUpName == "ShieldPowerUp")
+            {
+                UpdateShield();
+            }
 
         }
         //not used yet

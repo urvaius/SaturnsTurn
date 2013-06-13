@@ -220,6 +220,9 @@
     <Content Include="Content\Sounds\laser1.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Graphics\shieldpowerup.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
     <Content Include="Content\Sounds\PickedPowerup2.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

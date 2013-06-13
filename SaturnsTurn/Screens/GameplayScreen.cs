@@ -77,6 +77,7 @@ namespace GameStateManagement
         Texture2D explosion1Texture;
         List<Animation> explosions;
         Texture2D powerupDamageTexture;
+        Texture2D powerupShieldTexture;
         List<PowerUp> damagePowerUps;
         List<PowerUp> shieldPowerUps;
         //string damagePowerUp;
@@ -148,6 +149,7 @@ namespace GameStateManagement
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
             balloonEnemyTexture = content.Load<Texture2D>(@"Graphics\mineGreenAnimation");
             powerupDamageTexture = content.Load<Texture2D>(@"Graphics\powerup");
+            powerupShieldTexture = content.Load<Texture2D>(@"Graphics\shieldpowerup");
             mainBackground = content.Load<Texture2D>(@"Graphics\mainbackground");
 
 
@@ -155,8 +157,9 @@ namespace GameStateManagement
             //initialize projectile
             projectiles = new List<Projectile>();
             
-
+            //powerups
             damagePowerUps = new List<PowerUp>();
+            shieldPowerUps = new List<PowerUp>();
             //set the laser to fie every quarter second
             //fireTime = TimeSpan.FromSeconds(.15f);
 
@@ -532,9 +535,28 @@ namespace GameStateManagement
             Rectangle projectileRectangle;
             Rectangle damagePowerUpRectangle;
             Rectangle asteroidRectangle;
+            Rectangle shieldPowerUpRectangle;
             //only create the rectangle once for the player
             playerRectangle = new Rectangle((int)player.Position3.X, (int)player.Position3.Y, player.Width, player.Height);
 
+
+            //shield powerup collision
+            for (int i = 0; i < shieldPowerUps.Count; i++)
+            {
+                shieldPowerUpRectangle = new Rectangle((int)shieldPowerUps[i].Position.X, (int)shieldPowerUps[i].Position.Y, shieldPowerUps[i].Width, shieldPowerUps[i].Height);
+                if (playerRectangle.Intersects(shieldPowerUpRectangle))
+                {
+
+                    AudioManager.PlaySound("powerup");
+                    // moved the damage mod to the powerup class
+                    shieldPowerUps[i].PowerUpCollision();
+
+
+
+                    shieldPowerUps[i].Active = false;
+                }
+
+            }
             //damage powerup collisiong
             for (int i = 0; i < damagePowerUps.Count; i++)
             {
@@ -681,19 +703,30 @@ namespace GameStateManagement
             {
                 previousPowerUpSpawnTime = gameTime.TotalGameTime;
                 //todo
+                //don't want both at same time but will look at
                 AddDamagePowerUp();
+                AddShieldPowerUp();
 
             }
 
-            for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+            for (int i = shieldPowerUps.Count - 1; i >= 0; i--)
             {
-                damagePowerUps[i].Update(gameTime);
-                if (damagePowerUps[i].Active == false)
+                shieldPowerUps[i].Update(gameTime);
+                if (shieldPowerUps[i].Active == false)
                 {
-                    damagePowerUps.RemoveAt(i);
-                    //todo do something
+                    shieldPowerUps.RemoveAt(i);
                 }
             }
+
+                for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+                {
+                    damagePowerUps[i].Update(gameTime);
+                    if (damagePowerUps[i].Active == false)
+                    {
+                        damagePowerUps.RemoveAt(i);
+                        //todo do something
+                    }
+                }
         }
         private void UpdateEnemies(GameTime gameTime)
         {
@@ -831,7 +864,14 @@ namespace GameStateManagement
             explosion.Initialize(explosion1Texture, position, 134, 134, 12, 45, Color.White, 1f, false);
             explosions.Add(explosion);
         }
-
+        private void AddShieldPowerUp()
+        {
+            //todo would like to combine all powerups somehow
+            PowerUp shieldPowerUp = new PowerUp();
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupShieldTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
+            shieldPowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupShieldTexture, position, "ShieldPowerUp", player);
+            shieldPowerUps.Add(shieldPowerUp);
+        }
         private void AddDamagePowerUp()
         {
 
@@ -947,15 +987,19 @@ namespace GameStateManagement
             {
                 damagePowerUps[i].Draw(spriteBatch);
             }
-
-
-
-
-            //todo testing 
-            if (iLivesLeft == 0)
+            //draw shield powerup
+            for (int i = 0; i < shieldPowerUps.Count; i++)
             {
-                spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
+                shieldPowerUps[i].Draw(spriteBatch);
             }
+
+
+
+                //todo testing 
+                if (iLivesLeft == 0)
+                {
+                    spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
+                }
             //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
             //                     enemyPosition, Color.DarkRed);
