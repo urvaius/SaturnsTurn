@@ -617,13 +617,19 @@ namespace GameStateManagement
                     if (playerRectangle.Intersects(enemyRectangle2))
                     {
 
+                        if (player.Shield > 0)
+                        {
+                            player.Shield -= balloonEnemies[i].Damage;
+                            balloonEnemies[i].Health -= player.Damage;
+                        }
+                        else
+                        {
+                            player.Health -= balloonEnemies[i].Damage;
+                            balloonEnemies[i].Health -= player.Damage;
+                        }
+                        
 
-                        player.Health -= balloonEnemies[i].Damage;
-                        balloonEnemies[i].Health -= player.Damage;
-
-                        //if (player.Health <= 0)
-                        //  PlayerKilled();
-                        // player.Active = false;
+                      
                     }
                 }
             //do the collision between the player and the enemies
@@ -633,15 +639,21 @@ namespace GameStateManagement
                 //determine if the thwo objects collided with each other
                 if (playerRectangle.Intersects(enemyRectangle2))
                 {
-                    //subtracth the health from the player based on enemy damage
-                    player.Health -= enemies[i].Damage;
-                    //destroy the enemy
-                    enemies[i].Health -= player.Damage;
+                    if (player.Shield > 0)
+                    {
+                        player.Shield -= enemies[i].Damage;
+                        enemies[i].Health -= player.Damage;
+                    }
 
-                    //if the player health is less than zero we died
-                   // if (player.Health <= 0)
-                     //   PlayerKilled();
-                       // player.Active = false;
+                    else
+                    {
+                        player.Health -= enemies[i].Damage;
+
+                        enemies[i].Health -= player.Damage;
+                    }
+                    
+
+                 
                 }
             }
 
