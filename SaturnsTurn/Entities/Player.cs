@@ -81,7 +81,7 @@ namespace SaturnsTurn
         {
             PlayerAnimation.Position = Position3;
             PlayerAnimation.Update(gameTime);
-
+            
 
         }
         public void Draw(SpriteBatch spriteBatch)

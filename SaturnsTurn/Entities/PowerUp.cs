@@ -92,10 +92,14 @@ namespace SaturnsTurn
 
         private void UpdateShield()
         {
-            if (Player.Shield < 100)
+
+            if (Player.Shield < 200)
             {
-                Player.Shield += 50;
-                
+                Player.Shield += 100;
+                if (Player.Shield > 200)
+                {
+                    Player.Shield = 200;
+                }
             }
             
 

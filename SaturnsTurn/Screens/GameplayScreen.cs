@@ -492,6 +492,7 @@ namespace GameStateManagement
             player.Update(gameTime);
             if (player.Shield <= 0)
             {
+                player.Shield = 0;
                 player.shieldActive = false;
             }
             else
@@ -564,7 +565,7 @@ namespace GameStateManagement
                 }
 
             }
-            //damage powerup collisiong
+            //damage powerup collision
             for (int i = 0; i < damagePowerUps.Count; i++)
             {
                 damagePowerUpRectangle = new Rectangle((int)damagePowerUps[i].Position.X, (int)damagePowerUps[i].Position.Y, damagePowerUps[i].Width, damagePowerUps[i].Height);
@@ -588,8 +589,20 @@ namespace GameStateManagement
                 asteroidRectangle = new Rectangle((int)asteroids2[i].Position.X, (int)asteroids2[i].Position.Y, asteroids2[i].Width, asteroids2[i].Height);
                 if (playerRectangle.Intersects(asteroidRectangle))
                 {
-                    player.Health -= asteroids2[i].Damage;
-                    asteroids2[i].Health -= player.Damage;
+                    if (player.Shield > 0)
+                    {
+                        player.Shield -= asteroids2[i].Damage;
+                        asteroids2[i].Health -= player.Damage;
+                    }
+
+
+                    else
+                    {
+                        player.Health -= asteroids2[i].Damage;
+                        asteroids2[i].Health -= player.Damage;
+                    }
+
+                    
                 }
 
 
