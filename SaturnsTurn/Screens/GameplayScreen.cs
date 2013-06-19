@@ -164,7 +164,7 @@ namespace GameStateManagement
             //fireTime = TimeSpan.FromSeconds(.15f);
 
             //load projectile
-            projectileTexture = content.Load<Texture2D>(@"Graphics\laser");
+            projectileTexture = content.Load<Texture2D>(@"Graphics\lasergreen");
 
             // explosions
             explosions = new List<Animation>();
