@@ -17,6 +17,7 @@ namespace SaturnsTurn
         public bool Active;
         public int Health;
         public int Shield { get; set; }
+        public bool shieldActive;
         public int DamageMod;
         public int Damage { get; set; }
         public int Power { get; set; }
@@ -43,10 +44,11 @@ namespace SaturnsTurn
             Position3 = position;
             Active = true;
             Health = 100;
+
             Score = 0;
             Power = 10;
             DamageMod = 0;
-            
+            shieldActive = false;
             Damage = 10;
             Shield = 0;
 
@@ -58,6 +60,8 @@ namespace SaturnsTurn
         {
             Active = true;
             Health = 100;
+            shieldActive = false;
+            Shield = 0;
 
         }
 
@@ -70,12 +74,14 @@ namespace SaturnsTurn
             DamageMod = 0;
             Damage = 1;
             Shield = 0;
+            shieldActive = false;
         }
 
         public void Update(GameTime gameTime)
         {
             PlayerAnimation.Position = Position3;
             PlayerAnimation.Update(gameTime);
+
 
         }
         public void Draw(SpriteBatch spriteBatch)

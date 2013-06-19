@@ -490,7 +490,14 @@ namespace GameStateManagement
         {
 
             player.Update(gameTime);
-            
+            if (player.Shield <= 0)
+            {
+                player.shieldActive = false;
+            }
+            else
+            {
+                player.shieldActive = true;
+            }
 
 
 
@@ -957,6 +964,8 @@ namespace GameStateManagement
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
             spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70),Color.White);
+
+            spriteBatch.DrawString(scoreFont, "Shield: " + player.Shield, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 100), Color.White);
             
             //draw asteroids
             for (int i = 0; i < asteroids2.Count; i++)

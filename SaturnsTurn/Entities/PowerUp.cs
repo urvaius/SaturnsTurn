@@ -92,6 +92,14 @@ namespace SaturnsTurn
 
         private void UpdateShield()
         {
+            if (Player.Shield < 100)
+            {
+                Player.Shield += 50;
+                
+            }
+            
+
+            
 
         }
         public void Update(GameTime gameTime)
