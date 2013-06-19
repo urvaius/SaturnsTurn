@@ -1056,7 +1056,7 @@ namespace GameStateManagement
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             player.Draw(spriteBatch);
 
             spriteBatch.End();
