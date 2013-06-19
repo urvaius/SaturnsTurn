@@ -138,6 +138,8 @@ int frametime, Color color, float scale, bool looping)
         }
 
 
+      
+        //draw the animation strip glowing maybe. 
         // Draw the Animation Strip
         public void Draw(SpriteBatch spriteBatch)
         {

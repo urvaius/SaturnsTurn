@@ -43,9 +43,9 @@ namespace GameStateManagement
         Background newBackground;
         Texture2D mainBackground;
         //ParallaxingBackground bgLayer1;
-       // ParallaxingBackground bgLayer2;
-       // ScrollingBackground star1;
-       // ScrollingBackground star2;
+        // ParallaxingBackground bgLayer2;
+        // ScrollingBackground star1;
+        // ScrollingBackground star2;
         bool gameOver;
 
         //enemies
@@ -72,7 +72,7 @@ namespace GameStateManagement
         TimeSpan previousDeathTime;
         TimeSpan asteroidSpawnTime;
         TimeSpan previousAsteroidSpawnTime;
-        
+
         //explosions
         Texture2D explosion1Texture;
         List<Animation> explosions;
@@ -88,7 +88,7 @@ namespace GameStateManagement
         Random randomPowerUp;
         Random ranp;
         Random randomEnemy;
-        
+
 
         Random random = new Random();
 
@@ -121,12 +121,12 @@ namespace GameStateManagement
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             //todo figure out which background to use
-            newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars",ScreenManager.GraphicsDevice.Viewport.Width,ScreenManager.GraphicsDevice.Viewport.Height);
+            newBackground = new Background(content, @"Graphics\Backgrounds\PrimaryStar", @"Graphics\Backgrounds\ParallaxStars", ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height);
 
-           // bgLayer1 = new ParallaxingBackground();
+            // bgLayer1 = new ParallaxingBackground();
             //bgLayer2 = new ParallaxingBackground();
-           // star1 = new ScrollingBackground();
-           // star2 = new ScrollingBackground();
+            // star1 = new ScrollingBackground();
+            // star2 = new ScrollingBackground();
 
 
             iLivesLeft = 3;
@@ -134,13 +134,13 @@ namespace GameStateManagement
             gameFont = content.Load<SpriteFont>(@"Graphics\gamefont");
 
             //load paralzxing background
-           // bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
-           // bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+            // bgLayer1.Initialize(content, @"Graphics\bgLayer1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            // bgLayer2.Initialize(content, @"Graphics\bglayer2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
             // try scrolling
-           // star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            // star1.Initialize(content, @"Graphics\Backgrounds\star1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             // star2.Initialize(content, @"Graphics\Backgrounds\star6", ScreenManager.GraphicsDevice.Viewport.Width, -1);
 
-            
+
 
 
             //load enemies textures
@@ -156,7 +156,7 @@ namespace GameStateManagement
             scoreFont = content.Load<SpriteFont>(@"Graphics\gameFont");
             //initialize projectile
             projectiles = new List<Projectile>();
-            
+
             //powerups
             damagePowerUps = new List<PowerUp>();
             shieldPowerUps = new List<PowerUp>();
@@ -224,7 +224,7 @@ namespace GameStateManagement
             Thread.Sleep(1000);
 
 
-          
+
 
             //todo take out music when switch menus
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -289,13 +289,13 @@ namespace GameStateManagement
 
                 UpdatePlayer(gameTime);
                 UpdateProjectiles();
-               // bgLayer1.Update();
-               // bgLayer2.Update();
+                // bgLayer1.Update();
+                // bgLayer2.Update();
                 //udate scrolling background w \\todo
-               // star1.Update();
+                // star1.Update();
                 // star2.Update();
                 //update the enemies
-                
+
                 UpdateEnemies(gameTime);
                 UpdateCollision();
                 UpdateExplosions(gameTime);
@@ -309,8 +309,8 @@ namespace GameStateManagement
 
                     ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
                     //todo change this
-                   // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
-                   // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
+                    // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
+                    // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
                 }
 
             }
@@ -385,7 +385,7 @@ namespace GameStateManagement
                 // Otherwise move the player position.
 
 
-                if (keyboardState.IsKeyDown(Keys.A)||keyboardState.IsKeyDown(Keys.Left))
+                if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
                 {
                     movement.X--;
                     //add for scroll background
@@ -395,7 +395,7 @@ namespace GameStateManagement
 
 
 
-                if (keyboardState.IsKeyDown(Keys.D)||keyboardState.IsKeyDown(Keys.Right))
+                if (keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))
                 {
                     movement.X++;
                     //add for scroll backgorund
@@ -404,10 +404,10 @@ namespace GameStateManagement
                 }
 
 
-                if (keyboardState.IsKeyDown(Keys.W)||keyboardState.IsKeyDown(Keys.Up))
+                if (keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.Up))
                     movement.Y--;
 
-                if (keyboardState.IsKeyDown(Keys.S)||keyboardState.IsKeyDown(Keys.Down))
+                if (keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.Down))
                     movement.Y++;
 
                 Vector2 thumbstick = gamePadState.ThumbSticks.Left;
@@ -462,9 +462,9 @@ namespace GameStateManagement
                 player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
                 iLivesLeft = 3;
                 ResetEnemies();
-            
+
             }
-            
+
         }
 
 
@@ -509,13 +509,13 @@ namespace GameStateManagement
                 PlayerKilled();
 
             }
-           // if (player.Health <= 0)
-           // {
+            // if (player.Health <= 0)
+            // {
 
-             //   PlayerKilled();
+            //   PlayerKilled();
 
 
-           // }
+            // }
         }
         private void UpdateProjectiles()
         {
@@ -572,10 +572,10 @@ namespace GameStateManagement
                 if (playerRectangle.Intersects(damagePowerUpRectangle))
                 {
 
-                    AudioManager.PlaySound("powerup");            
-                   // moved the damage mod to the powerup class
+                    AudioManager.PlaySound("powerup");
+                    // moved the damage mod to the powerup class
                     damagePowerUps[i].PowerUpCollision();
-                   
+
 
 
                     damagePowerUps[i].Active = false;
@@ -602,7 +602,7 @@ namespace GameStateManagement
                         asteroids2[i].Health -= player.Damage;
                     }
 
-                    
+
                 }
 
 
@@ -610,28 +610,28 @@ namespace GameStateManagement
             }
 
 
-                //todo collision with balloonenemy and player
-                for (int i = 0; i < balloonEnemies.Count; i++)
+            //todo collision with balloonenemy and player
+            for (int i = 0; i < balloonEnemies.Count; i++)
+            {
+                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                if (playerRectangle.Intersects(enemyRectangle2))
                 {
-                    enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
-                    if (playerRectangle.Intersects(enemyRectangle2))
+
+                    if (player.Shield > 0)
                     {
-
-                        if (player.Shield > 0)
-                        {
-                            player.Shield -= balloonEnemies[i].Damage;
-                            balloonEnemies[i].Health -= player.Damage;
-                        }
-                        else
-                        {
-                            player.Health -= balloonEnemies[i].Damage;
-                            balloonEnemies[i].Health -= player.Damage;
-                        }
-                        
-
-                      
+                        player.Shield -= balloonEnemies[i].Damage;
+                        balloonEnemies[i].Health -= player.Damage;
                     }
+                    else
+                    {
+                        player.Health -= balloonEnemies[i].Damage;
+                        balloonEnemies[i].Health -= player.Damage;
+                    }
+
+
+
                 }
+            }
             //do the collision between the player and the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
@@ -651,27 +651,27 @@ namespace GameStateManagement
 
                         enemies[i].Health -= player.Damage;
                     }
-                    
 
-                 
+
+
                 }
             }
 
 
             #region projectile vs enemies collision
-            
+
             //projectile vs enemies collision
             for (int i = 0; i < projectiles.Count; i++)
             {
 
                 //see if this works here
                 projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
-               
+
                 for (int j = 0; j < balloonEnemies.Count; j++)
                 {
                     //create the rectangles we need to determine if we collided with each other
 
-                   // projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+                    // projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
                     enemyRectangle2 = new Rectangle((int)balloonEnemies[j].Position.X - balloonEnemies[j].Width / 2, (int)balloonEnemies[j].Position.Y - balloonEnemies[j].Height / 2, balloonEnemies[j].Width, balloonEnemies[j].Height);
                     //determine if the two objects collide with each other
                     if (projectileRectangle.Intersects(enemyRectangle2))
@@ -683,13 +683,13 @@ namespace GameStateManagement
                 //projectile vs asteroids
                 for (int k = 0; k < asteroids2.Count; k++)
                 {
-                    asteroidRectangle = new Rectangle((int)asteroids2[k].Position.X - asteroids2[k].Width / 2, (int)asteroids2[k].Position.Y - asteroids2[k].Height/2,asteroids2[k].Width,asteroids2[k].Height);
+                    asteroidRectangle = new Rectangle((int)asteroids2[k].Position.X - asteroids2[k].Width / 2, (int)asteroids2[k].Position.Y - asteroids2[k].Height / 2, asteroids2[k].Width, asteroids2[k].Height);
                     if (projectileRectangle.Intersects(asteroidRectangle))
                     {
                         asteroids2[k].Health -= projectiles[i].Damage;
                         projectiles[i].Active = false;
                     }
-                
+
                 }
 
                 for (int t = 0; t < enemies.Count; t++)
@@ -747,7 +747,7 @@ namespace GameStateManagement
                 {
                     AddShieldPowerUp();
                 }
-                
+
 
             }
 
@@ -760,15 +760,15 @@ namespace GameStateManagement
                 }
             }
 
-                for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+            for (int i = damagePowerUps.Count - 1; i >= 0; i--)
+            {
+                damagePowerUps[i].Update(gameTime);
+                if (damagePowerUps[i].Active == false)
                 {
-                    damagePowerUps[i].Update(gameTime);
-                    if (damagePowerUps[i].Active == false)
-                    {
-                        damagePowerUps.RemoveAt(i);
-                        //todo do something
-                    }
+                    damagePowerUps.RemoveAt(i);
+                    //todo do something
                 }
+            }
         }
         private void UpdateEnemies(GameTime gameTime)
         {
@@ -875,13 +875,13 @@ namespace GameStateManagement
             //Animation asteroidAnimation = new Animation();
             //asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 40, 40, 1, 1, Color.White, 1f, true);
             AsteroidEnemy2 asteroid = new AsteroidEnemy2();
-            
+
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture2.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
             //AsteroidEnemy asteroid = new AsteroidEnemy();
-            asteroid.Initialize(ScreenManager.GraphicsDevice.Viewport,asteroidTexture2, position);
+            asteroid.Initialize(ScreenManager.GraphicsDevice.Viewport, asteroidTexture2, position);
             asteroids2.Add(asteroid);
-        
-        
+
+
         }
         //this addballoonenemy probably be taken out. but can add more later
         private void AddBalloonEnemy()
@@ -921,7 +921,7 @@ namespace GameStateManagement
 
             PowerUp damagePowerUp = new PowerUp();
             Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
-            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp",player);
+            damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp", player);
 
             damagePowerUps.Add(damagePowerUp);
 
@@ -964,6 +964,8 @@ namespace GameStateManagement
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
+           
+
             spriteBatch.Begin();
 
 
@@ -973,47 +975,51 @@ namespace GameStateManagement
             //spriteBatch.DrawString(gameFont, "// TODO", playerPosition, Color.Green);
             //draw new paralaxing background
             //spriteBatch.Draw(mainBackground, Vector2.Zero, Color.White);
-
-            //draw sroller
-
-            newBackground.Draw(spriteBatch);
             //  star1.Draw(spriteBatch);
             //  star2.Draw(spriteBatch);
             //dont draw these for now
             // bgLayer1.Draw(spriteBatch);
             // bgLayer2.Draw(spriteBatch);
             //draw the score
+            //draw sroller
+
+            newBackground.Draw(spriteBatch);
+
             spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 
-            //draw teh player health
+
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
-            spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70),Color.White);
+            spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70), Color.White);
 
             spriteBatch.DrawString(scoreFont, "Shield: " + player.Shield, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 100), Color.White);
-            
+
             //draw asteroids
             for (int i = 0; i < asteroids2.Count; i++)
             {
                 asteroids2[i].Draw(spriteBatch);
             }
 
-                //draw the enemies
+            //draw the enemies
 
 
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    enemies[i].Draw(spriteBatch);
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                enemies[i].Draw(spriteBatch);
 
-                }
+            }
 
             //draw balloon enemies
             for (int i = 0; i < balloonEnemies.Count; i++)
             {
                 balloonEnemies[i].Draw(spriteBatch);
             }
+            
+            
             //working now draw player from player class.
-            player.Draw(spriteBatch);
+            
+            //player.Draw(spriteBatch);
+            
             //draw projectiles
             for (int i = 0; i < projectiles.Count; i++)
             {
@@ -1039,16 +1045,22 @@ namespace GameStateManagement
 
 
 
-                //todo testing 
-                if (iLivesLeft == 0)
-                {
-                    spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
-                }
+            //todo testing 
+            if (iLivesLeft == 0)
+            {
+                spriteBatch.DrawString(gameFont, "G A M E  O V E R", new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 45), Color.Red);
+            }
             //spriteBatch.Draw(playerTexture, playerPosition, Color.White);
             // spriteBatch.DrawString(gameFont, "Insert Gameplay Here",
             //                     enemyPosition, Color.DarkRed);
 
             spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
+            player.Draw(spriteBatch);
+
+            spriteBatch.End();
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
