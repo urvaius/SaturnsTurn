@@ -31,7 +31,7 @@ namespace GameStateManagement
     class GameplayScreen : GameScreen
     {
         #region Fields
-
+        Effect baseEffect;
         ContentManager content;
         SpriteFont scoreFont;
         SpriteFont gameFont;
@@ -127,7 +127,8 @@ namespace GameStateManagement
             //bgLayer2 = new ParallaxingBackground();
             // star1 = new ScrollingBackground();
             // star2 = new ScrollingBackground();
-
+            //todo not working yet for effects
+           // baseEffect = content.Load<Effect>(@"Effects\Standard");
 
             iLivesLeft = 3;
 
@@ -1056,7 +1057,14 @@ namespace GameStateManagement
 
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+
+            //draw player and have effects on it as well. ?
+            spriteBatch.Begin(SpriteSortMode.Deferred   , BlendState.NonPremultiplied,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullNone,baseEffect);
+           //todo
+            //make a technique to glow eventually when shield is up
+            //todo
+            //baseEffect.CurrentTechnique = baseEffect.Techniques["DesaturateTechnique"];
+          //  baseEffect.Parameters["DesaturateAmount"].SetValue(1.0f);
             player.Draw(spriteBatch);
 
             spriteBatch.End();
