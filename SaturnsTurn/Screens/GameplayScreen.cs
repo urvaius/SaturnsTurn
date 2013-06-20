@@ -31,7 +31,8 @@ namespace GameStateManagement
     class GameplayScreen : GameScreen
     {
         #region Fields
-        Effect baseEffect;
+        Effect standardEffect;
+        
         ContentManager content;
         SpriteFont scoreFont;
         SpriteFont gameFont;
@@ -127,8 +128,11 @@ namespace GameStateManagement
             //bgLayer2 = new ParallaxingBackground();
             // star1 = new ScrollingBackground();
             // star2 = new ScrollingBackground();
+
+
+
             //todo not working yet for effects
-           // baseEffect = content.Load<Effect>(@"Effects\Standard");
+            standardEffect = content.Load<Effect>(@"Effects\Standard");
 
             iLivesLeft = 3;
 
@@ -493,15 +497,27 @@ namespace GameStateManagement
             player.Update(gameTime);
             if (player.Shield <= 0)
             {
-                player.Shield = 0;
                 player.shieldActive = false;
+                player.Shield = 0;
+                
             }
-            else
+           // else
+           // {
+           //     player.shieldActive = true;
+           // }
+
+            //activate glow part eventually now desaturation on shield 
+            //todo
+            if (player.shieldActive ==true)
             {
-                player.shieldActive = true;
+                standardEffect.CurrentTechnique = standardEffect.Techniques["DesaturateTechnique"];
+                standardEffect.Parameters["DesaturationAmount"].SetValue(1.0f);
             }
-
-
+            else if(player.shieldActive == false)
+            {
+                standardEffect.CurrentTechnique = standardEffect.Techniques["DesaturateTechnique"];
+                standardEffect.Parameters["DesaturationAmount"].SetValue(0.0f);
+            }
 
             if (player.Health <= 0 && gameTime.TotalGameTime - previousDeathTime > deathTime)
             {
@@ -559,7 +575,7 @@ namespace GameStateManagement
                     AudioManager.PlaySound("powerup");
                     // moved the damage mod to the powerup class
                     shieldPowerUps[i].PowerUpCollision();
-
+                    player.shieldActive = true;
 
 
                     shieldPowerUps[i].Active = false;
@@ -1059,12 +1075,17 @@ namespace GameStateManagement
 
 
             //draw player and have effects on it as well. ?
-            spriteBatch.Begin(SpriteSortMode.Deferred   , BlendState.NonPremultiplied,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullNone,baseEffect);
+            spriteBatch.Begin(SpriteSortMode.Deferred   , BlendState.NonPremultiplied,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullNone,standardEffect);
            //todo
             //make a technique to glow eventually when shield is up
             //todo
-            //baseEffect.CurrentTechnique = baseEffect.Techniques["DesaturateTechnique"];
-          //  baseEffect.Parameters["DesaturateAmount"].SetValue(1.0f);
+            //working so far if shield on do the effect on player. just desaturate for now
+            
+            
+            
+           
+
+
             player.Draw(spriteBatch);
 
             spriteBatch.End();
