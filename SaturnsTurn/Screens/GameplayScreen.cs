@@ -263,7 +263,7 @@ namespace GameStateManagement
         {
 
 
-
+            
 
             if (otherScreenHasFocus.Equals(false))
             {

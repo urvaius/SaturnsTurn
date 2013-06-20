@@ -132,12 +132,14 @@ namespace SaturnsTurn
 
             // TODO: Add your update logic here
 
-            
+           /* 
             if (OptionsMenuScreen.setFullscreen == true)
             {
                 graphics.ToggleFullScreen();
+                graphics.ApplyChanges();
 
             }
+            */
 
             base.Update(gameTime);
             
