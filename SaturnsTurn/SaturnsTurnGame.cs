@@ -47,8 +47,9 @@ namespace SaturnsTurn
             graphics = new GraphicsDeviceManager(this);
            // graphics.PreferredBackBufferWidth = 1280;
             //graphics.PreferredBackBufferHeight = 720;
-           
-            
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = false;
             
             
             Window.Title = "Saturn's Turn";
@@ -78,14 +79,15 @@ namespace SaturnsTurn
         protected override void Initialize()
         {
 
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            //graphics.PreferredBackBufferWidth = 1280;
+            //graphics.PreferredBackBufferHeight = 720;
             //graphics.PreferredBackBufferWidth = 1024;
             //graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
-            graphics.ApplyChanges();
+           // graphics.IsFullScreen = false;
+           // graphics.ApplyChanges();
             base.Initialize();
         }
+        
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load

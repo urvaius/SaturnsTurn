@@ -9,6 +9,8 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 #endregion
 
 namespace GameStateManagement
@@ -21,7 +23,7 @@ namespace GameStateManagement
     class OptionsMenuScreen : MenuScreen
     {
         #region Fields
-        
+        GraphicsDeviceManager graphics;
         MenuEntry ungulateMenuEntry;
         MenuEntry languageMenuEntry;
         MenuEntry screenMenuEntry;
@@ -131,30 +133,25 @@ namespace GameStateManagement
         {
 
             
-            setFullscreen = !setFullscreen;
 
-         /*   //trying to add in to switch full screen
+            setFullscreen = !setFullscreen;
             
             if (setFullscreen == true)
             {
-                if (graphics.IsFullScreen.Equals(false))
-                {
-                    graphics.IsFullScreen = true;
-                }
 
+              //  graphics.ToggleFullScreen();
+                
             }
+
             else
             {
                 if (setFullscreen ==false)
                 {
-                    if (graphics.IsFullScreen == true)
-                    {
-                        graphics.IsFullScreen = false;
-                    }
+                    
                     
                 }
             }
-            */
+            
             SetMenuEntryText();
         }
 
@@ -171,6 +168,8 @@ namespace GameStateManagement
 
 
         #endregion
-      
+
+
+        public Game SaturnsTurn { get; set; }
     }
 }

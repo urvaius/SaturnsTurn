@@ -389,7 +389,10 @@ namespace GameStateManagement
                 }
                 // Otherwise move the player position.
 
-
+                if (keyboardState.IsKeyDown(Keys.F))
+                {
+                    
+                }
                 if (keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))
                 {
                     movement.X--;
