@@ -23,7 +23,7 @@ namespace GameStateManagement
     class OptionsMenuScreen : MenuScreen
     {
         #region Fields
-        GraphicsDeviceManager graphics;
+        
         MenuEntry ungulateMenuEntry;
         MenuEntry languageMenuEntry;
         MenuEntry screenMenuEntry;
@@ -41,7 +41,8 @@ namespace GameStateManagement
         static string[] languages = { "C#", "French", "Deoxyribonucleic acid" };
         static int currentLanguage = 0;
 
-        static bool setFullscreen = false;
+        public static bool setFullscreen {get;set;}
+        
 
         static int elf = 23;
 
@@ -61,7 +62,7 @@ namespace GameStateManagement
             languageMenuEntry = new MenuEntry(string.Empty);
             screenMenuEntry = new MenuEntry(string.Empty);
             elfMenuEntry = new MenuEntry(string.Empty);
-            
+            setFullscreen = false;
            
             
             SetMenuEntryText();
@@ -139,7 +140,7 @@ namespace GameStateManagement
             if (setFullscreen == true)
             {
 
-              //  graphics.ToggleFullScreen();
+                
                 
             }
 
@@ -170,6 +171,6 @@ namespace GameStateManagement
         #endregion
 
 
-        public Game SaturnsTurn { get; set; }
+        
     }
 }

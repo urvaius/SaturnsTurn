@@ -35,6 +35,7 @@ namespace SaturnsTurn
         {
             "Graphics\\gradient",
         };
+        
         #endregion
 
         #region Initialization
@@ -131,7 +132,15 @@ namespace SaturnsTurn
 
             // TODO: Add your update logic here
 
+            
+            if (OptionsMenuScreen.setFullscreen == true)
+            {
+                graphics.ToggleFullScreen();
+
+            }
+
             base.Update(gameTime);
+            
         }
 
         /// <summary>
@@ -146,6 +155,8 @@ namespace SaturnsTurn
             // The real drawing happens inside the screen manager component.
             base.Draw(gameTime);
         }
+
+        
     }
   
    
