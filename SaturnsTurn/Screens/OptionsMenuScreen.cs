@@ -11,6 +11,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+
 #endregion
 
 namespace GameStateManagement
@@ -23,7 +24,7 @@ namespace GameStateManagement
     class OptionsMenuScreen : MenuScreen
     {
         #region Fields
-        
+        GraphicsDeviceManager graphics;
         MenuEntry ungulateMenuEntry;
         MenuEntry languageMenuEntry;
         MenuEntry screenMenuEntry;
@@ -63,8 +64,8 @@ namespace GameStateManagement
             screenMenuEntry = new MenuEntry(string.Empty);
             elfMenuEntry = new MenuEntry(string.Empty);
             setFullscreen = false;
-           
-            
+
+            //graphics = new GraphicsDeviceManager(this);
             SetMenuEntryText();
 
             MenuEntry back = new MenuEntry("Back");
@@ -136,6 +137,13 @@ namespace GameStateManagement
             
 
             setFullscreen = !setFullscreen;
+
+            if (OptionsMenuScreen.setFullscreen == true)
+            {
+                graphics.ToggleFullScreen();
+                graphics.ApplyChanges();
+
+            }
             
             if (setFullscreen == true)
             {
