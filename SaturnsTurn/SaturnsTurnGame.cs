@@ -33,7 +33,8 @@ namespace SaturnsTurn
         // when they suddenly need to be loaded in the middle of a menu transition.
         static readonly string[] preloadAssets =
         {
-            "Graphics\\gradient",
+            //can add more assets hre if we want
+            "Graphics\\gradientgreen",
         };
         
         #endregion

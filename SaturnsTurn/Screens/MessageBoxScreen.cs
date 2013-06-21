@@ -79,7 +79,7 @@ namespace GameStateManagement
         {
             ContentManager content = ScreenManager.Game.Content;
 
-            gradientTexture = content.Load<Texture2D>(@"Graphics\gradient");
+            gradientTexture = content.Load<Texture2D>(@"Graphics\gradientgreen");
         }
 
 
