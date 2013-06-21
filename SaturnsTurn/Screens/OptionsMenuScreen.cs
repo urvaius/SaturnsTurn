@@ -138,12 +138,7 @@ namespace GameStateManagement
 
             setFullscreen = !setFullscreen;
 
-            if (OptionsMenuScreen.setFullscreen == true)
-            {
-                graphics.ToggleFullScreen();
-                graphics.ApplyChanges();
-
-            }
+            
             
             if (setFullscreen == true)
             {
