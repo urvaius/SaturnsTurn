@@ -54,8 +54,8 @@ namespace GameStateManagement
         /// </summary>
         public MessageBoxScreen(string message, bool includeUsageText)
         {
-            const string usageText = "\nA button, Space, Enter = ok" +
-                                     "\nB button, Esc = cancel"; 
+            const string usageText = "\nA button Or Enter = ok" +
+                                     "\nB button Or Esc = cancel"; 
             
             if (includeUsageText)
                 this.message = message + usageText;
