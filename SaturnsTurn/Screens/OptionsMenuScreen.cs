@@ -24,9 +24,9 @@ namespace GameStateManagement
     class OptionsMenuScreen : MenuScreen
     {
         #region Fields
-        GraphicsDeviceManager graphics;
-        MenuEntry ungulateMenuEntry;
-        MenuEntry languageMenuEntry;
+        MenuEntry soundMenuEntry;
+        //MenuEntry ungulateMenuEntry;
+       // MenuEntry languageMenuEntry;
         MenuEntry screenMenuEntry;
         MenuEntry elfMenuEntry;
 
@@ -43,7 +43,7 @@ namespace GameStateManagement
         static int currentLanguage = 0;
 
         public static bool setFullscreen {get;set;}
-        
+        public static bool soundOnOff{get;set;}
 
         static int elf = 23;
 
@@ -59,29 +59,29 @@ namespace GameStateManagement
             : base("Options")
         {
             // Create our menu entries.
-            ungulateMenuEntry = new MenuEntry(string.Empty);
-            languageMenuEntry = new MenuEntry(string.Empty);
+            soundMenuEntry = new MenuEntry(string.Empty);
+            //languageMenuEntry = new MenuEntry(string.Empty);
             screenMenuEntry = new MenuEntry(string.Empty);
-            elfMenuEntry = new MenuEntry(string.Empty);
+            //elfMenuEntry = new MenuEntry(string.Empty);
             setFullscreen = false;
-
+            soundOnOff = true;
             //graphics = new GraphicsDeviceManager(this);
             SetMenuEntryText();
 
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
-            ungulateMenuEntry.Selected += UngulateMenuEntrySelected;
-            languageMenuEntry.Selected += LanguageMenuEntrySelected;
+            soundMenuEntry.Selected += soundMenuEntrySelected;
+            //languageMenuEntry.Selected += LanguageMenuEntrySelected;
             screenMenuEntry.Selected += screenMenuEntrySelected;
-            elfMenuEntry.Selected += ElfMenuEntrySelected;
+           // elfMenuEntry.Selected += ElfMenuEntrySelected;
             back.Selected += OnCancel;
             
             // Add entries to the menu.
-            MenuEntries.Add(ungulateMenuEntry);
-            MenuEntries.Add(languageMenuEntry);
+            MenuEntries.Add(soundMenuEntry);
+           // MenuEntries.Add(languageMenuEntry);
             MenuEntries.Add(screenMenuEntry);
-            MenuEntries.Add(elfMenuEntry);
+            //MenuEntries.Add(elfMenuEntry);
             MenuEntries.Add(back);
         }
 
@@ -91,10 +91,10 @@ namespace GameStateManagement
         /// </summary>
         void SetMenuEntryText()
         {
-            ungulateMenuEntry.Text = "Preferred ungulate: " + currentUngulate;
-            languageMenuEntry.Text = "Language: " + languages[currentLanguage];
+            soundMenuEntry.Text = "Sound: " + (soundOnOff ? "Yes" : "No");
+           // languageMenuEntry.Text = "Language: " + languages[currentLanguage];
             screenMenuEntry.Text = "Full Screen Mode: " + (setFullscreen ? "Yes" : "No");
-            elfMenuEntry.Text = "elf: " + elf;
+           // elfMenuEntry.Text = "elf: " + elf;
         }
 
 
@@ -106,13 +106,18 @@ namespace GameStateManagement
         /// <summary>
         /// Event handler for when the Ungulate menu entry is selected.
         /// </summary>
-        void UngulateMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        void soundMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            currentUngulate++;
+            soundOnOff = !soundOnOff;
 
-            if (currentUngulate > Ungulate.Llama)
-                currentUngulate = 0;
+            if (soundOnOff == true)
+            {
 
+            }
+            else if (soundOnOff == false)
+            {
+
+            }
             SetMenuEntryText();
         }
 
@@ -120,12 +125,12 @@ namespace GameStateManagement
         /// <summary>
         /// Event handler for when the Language menu entry is selected.
         /// </summary>
-        void LanguageMenuEntrySelected(object sender, PlayerIndexEventArgs e)
-        {
-            currentLanguage = (currentLanguage + 1) % languages.Length;
+       // void LanguageMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+      //  {
+       //     currentLanguage = (currentLanguage + 1) % languages.Length;
 
-            SetMenuEntryText();
-        }
+      //      SetMenuEntryText();
+      //  }
 
 
         /// <summary>
@@ -163,13 +168,13 @@ namespace GameStateManagement
         /// <summary>
         /// Event handler for when the Elf menu entry is selected.
         /// </summary>
-        void ElfMenuEntrySelected(object sender, PlayerIndexEventArgs e)
-        {
-            elf++;
+       // void ElfMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+       // {
+       //     elf++;
 
-            SetMenuEntryText();
-        }
-
+       //     SetMenuEntryText();
+      //  }
+    //
 
         #endregion
 
