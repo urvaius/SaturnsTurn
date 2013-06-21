@@ -157,7 +157,7 @@ namespace GameStateManagement
 
             // start at Y = 175; each X value is generated per entry
             //Vector2 position = new Vector2(0f, 175f);
-            Vector2 position = new Vector2(0f, ScreenManager.GraphicsDevice.Viewport.Height /2);
+            Vector2 position = new Vector2(0f, ScreenManager.GraphicsDevice.Viewport.Height /2+80);
             // update each menu entry's location in turn
             for (int i = 0; i < menuEntries.Count; i++)
             {
@@ -166,8 +166,10 @@ namespace GameStateManagement
                 // each entry is to be centered horizontally
                 //position.X = ScreenManager.GraphicsDevice.Viewport.Width / 2 - menuEntry.GetWidth(this) / 2;
                // position.X = ScreenManager.GraphicsDevice.Viewport.Width /3 -250 - menuEntry.GetWidth(this) / 2;
-                position.X = 20;// -menuEntry.GetWidth(this) / 2;
+                position.X = 300;// -menuEntry.GetWidth(this) / 2;
                 
+              
+
                 if (ScreenState == ScreenState.TransitionOn)
                     position.X -= transitionOffset * 256;
                 else

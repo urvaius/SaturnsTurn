@@ -50,7 +50,7 @@ namespace SaturnsTurn
             //graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             
             
             Window.Title = "Saturn's Turn";
