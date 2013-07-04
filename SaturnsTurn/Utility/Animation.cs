@@ -14,7 +14,7 @@ namespace SaturnsTurn.Utility
 
 
         // The scale used to display the sprite strip
-        float scale;
+        public float scale { get; set; }
 
 
         // The time since we last updated the frame
