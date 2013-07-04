@@ -423,8 +423,8 @@ namespace GameStateManagement
                 movement.X += thumbstick.X;
                 movement.Y -= thumbstick.Y;
                 // Make sure that the player does not go out of bounds
-                player.Position3.X = MathHelper.Clamp(player.Position3.X, 0, ScreenManager.GraphicsDevice.Viewport.Width - player.Width);
-                player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - player.Height);
+                player.Position3.X = MathHelper.Clamp(player.Position3.X, 0, ScreenManager.GraphicsDevice.Viewport.Width -(player.PlayerAnimation.FrameWidth * player.Scale));
+                player.Position3.Y = MathHelper.Clamp(player.Position3.Y, 0, ScreenManager.GraphicsDevice.Viewport.Height - (player.PlayerAnimation.FrameHeight * player.Scale));
 
 
 
@@ -436,8 +436,14 @@ namespace GameStateManagement
                 if (currentMouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released
                     || keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
-                    AddProjectile(player.Position3 + new Vector2(player.Width / 2, 0));
+                   
+                     AddProjectile(player.Position3 + new Vector2(player.Width , player.Height /2));
+
+                    
+
+
                     AudioManager.PlaySound("laserSound");
+
                 }
 
 

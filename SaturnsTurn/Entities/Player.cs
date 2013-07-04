@@ -26,6 +26,10 @@ namespace SaturnsTurn
 
         public string Name { get; set; }
 
+        public float Scale
+        {
+            get { return PlayerAnimation.scale; }
+        }
         public int Width
         {
             get { return PlayerAnimation.FrameWidth; }
