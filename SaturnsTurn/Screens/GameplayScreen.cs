@@ -439,7 +439,7 @@ namespace GameStateManagement
                    
                      AddProjectile(player.Position3 + new Vector2(player.Width , player.Height /2));
 
-                    
+                    //weaon fire not hitting bottom 
 
 
                     AudioManager.PlaySound("laserSound");
@@ -447,6 +447,7 @@ namespace GameStateManagement
                 }
 
 
+              
                 if (movement.Length() > 1)
                     movement.Normalize();
 
