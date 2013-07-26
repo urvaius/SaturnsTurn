@@ -438,7 +438,7 @@ namespace GameStateManagement
                 {
                    
                      AddProjectile(player.Position3 + new Vector2(player.Width , player.Height /2));
-
+                    //todo
                     //weaon fire not hitting bottom 
 
 
