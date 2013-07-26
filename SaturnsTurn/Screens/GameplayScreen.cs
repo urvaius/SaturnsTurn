@@ -437,7 +437,7 @@ namespace GameStateManagement
                     || keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
                    
-                     AddProjectile(player.Position3 + new Vector2(player.Width , player.Height /2));
+                     AddProjectile(player.Position3 + new Vector2(player.Width /2 , player.Height /2));
                     //todo
                     //weaon fire not hitting bottom 
 
@@ -566,6 +566,7 @@ namespace GameStateManagement
         {
             //use the rectangles built in intersect funtion to determine if two objects are overlapping
             Rectangle playerRectangle;
+            Rectangle balloonEnemyRectangle2;
             Rectangle enemyRectangle2;
             Rectangle projectileRectangle;
             Rectangle damagePowerUpRectangle;
@@ -640,8 +641,8 @@ namespace GameStateManagement
             //todo collision with balloonenemy and player
             for (int i = 0; i < balloonEnemies.Count; i++)
             {
-                enemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
-                if (playerRectangle.Intersects(enemyRectangle2))
+                balloonEnemyRectangle2 = new Rectangle((int)balloonEnemies[i].Position.X, (int)balloonEnemies[i].Position.Y, balloonEnemies[i].Width, balloonEnemies[i].Height);
+                if (playerRectangle.Intersects(balloonEnemyRectangle2))
                 {
 
                     if (player.Shield > 0)
@@ -699,9 +700,9 @@ namespace GameStateManagement
                     //create the rectangles we need to determine if we collided with each other
 
                     // projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
-                    enemyRectangle2 = new Rectangle((int)balloonEnemies[j].Position.X - balloonEnemies[j].Width / 2, (int)balloonEnemies[j].Position.Y - balloonEnemies[j].Height / 2, balloonEnemies[j].Width, balloonEnemies[j].Height);
+                    balloonEnemyRectangle2 = new Rectangle((int)balloonEnemies[j].Position.X - balloonEnemies[j].Width / 2, (int)balloonEnemies[j].Position.Y - balloonEnemies[j].Height / 2, balloonEnemies[j].Width, balloonEnemies[j].Height);
                     //determine if the two objects collide with each other
-                    if (projectileRectangle.Intersects(enemyRectangle2))
+                    if (projectileRectangle.Intersects(balloonEnemyRectangle2))
                     {
                         balloonEnemies[j].Health -= projectiles[i].Damage;
                         projectiles[i].Active = false;
@@ -722,7 +723,7 @@ namespace GameStateManagement
                 for (int t = 0; t < enemies.Count; t++)
                 {
                     //create the rectanles we need to determine if we collided with each other
-                    projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+                   // projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
 
                     enemyRectangle2 = new Rectangle((int)enemies[t].Position.X - enemies[t].Width / 2, (int)enemies[t].Position.Y - enemies[t].Height / 2, enemies[t].Width, enemies[t].Height);
                     //determine if the two objects collide with each other
