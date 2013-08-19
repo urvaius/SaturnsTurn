@@ -10,6 +10,9 @@ namespace SaturnsTurn.Entities
     {
 
         #region fields
+
+        Viewport viewport;
+        public Texture2D Texture;
         //animation for the enemy
         public Animation EntityAnimation;
         //the position of enemy of ship
@@ -37,8 +40,24 @@ namespace SaturnsTurn.Entities
         public float entityMoveSpeed;
         #endregion
 
+        #region Methods
 
-        public abstract void Initialize(Animation animation, Vector2 position)
+        //texture entity
+        public virtual void Initialize(Viewport viewport, Texture2D texture, Vector2 position, int damage)
+        {
+            Texture = texture;
+            this.Position = position;
+            this.viewport = viewport;
+            Active = true;
+            Health = 0;
+            Value = 100;
+            OnScreen = true;
+            this.Damage = damage;
+
+            entityMoveSpeed = 0f;
+        }
+        //animated entity
+        public virtual void Initialize(Animation animation, Vector2 position)
         {
 
             //abstract or virtual method lookup
@@ -59,5 +78,43 @@ namespace SaturnsTurn.Entities
             OnScreen = true;
         }
 
+        public abstract void Update(GameTime gameTime)
+        {
+            //the enemy always move to the left so decrement its xposition
+            //Position.X -= entityMoveSpeed;
+            //update the position of the animation
+            EntityAnimation.Position = Position;
+            //update animation
+           // EntityAnimation.Update(gameTime);
+            
+            
+            //if the enemy is past the screen or its health reaches 0 then deactivate it
+           /* if (Position.X < -Width)
+            {
+                //by setting the active flat to false the game will remove this object
+
+                //active game list
+                // Active = false;
+                OnScreen = false;
+            }
+            if (Health <= 0)
+            {
+                Active = false;
+                OnScreen = false;
+            }
+            */
+
+        }
+        public abstract void Draw(SpriteBatch spriteBatch)
+        {
+            //draw the animationexample
+           // EntityAnimation.Draw(spriteBatch);
+
+            //example texture draw
+           // spriteBatch.Draw(Texture, Position, null, Color.White, 0f, new Vector2(Width / 2, Height / 2), 1f, SpriteEffects.None, 0f);
+
+        }
+
+        #endregion
     }
 }

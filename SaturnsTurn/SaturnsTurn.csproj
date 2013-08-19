@@ -38,6 +38,7 @@
     <Compile Include="Entities\AsteroidEnemy.cs" />
     <Compile Include="Entities\AsteroidEnemy2.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\FireHair.cs" />
     <Compile Include="Entities\GreenMineEnemy.cs" />
     <Compile Include="Entities\Enemy.cs" />
     <Compile Include="Entities\Player.cs" />
