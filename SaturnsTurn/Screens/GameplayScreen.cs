@@ -57,7 +57,7 @@ namespace GameStateManagement
         Texture2D balloonEnemyTexture;
         //Texture2D asteroidTexture;
         Texture2D asteroidTexture2;
-        List<FireHair> fireHairEnemy;
+        List<FireHair> fireHairEnemies;
 
         List<AsteroidEnemy2> asteroids2;
         //List<AsteroidEnemy> asteroids;
@@ -185,7 +185,7 @@ namespace GameStateManagement
             explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
 
             //initialize fire Hair
-            fireHairEnemy = new List<FireHair>();
+            fireHairEnemies = new List<FireHair>();
             previousFireHairSpawnTime = TimeSpan.Zero;
             fireHairSpawnTime = TimeSpan.FromSeconds(8f);
             randomFireHair = new Random();
@@ -627,20 +627,20 @@ namespace GameStateManagement
             }
 
             //todo firehair collision
-            for (int i = 0; i < fireHairEnemy.Count; i++)
+            for (int i = 0; i < fireHairEnemies.Count; i++)
             {
-                fireHairRectangle = new Rectangle((int)fireHairEnemy[i].Position.X, (int)fireHairEnemy[i].Position.Y, fireHairEnemy[i].Width, fireHairEnemy[i].Height);
+                fireHairRectangle = new Rectangle((int)fireHairEnemies[i].Position.X, (int)fireHairEnemies[i].Position.Y, fireHairEnemies[i].Width, fireHairEnemies[i].Height);
                 if (playerRectangle.Intersects(fireHairRectangle))
                 {
                     if (player.Shield > 0)
                     {
-                        player.Shield -= fireHairEnemy[i].Damage;
-                        fireHairEnemy[i].Health -= player.Damage;
+                        player.Shield -= fireHairEnemies[i].Damage;
+                        fireHairEnemies[i].Health -= player.Damage;
                     }
                     else
                     {
-                        player.Health -= fireHairEnemy[i].Damage;
-                        fireHairEnemy[i].Health -= player.Damage;
+                        player.Health -= fireHairEnemies[i].Damage;
+                        fireHairEnemies[i].Health -= player.Damage;
                     }
                 }
                 }
@@ -721,6 +721,8 @@ namespace GameStateManagement
 
 
             #region projectile vs enemies collision
+            //todo add fire hair enemy collisio vs projectile
+
 
             //projectile vs enemies collision
             for (int i = 0; i < projectiles.Count; i++)
@@ -842,6 +844,12 @@ namespace GameStateManagement
                 AddEnemy();
 
             }
+
+            if(gameTime.TotalGameTime - previousFireHairSpawnTime >fireHairSpawnTime)
+            {
+                previousFireHairSpawnTime = gameTime.TotalGameTime;
+                AddFireHair();
+            }
             //spawn ballon enemies every 5 sec
             if (gameTime.TotalGameTime - previousBalloonSpawnTime > balloonEnemySpawnTime)
             {
@@ -875,7 +883,18 @@ namespace GameStateManagement
                 }
             }
 
-
+            //update fire hair
+            for (int i =fireHairEnemies.Count - 1; i>=0;i--)
+            {
+                fireHairEnemies[i].Update(gameTime);
+                if (fireHairEnemies[i].Active == false)
+                {
+                    AddExplosion(fireHairEnemies[i].Position);
+                    AudioManager.PlaySound("explosionSound");
+                    player.Score += fireHairEnemies[i].Value;
+                    fireHairEnemies.RemoveAt(i);
+                }
+            }
             //update balloon enemies
             for (int i = balloonEnemies.Count - 1; i >= 0; i--)
             {
@@ -946,6 +965,13 @@ namespace GameStateManagement
 
         }
         //this addballoonenemy probably be taken out. but can add more later
+        private void AddFireHair()
+        {
+            FireHair fireHairEnemy = new FireHair();
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + fireHairTexture.Width / 2, randomFireHair.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 70));
+            fireHairEnemy.Initialize(ScreenManager.GraphicsDevice.Viewport, fireHairTexture, position, 40);
+            fireHairEnemies.Add(fireHairEnemy);
+        }
         private void AddBalloonEnemy()
         {
             //create the animation object
@@ -1081,7 +1107,12 @@ namespace GameStateManagement
             //working now draw player from player class.
             
             //player.Draw(spriteBatch);
-            
+            //draw fire hair
+
+            for (int i=0;i< fireHairEnemies.Count;i++)
+            {
+                fireHairEnemies[i].Draw(spriteBatch);
+            }
             //draw projectiles
             for (int i = 0; i < projectiles.Count; i++)
             {

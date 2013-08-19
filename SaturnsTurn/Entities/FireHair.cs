@@ -5,12 +5,27 @@ using SaturnsTurn.Utility;
 
 namespace SaturnsTurn.Entities
 {
+   
     class FireHair : Entity
     {
+
+        Texture2D fireHairTexture;
+        public int Width
+        {
+            get { return fireHairTexture.Width; }
+        }
+
+        //height of projectile
+        public int Height
+        {
+            get { return fireHairTexture.Height; }
+        }
+
         public override void Initialize(Viewport viewport, Texture2D texture, Vector2 position, int damage)
         {
             base.Initialize(viewport, texture, position, damage);
-            damage = 1;
+            this.fireHairTexture = texture;
+            damage = 500;
             Health = 50;
             entityMoveSpeed = 3f;
         }
@@ -20,7 +35,7 @@ namespace SaturnsTurn.Entities
         {
             //the enemy always move to the left so decrement its xposition
             Position.X -= entityMoveSpeed;
-
+            //EntityAnimation.Position = Position;
 
             if (Position.X < -Width)
             {

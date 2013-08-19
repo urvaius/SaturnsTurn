@@ -26,16 +26,12 @@ namespace SaturnsTurn.Entities
         //the score you will get from killing the entity
         public int Value;
         //get the width of the enemy ship
-        public int Width
-        {
-            get { return EntityAnimation.FrameWidth; }
-        }
+        public int Width;
+        
 
         //get the height of the enemy ship
-        public int Height
-        {
-            get { return EntityAnimation.FrameHeight; }
-        }
+        public int Height;
+        
         //the speed of the enemy
         public float entityMoveSpeed;
         #endregion
@@ -78,12 +74,12 @@ namespace SaturnsTurn.Entities
             OnScreen = true;
         }
 
-        public abstract void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             //the enemy always move to the left so decrement its xposition
             //Position.X -= entityMoveSpeed;
             //update the position of the animation
-            EntityAnimation.Position = Position;
+           // EntityAnimation.Position = Position;
             //update animation
            // EntityAnimation.Update(gameTime);
             
@@ -105,7 +101,7 @@ namespace SaturnsTurn.Entities
             */
 
         }
-        public abstract void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             //draw the animationexample
            // EntityAnimation.Draw(spriteBatch);
