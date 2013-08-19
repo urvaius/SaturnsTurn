@@ -35,7 +35,7 @@ namespace SaturnsTurn
         #endregion
         #region Methods
 
-        public virtual void Initialize(Animation animation, Vector2 position)
+        public void Initialize(Animation animation, Vector2 position)
         {
             //load enemy ship texture
             this.EnemyAnimation = animation;
