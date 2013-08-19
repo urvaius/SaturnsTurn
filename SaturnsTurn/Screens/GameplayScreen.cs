@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SaturnsTurn;
 using SaturnsTurn.Utility;
 using System.Collections.Generic;
+using SaturnsTurn.Entities;
+
 #endregion
 
 namespace GameStateManagement
@@ -50,10 +52,13 @@ namespace GameStateManagement
         bool gameOver;
 
         //enemies
+        Texture2D fireHairTexture;
         Texture2D enemyTexture;
         Texture2D balloonEnemyTexture;
         //Texture2D asteroidTexture;
         Texture2D asteroidTexture2;
+        List<FireHair> fireHairEnemy;
+
         List<AsteroidEnemy2> asteroids2;
         //List<AsteroidEnemy> asteroids;
         List<Enemy> enemies;
@@ -73,6 +78,8 @@ namespace GameStateManagement
         TimeSpan previousDeathTime;
         TimeSpan asteroidSpawnTime;
         TimeSpan previousAsteroidSpawnTime;
+        TimeSpan fireHairSpawnTime;
+        TimeSpan previousFireHairSpawnTime;
 
         //explosions
         Texture2D explosion1Texture;
@@ -89,6 +96,7 @@ namespace GameStateManagement
         Random randomPowerUp;
         Random ranp;
         Random randomEnemy;
+        Random randomFireHair;
 
 
         Random random = new Random();
@@ -149,6 +157,7 @@ namespace GameStateManagement
 
 
             //load enemies textures
+            fireHairTexture = content.Load<Texture2D>(@"graphics\FireHair");
             asteroidTexture2 = content.Load<Texture2D>(@"Graphics\asteroid01");
             //asteroidTexture = content.Load<Texture2D>(@"Graphics\asteroid01");
             enemyTexture = content.Load<Texture2D>(@"Graphics\mineAnimation");
@@ -175,6 +184,11 @@ namespace GameStateManagement
             explosions = new List<Animation>();
             explosion1Texture = content.Load<Texture2D>(@"Graphics\explosion");
 
+            //initialize fire Hair
+            fireHairEnemy = new List<FireHair>();
+            previousFireHairSpawnTime = TimeSpan.Zero;
+            fireHairSpawnTime = TimeSpan.FromSeconds(8f);
+            randomFireHair = new Random();
 
 
             //initialize asteroid
@@ -572,6 +586,7 @@ namespace GameStateManagement
             Rectangle damagePowerUpRectangle;
             Rectangle asteroidRectangle;
             Rectangle shieldPowerUpRectangle;
+            Rectangle fireHairRectangle;
             //only create the rectangle once for the player
             playerRectangle = new Rectangle((int)player.Position3.X, (int)player.Position3.Y, player.Width, player.Height);
 
@@ -611,6 +626,24 @@ namespace GameStateManagement
 
             }
 
+            //todo firehair collision
+            for (int i = 0; i < fireHairEnemy.Count; i++)
+            {
+                fireHairRectangle = new Rectangle((int)fireHairEnemy[i].Position.X, (int)fireHairEnemy[i].Position.Y, fireHairEnemy[i].Width, fireHairEnemy[i].Height);
+                if (playerRectangle.Intersects(fireHairRectangle))
+                {
+                    if (player.Shield > 0)
+                    {
+                        player.Shield -= fireHairEnemy[i].Damage;
+                        fireHairEnemy[i].Health -= player.Damage;
+                    }
+                    else
+                    {
+                        player.Health -= fireHairEnemy[i].Damage;
+                        fireHairEnemy[i].Health -= player.Damage;
+                    }
+                }
+                }
             //asteroid to player collision
             for (int i = 0; i < asteroids2.Count; i++)
             {
@@ -637,7 +670,7 @@ namespace GameStateManagement
 
             }
 
-
+            
             //todo collision with balloonenemy and player
             for (int i = 0; i < balloonEnemies.Count; i++)
             {
@@ -663,6 +696,7 @@ namespace GameStateManagement
             //do the collision between the player and the enemies
             for (int i = 0; i < enemies.Count; i++)
             {
+
                 enemyRectangle2 = new Rectangle((int)enemies[i].Position.X, (int)enemies[i].Position.Y, enemies[i].Width, enemies[i].Height);
                 //determine if the thwo objects collided with each other
                 if (playerRectangle.Intersects(enemyRectangle2))
