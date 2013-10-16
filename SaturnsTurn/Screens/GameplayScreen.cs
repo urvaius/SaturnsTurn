@@ -920,14 +920,14 @@ namespace GameStateManagement
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
                 enemies[i].Update(gameTime);
-                if (enemies[i].Active == false)
+                if (!enemies[i].Active )
                 {
                     AddExplosion(enemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
                     player.Score += enemies[i].Value;
                     enemies.RemoveAt(i);
                 }
-                else if (enemies[i].Active == true && enemies[i].OnScreen == false)
+                else if (enemies[i].Active && !enemies[i].OnScreen)
                 {
                     enemies.RemoveAt(i);
                 }
