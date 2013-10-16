@@ -451,7 +451,8 @@ namespace GameStateManagement
                     || keyboardState.IsKeyDown(Keys.Space) && lastKeyboardState.IsKeyUp(Keys.Space))
                 {
                    
-                     AddProjectile(player.Position3 + new Vector2(player.Width /2 , player.Height /2));
+                    AddProjectile(player.Position3 + new Vector2(player.Width /2 , player.Height /2));
+                    
                     //todo
                     //weaon fire not hitting bottom 
 
