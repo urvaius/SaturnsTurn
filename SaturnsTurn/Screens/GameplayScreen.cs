@@ -1130,11 +1130,15 @@ namespace GameStateManagement
             {
                 damagePowerUps[i].Draw(spriteBatch);
             }
-            //draw shield powerup
-            for (int i = 0; i < shieldPowerUps.Count; i++)
+            //draw shield powerup //changed to foreach loop
+            foreach(PowerUp shieldPowerup in shieldPowerUps)
             {
-                shieldPowerUps[i].Draw(spriteBatch);
+                shieldPowerup.Draw(spriteBatch);
             }
+            //for (int i = 0; i < shieldPowerUps.Count; i++)
+            //{
+            //    shieldPowerUps[i].Draw(spriteBatch);
+            //}
 
 
 
