@@ -1120,20 +1120,28 @@ namespace GameStateManagement
             }
 
             //draw explosions
-            for (int i = 0; i < explosions.Count; i++)
+            foreach(Animation explosion in explosions)
             {
-                explosions[i].Draw(spriteBatch);
+                explosion.Draw(spriteBatch);
             }
+            //for (int i = 0; i < explosions.Count; i++)
+            //{
+            //    explosions[i].Draw(spriteBatch);
+            //}
 
-            //draw damage powerup 
-            for (int i = 0; i < damagePowerUps.Count; i++)
+            //draw damage powerup  //changed to foreachloop
+            foreach(PowerUp damagepowerup in damagePowerUps)
             {
-                damagePowerUps[i].Draw(spriteBatch);
+                damagepowerup.Draw(spriteBatch);
             }
+            //for (int i = 0; i < damagePowerUps.Count; i++)
+            //{
+            //    damagePowerUps[i].Draw(spriteBatch);
+            //}
             //draw shield powerup //changed to foreach loop
-            foreach(PowerUp shieldPowerup in shieldPowerUps)
+            foreach(PowerUp shieldpowerup in shieldPowerUps)
             {
-                shieldPowerup.Draw(spriteBatch);
+                shieldpowerup.Draw(spriteBatch);
             }
             //for (int i = 0; i < shieldPowerUps.Count; i++)
             //{
