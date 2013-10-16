@@ -567,7 +567,7 @@ namespace GameStateManagement
 
 
                 projectiles[i].Update();
-                if (projectiles[i].Active == false)
+                if (!projectiles[i].Active)
                 {
                     projectiles.RemoveAt(i);
                 }
@@ -785,7 +785,7 @@ namespace GameStateManagement
             for (int i = explosions.Count - 1; i >= 0; i--)
             {
                 explosions[i].Update(gameTime);
-                if (explosions[i].Active == false)
+                if (!explosions[i].Active)
                 {
                     explosions.RemoveAt(i);
                 }
@@ -827,7 +827,7 @@ namespace GameStateManagement
             for (int i = damagePowerUps.Count - 1; i >= 0; i--)
             {
                 damagePowerUps[i].Update(gameTime);
-                if (damagePowerUps[i].Active == false)
+                if (!damagePowerUps[i].Active)
                 {
                     damagePowerUps.RemoveAt(i);
                     //todo do something
