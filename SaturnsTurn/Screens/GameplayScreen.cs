@@ -870,14 +870,14 @@ namespace GameStateManagement
             {
                 asteroids2[k].Update(gameTime);
 
-                if (asteroids2[k].Active == false)
+                if (!asteroids2[k].Active)
                 {
                     AddExplosion(asteroids2[k].Position);
                     AudioManager.PlaySound("explosionSound");
                     player.Score += asteroids2[k].Value;
                     asteroids2.RemoveAt(k);
                 }
-                else if (asteroids2[k].Active == true && asteroids2[k].OnScreen == false)
+                else if (asteroids2[k].Active && !asteroids2[k].OnScreen )
                 {
                     asteroids2.RemoveAt(k);
                 }
@@ -887,7 +887,7 @@ namespace GameStateManagement
             for (int i =fireHairEnemies.Count - 1; i>=0;i--)
             {
                 fireHairEnemies[i].Update(gameTime);
-                if (fireHairEnemies[i].Active == false)
+                if (!fireHairEnemies[i].Active)
                 {
                     AddExplosion(fireHairEnemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
@@ -899,7 +899,7 @@ namespace GameStateManagement
             for (int i = balloonEnemies.Count - 1; i >= 0; i--)
             {
                 balloonEnemies[i].Update(gameTime);
-                if (balloonEnemies[i].Active == false)
+                if (!balloonEnemies[i].Active)
                 {
                     AddExplosion(balloonEnemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
@@ -909,7 +909,7 @@ namespace GameStateManagement
 
                 }
 
-                else if (balloonEnemies[i].Active == true && balloonEnemies[i].OnScreen == false)
+                else if (balloonEnemies[i].Active && !balloonEnemies[i].OnScreen)
                 {
                     balloonEnemies.RemoveAt(i);
                 }
