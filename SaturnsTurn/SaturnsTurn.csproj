@@ -44,6 +44,7 @@
     <Compile Include="Entities\Player.cs" />
     <Compile Include="Entities\PowerUp.cs" />
     <Compile Include="Entities\Projectile.cs" />
+    <Compile Include="Level\Level0.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
