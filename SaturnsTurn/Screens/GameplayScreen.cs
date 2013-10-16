@@ -1090,34 +1090,43 @@ namespace GameStateManagement
 
             //draw the enemies
 
-
-            for (int i = 0; i < enemies.Count; i++)
+            foreach(Enemy enemy in enemies)
             {
-                enemies[i].Draw(spriteBatch);
-
+                enemy.Draw(spriteBatch);
             }
+            //for (int i = 0; i < enemies.Count; i++)
+            //{
+            //    enemies[i].Draw(spriteBatch);
+
+            //}
 
             //draw balloon enemies
-            for (int i = 0; i < balloonEnemies.Count; i++)
-            {
-                balloonEnemies[i].Draw(spriteBatch);
-            }
+            foreach (GreenMineEnemy balloonenemy in balloonEnemies)
+                balloonenemy.Draw(spriteBatch);
+            //for (int i = 0; i < balloonEnemies.Count; i++)
+            //{
+            //    balloonEnemies[i].Draw(spriteBatch);
+            //}
             
             
             //working now draw player from player class.
             
             //player.Draw(spriteBatch);
             //draw fire hair
-
-            for (int i=0;i< fireHairEnemies.Count;i++)
+            foreach(FireHair firehair in fireHairEnemies)
             {
-                fireHairEnemies[i].Draw(spriteBatch);
+                firehair.Draw(spriteBatch);
             }
+          
             //draw projectiles
-            for (int i = 0; i < projectiles.Count; i++)
+            foreach(Projectile projectile in projectiles)
             {
-                projectiles[i].Draw(spriteBatch);
+                projectile.Draw(spriteBatch);
             }
+            //for (int i = 0; i < projectiles.Count; i++)
+            //{
+            //    projectiles[i].Draw(spriteBatch);
+            //}
 
             //draw explosions
             foreach(Animation explosion in explosions)
