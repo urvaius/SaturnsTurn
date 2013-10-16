@@ -608,23 +608,41 @@ namespace GameStateManagement
                 }
 
             }
-            //damage powerup collision
-            for (int i = 0; i < damagePowerUps.Count; i++)
+
+            //damage powerup collision //try a foreach loop here
+            foreach (PowerUp damagepowerup in damagePowerUps)
             {
-                damagePowerUpRectangle = new Rectangle((int)damagePowerUps[i].Position.X, (int)damagePowerUps[i].Position.Y, damagePowerUps[i].Width, damagePowerUps[i].Height);
+                 damagePowerUpRectangle = new Rectangle((int)damagepowerup.Position.X, (int)damagepowerup.Position.Y, damagepowerup.Width, damagepowerup.Height);
                 if (playerRectangle.Intersects(damagePowerUpRectangle))
                 {
 
                     AudioManager.PlaySound("powerup");
                     // moved the damage mod to the powerup class
-                    damagePowerUps[i].PowerUpCollision();
+                    damagepowerup.PowerUpCollision();
 
 
 
-                    damagePowerUps[i].Active = false;
+                    damagepowerup.Active = false;
                 }
-
             }
+
+
+                //for (int i = 0; i < damagePowerUps.Count; i++)
+                //{
+                //    damagePowerUpRectangle = new Rectangle((int)damagePowerUps[i].Position.X, (int)damagePowerUps[i].Position.Y, damagePowerUps[i].Width, damagePowerUps[i].Height);
+                //    if (playerRectangle.Intersects(damagePowerUpRectangle))
+                //    {
+
+                //        AudioManager.PlaySound("powerup");
+                //        // moved the damage mod to the powerup class
+                //        damagePowerUps[i].PowerUpCollision();
+
+
+
+                //        damagePowerUps[i].Active = false;
+                //    }
+
+                //}
 
             //todo firehair collision
             for (int i = 0; i < fireHairEnemies.Count; i++)
@@ -1083,10 +1101,14 @@ namespace GameStateManagement
             spriteBatch.DrawString(scoreFont, "Shield: " + player.Shield, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 100), Color.White);
 
             //draw asteroids
-            for (int i = 0; i < asteroids2.Count; i++)
+            foreach(AsteroidEnemy2 asteroid in asteroids2)
             {
-                asteroids2[i].Draw(spriteBatch);
+                asteroid.Draw(spriteBatch);
             }
+            //for (int i = 0; i < asteroids2.Count; i++)
+            //{
+            //    asteroids2[i].Draw(spriteBatch);
+            //}
 
             //draw the enemies
 
