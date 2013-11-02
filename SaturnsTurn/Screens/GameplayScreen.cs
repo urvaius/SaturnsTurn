@@ -37,7 +37,13 @@ namespace GameStateManagement
         
         ContentManager content;
         SpriteFont scoreFont;
+        //set txt scores etc
         SpriteFont gameFont;
+        const string SCORE_STRING_PREFIX = "Score: ";
+        string scoreString;
+
+
+        Vector2 scorePosition; 
         //Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
@@ -137,6 +143,9 @@ namespace GameStateManagement
             // star1 = new ScrollingBackground();
             // star2 = new ScrollingBackground();
 
+            // score postion setting
+            scorePosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y);
+           // scoreString = GetScoreString(player.Score);
 
 
             //todo not working yet for effects
@@ -263,6 +272,9 @@ namespace GameStateManagement
 
 
         #endregion
+
+
+        
 
         #region Update and Draw
 
@@ -911,6 +923,7 @@ namespace GameStateManagement
                     AddExplosion(fireHairEnemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
                     player.Score += fireHairEnemies[i].Value;
+                    
                     fireHairEnemies.RemoveAt(i);
                 }
             }
@@ -1092,9 +1105,9 @@ namespace GameStateManagement
 
             newBackground.Draw(spriteBatch);
 
-            spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+           // spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 
-
+            spriteBatch.DrawString(scoreFont, "score:" + player.Score, scorePosition, Color.White);
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
             spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70), Color.White);
