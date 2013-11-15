@@ -50,7 +50,7 @@ namespace SaturnsTurn.Utility
         // reading back which pixels were set.
         List<Vector2> GetParticlePositions(GraphicsDevice device, SpriteFont font, string text)
         {
-            Vector2 size = font.MeasureString(text) + new Vector2(0.5f);
+            Vector2 size = font.MeasureString(text) + new Vector2(0.3f);
             int width = (int)size.X;
             int height = (int)size.Y;
 
