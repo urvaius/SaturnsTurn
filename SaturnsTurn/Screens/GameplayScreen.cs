@@ -37,7 +37,13 @@ namespace GameStateManagement
         
         ContentManager content;
         SpriteFont scoreFont;
+        //set txt scores etc
         SpriteFont gameFont;
+        const string SCORE_STRING_PREFIX = "Score: ";
+        string scoreString;
+
+
+        Vector2 scorePosition; 
         //Texture2D backgroundStart;
         float playerMoveSpeed;
         Player player;
@@ -92,11 +98,11 @@ namespace GameStateManagement
 
         MouseState currentMouseState;
         MouseState previousMouseState;
-        Random randomAsteroid;
-        Random randomPowerUp;
-        Random ranp;
-        Random randomEnemy;
-        Random randomFireHair;
+       // Random randomAsteroid;
+       // Random randomPowerUp;
+        //Random ranp;
+       // Random randomEnemy;
+       // Random randomFireHair;
 
 
         Random random = new Random();
@@ -137,6 +143,9 @@ namespace GameStateManagement
             // star1 = new ScrollingBackground();
             // star2 = new ScrollingBackground();
 
+            // score postion setting
+            scorePosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y);
+           // scoreString = GetScoreString(player.Score);
 
 
             //todo not working yet for effects
@@ -188,7 +197,7 @@ namespace GameStateManagement
             fireHairEnemies = new List<FireHair>();
             previousFireHairSpawnTime = TimeSpan.Zero;
             fireHairSpawnTime = TimeSpan.FromSeconds(8f);
-            randomFireHair = new Random();
+            //randomFireHair = new Random();
 
 
             //initialize asteroid
@@ -196,7 +205,7 @@ namespace GameStateManagement
             //asteroids = new List<AsteroidEnemy>();
             previousAsteroidSpawnTime = TimeSpan.Zero;
             asteroidSpawnTime = TimeSpan.FromSeconds(10f);
-            randomAsteroid = new Random();
+            //randomAsteroid = new Random();
 
 
             //initialize enemies list etc..
@@ -215,8 +224,8 @@ namespace GameStateManagement
             previousDeathTime = TimeSpan.Zero;
             deathTime = TimeSpan.FromSeconds(1.0f);
             //initialize random number for enemies
-            randomEnemy = new Random();
-            randomPowerUp = new Random();
+           // randomEnemy = new Random();
+            //randomPowerUp = new Random();
             //initialize a new player. not sure why have to do it here. 
             player = new Player();
 
@@ -263,6 +272,9 @@ namespace GameStateManagement
 
 
         #endregion
+
+
+        
 
         #region Update and Draw
 
@@ -820,8 +832,8 @@ namespace GameStateManagement
                 //todo
                 //don't want both at same time but will look at
                 int rannum;
-                ranp = new Random();
-                rannum = ranp.Next(20);
+                //ranp = new Random();
+                rannum = random.Next(20);
                 if (rannum >= 11)
                 {
                     AddDamagePowerUp();
@@ -911,6 +923,7 @@ namespace GameStateManagement
                     AddExplosion(fireHairEnemies[i].Position);
                     AudioManager.PlaySound("explosionSound");
                     player.Score += fireHairEnemies[i].Value;
+                    
                     fireHairEnemies.RemoveAt(i);
                 }
             }
@@ -976,7 +989,7 @@ namespace GameStateManagement
             //asteroidAnimation.Initialize(asteroidTexture, Vector2.Zero, 40, 40, 1, 1, Color.White, 1f, true);
             AsteroidEnemy2 asteroid = new AsteroidEnemy2();
 
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture2.Width / 2, randomAsteroid.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + asteroidTexture2.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 50));
             //AsteroidEnemy asteroid = new AsteroidEnemy();
             asteroid.Initialize(ScreenManager.GraphicsDevice.Viewport, asteroidTexture2, position);
             asteroids2.Add(asteroid);
@@ -987,7 +1000,7 @@ namespace GameStateManagement
         private void AddFireHair()
         {
             FireHair fireHairEnemy = new FireHair();
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + fireHairTexture.Width / 2, randomFireHair.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 70));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + fireHairTexture.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 70));
             fireHairEnemy.Initialize(ScreenManager.GraphicsDevice.Viewport, fireHairTexture, position, 40);
             fireHairEnemies.Add(fireHairEnemy);
         }
@@ -998,7 +1011,7 @@ namespace GameStateManagement
             //initizlize theanimation with the correct ahimation information
             balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
             //randomly generate the position of the enemy or later change this to a specific spot
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
             //create an enemy
             GreenMineEnemy balloonEnemy = new GreenMineEnemy();
             //initizlize the enemy
@@ -1017,7 +1030,7 @@ namespace GameStateManagement
         {
             //todo would like to combine all powerups somehow
             PowerUp shieldPowerUp = new PowerUp();
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupShieldTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupShieldTexture.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
             shieldPowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupShieldTexture, position, "ShieldPowerUp", player);
             shieldPowerUps.Add(shieldPowerUp);
         }
@@ -1027,7 +1040,7 @@ namespace GameStateManagement
             //todo
 
             PowerUp damagePowerUp = new PowerUp();
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, randomPowerUp.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + powerupDamageTexture.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 75));
             damagePowerUp.Initialize(ScreenManager.GraphicsDevice.Viewport, powerupDamageTexture, position, "DamagePowerUp", player);
 
             damagePowerUps.Add(damagePowerUp);
@@ -1042,7 +1055,7 @@ namespace GameStateManagement
             enemyAnimation.Initialize(enemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
             // balloonEnemyAnimation.Initialize(balloonEnemyTexture, Vector2.Zero, 47, 61, 8, 30, Color.White, 1f, true);
             //randomly generate the position of the enemy or later change this to a specific spot
-            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
+            Vector2 position = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + enemyTexture.Width / 2, random.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
             // Vector2 balloonPosition = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width + balloonEnemyTexture.Width / 2, randomEnemy.Next(100, ScreenManager.GraphicsDevice.Viewport.Height - 100));
 
             //create an enemy
@@ -1092,9 +1105,9 @@ namespace GameStateManagement
 
             newBackground.Draw(spriteBatch);
 
-            spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
+           // spriteBatch.DrawString(scoreFont, "score: " + player.Score, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y), Color.White);
 
-
+            spriteBatch.DrawString(scoreFont, "score:" + player.Score, scorePosition, Color.White);
             spriteBatch.DrawString(scoreFont, "Health: " + player.Health, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 35), Color.White);
 
             spriteBatch.DrawString(scoreFont, "Lives: " + iLivesLeft, new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + 70), Color.White);
