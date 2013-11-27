@@ -748,7 +748,7 @@ namespace GameStateManagement
             {
 
                 //see if this works here
-                projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width / 2, (int)projectiles[i].Position.Y - projectiles[i].Height / 2, projectiles[i].Width, projectiles[i].Height);
+                projectileRectangle = new Rectangle((int)projectiles[i].Position.X - projectiles[i].Width , (int)projectiles[i].Position.Y - projectiles[i].Height , projectiles[i].Width, projectiles[i].Height);
 
                 for (int j = 0; j < balloonEnemies.Count; j++)
                 {
