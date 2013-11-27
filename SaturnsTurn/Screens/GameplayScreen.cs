@@ -339,7 +339,7 @@ namespace GameStateManagement
 
 
                     ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
-                    //todo change this
+                    //todo change this show scores and a top score make a high score screen
                     // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new BackgroundScreen());
                     // LoadingScreen.Load(ScreenManager, true, PlayerIndex.One, new MainMenuScreen());
                 }
@@ -499,6 +499,8 @@ namespace GameStateManagement
             }
             else
             {
+
+                //ScreenManager.AddScreen(new GameOverScreen(), ControllingPlayer);
                 gameOver = true;
                 player.Reset();
                 player.Position3 = new Vector2(ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.X, ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Y + ScreenManager.GraphicsDevice.Viewport.TitleSafeArea.Height / 2);
