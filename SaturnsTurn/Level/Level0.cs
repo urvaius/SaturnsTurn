@@ -7,5 +7,6 @@ namespace SaturnsTurn.Level
 {
     class Level0
     {
+
     }
 }
