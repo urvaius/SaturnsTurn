@@ -110,7 +110,7 @@ namespace SaturnsTurn.Utility
             {
                 Vector2 pos = particle.Position * scale;
                 Vector2 origin = new Vector2(particleTexture.Width, particleTexture.Height) / 2f;
-                spriteBatch.Draw(particleTexture, pos, null, Color, 0f, origin, 1f, SpriteEffects.None, 0);
+                spriteBatch.Draw(particleTexture, pos, null, Color, 0f, origin, .6f, SpriteEffects.None, 0);
             }
         }
 
