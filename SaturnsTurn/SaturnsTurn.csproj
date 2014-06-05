@@ -241,6 +241,9 @@
     <Content Include="Content\Graphics\firehair.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Graphics\arialblack50.xnb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\Sounds\laserFire.xnb" />
     <Content Include="Content\Sounds\PickedPowerup2.xnb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -65,7 +65,7 @@ namespace GameStateManagement
 
             //position of particle text
                 screenSize = new Vector2(ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height-400);
-                particleFont = content.Load<SpriteFont>(@"Graphics\ParticleFont50");
+                particleFont = content.Load<SpriteFont>(@"Graphics\arialblack50");
                 ParticleTextTexture = content.Load<Texture2D>(@"Graphics\TextParticle");
                 particleText = new ParticleText(ScreenManager.GraphicsDevice, particleFont, "Saturn's Turn", ParticleTextTexture,2.0f,screenSize);
                 
